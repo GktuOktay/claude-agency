@@ -89,6 +89,20 @@ if [[ "$brave_choice" =~ ^[Ee]$ ]]; then
   read -p "    BRAVE_API_KEY: " BRAVE_KEY
 fi
 
+read -p "  Playwright MCP kurulsun mu? (E2E test / web scraping) [E/h]: " pw_choice
+pw_choice="${pw_choice:-E}"
+PLAYWRIGHT_INSTALLED=false
+if [[ "$pw_choice" =~ ^[Ee]$ ]]; then
+  echo "  Playwright browser'ları kuruluyor..."
+  if npx @playwright/mcp --version &>/dev/null; then
+    npx playwright install chromium --quiet 2>/dev/null && \
+      echo -e "  ${GREEN}✓ Playwright MCP + Chromium kuruldu${RESET}" && PLAYWRIGHT_INSTALLED=true || \
+      echo -e "  ${YELLOW}⚠ Playwright kurulumunda hata — manuel: npx playwright install${RESET}"
+  else
+    echo -e "  ${YELLOW}⚠ @playwright/mcp bulunamadı — npm install -g @playwright/test çalıştırın${RESET}"
+  fi
+fi
+
 echo ""
 
 # ── .env Oluştur ──────────────────────────────────────────────
@@ -129,6 +143,7 @@ echo "  Model (varsay): $DEFAULT_MODEL"
 [ -n "$POSTGRES_CONN" ]    && echo "  PostgreSQL MCP : ✓"
 [ -n "$PROJECT_ROOT_VAL" ] && echo "  Filesystem MCP : ✓"
 [ -n "$BRAVE_KEY" ]        && echo "  Brave Search   : ✓"
+[ "$PLAYWRIGHT_INSTALLED" = true ] && echo "  Playwright MCP : ✓ (Chromium)"
 echo "  MS Learn MCP  : ✓ (her zaman aktif)"
 echo ""
 echo "  Claude Code'u bu dizinde başlatın:"
