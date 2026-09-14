@@ -75,10 +75,12 @@ Ağır görevleri doğrudan yanıtlama — subagent'a delege et.
 
 | Event | Tetikler | Sonuç |
 |---|---|---|
-| `PreToolUse[Bash]` | `DateTime.Now` · `rm -rf` · `DROP TABLE` | **BLOK** |
-| `PreToolUse[Write/Edit]` | Hardcoded password | Uyarı |
+| `PreToolUse[Bash]` | `DateTime.Now` · `rm -rf` · `DROP TABLE` · `Thread.Sleep` · `.Result` · `.Wait` | **BLOK** |
+| `PreToolUse[Write/Edit]` | `DateTime.Now` · `password/secret/apikey/token = "..."` · `Password=` (conn string) · `Thread.Sleep` · `.Result` · `.Wait` | Uyarı |
 | `PostToolUse[Write/Edit]` | `.cs` dosyası yazıldı | Build hatırlatması |
 | `Stop` | Oturum kapandı | Bildirim |
+
+> Hook'lar 8/8 senaryoda doğrulandı (2026-09-14).
 
 ---
 
