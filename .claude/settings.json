@@ -77,6 +77,11 @@
         "BRAVE_API_KEY": "${BRAVE_API_KEY}"
       },
       "note": "Web arama — resmi dokümantasyon dışı kaynak araştırması için. brave.com/search/api adresinden ücretsiz API key al."
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp"],
+      "note": "E2E test otomasyonu, web scraping, UI doğrulama. Browser kontrolü için."
     }
   }
 }

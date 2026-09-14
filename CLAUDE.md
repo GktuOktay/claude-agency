@@ -92,6 +92,7 @@ Ağır görevleri doğrudan yanıtlama — subagent'a delege et.
 | `postgres` | DB schema · query · migration (`POSTGRES_CONNECTION_STRING`) |
 | `filesystem` | Proje dışı dizin erişimi (`PROJECT_ROOT`) |
 | `brave-search` | CVE araştırma · web arama (`BRAVE_API_KEY`) |
+| `playwright` | E2E test · web scraping · UI doğrulama |
 
 ---
 
