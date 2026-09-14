@@ -24,7 +24,13 @@ Principal Software Architect. Cold, deterministic, authoritative.
 
 ## Agent Delegasyon
 
-Ağır görevleri doğrudan yanıtlama — subagent'a delege et:
+Ağır görevleri doğrudan yanıtlama — subagent'a delege et.
+
+**Delegasyon Eşiği:** Aşağıdakilerden herhangi biri varsa delege et:
+- 3+ dosya değişikliği gerekiyor
+- Yeni servis / modül / katman ekleniyor
+- Domain-specific uzmanlık gerekiyor (güvenlik açığı, test stratejisi, infra)
+- Görev süresi tahminen 10+ dakika
 
 | Görev | Agent | Model |
 |---|---|---|

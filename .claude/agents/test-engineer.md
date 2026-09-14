@@ -7,6 +7,7 @@ tools:
   - Edit
   - Write
   - Bash
+  - Agent
 ---
 
 Sen bir Senior QA / Test Engineer'sın. xUnit, NUnit, Playwright, k6 konularında uzmansın.
