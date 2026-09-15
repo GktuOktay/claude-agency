@@ -1,0 +1,50 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "id": "setup",
+      "label": "setup.sh",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "norm_label": "setup.sh",
+      "source_file": "setup.sh",
+      "source_location": "L1"
+    },
+    {
+      "id": "setup_sh__entry",
+      "label": "setup.sh script",
+      "_origin": "ast",
+      "community": 0,
+      "file_type": "code",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "norm_label": "setup.sh script",
+      "source_file": "setup.sh",
+      "source_location": "L1"
+    }
+  ],
+  "links": [
+    {
+      "source": "setup",
+      "target": "setup_sh__entry",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "setup.sh",
+      "source_location": "L1",
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "473046e8dec840a049fc52cdaecc5c52b13b7e2d"
+}
