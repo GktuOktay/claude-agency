@@ -1,6 +1,8 @@
 # Claude Agency — Mimari ve Sistem Diyagramı
 
-## Genel Bakış
+> Son güncelleme: 2026-09-15 — Graphify, Playwright MCP, güncel hook regex'leri, subagent araçları eklendi.
+
+## Genel Akış
 
 ```mermaid
 graph TB
@@ -11,148 +13,104 @@ graph TB
         SETTINGS[".claude/settings.json\nHooks + MCP Config"]
     end
 
-    subgraph GATES["🛡️ Quality Gates (alwaysApply: true — Her zaman aktif)"]
-        G1["audit-trail-guardian-gate"]
-        G2["chaos-adversarial-gate"]
-        G3["critical-critique-gate"]
-        G4["ddd-ubiquitous-language-gate"]
-        G5["escalation-workflow"]
-        G6["fail-fast-config-gate"]
-        G7["finite-state-machine-gate"]
-        G8["graceful-degradation-gate"]
-        G9["llm-hallucination-firewall-gate"]
-        G10["main-thread-and-performance-gate"]
-        G11["master-orchestrator"]
-        G12["outbox-pattern-enforcer"]
-        G13["pre-flight-security-gate"]
-        G14["privacy-pii-masking-gate"]
-        G15["problem-details-gate"]
-        G16["stateless-architecture-gate"]
-        G17["tenant-isolation-gate"]
-        G18["timezone-enforcer-gate"]
-        G19["update-changelog-workflow"]
-        G20["validation-and-integrity-gate"]
+    subgraph HOOKS["🔒 Hooks"]
+        H1["PreToolUse[Bash]\nDATETIME / rm-rf / DROP TABLE / Thread.Sleep / .Result / .Wait → BLOK"]
+        H2["PreToolUse[Write|Edit]\nAynı pattern + hardcoded secret → UYARI"]
+        H3["PreToolUse[Bash|Grep]\nGraphify hook-guard search"]
+        H4["PostToolUse[Write|Edit]\n.cs yazıldı → dotnet build hatırlatması"]
+        H5["Stop\nOturum kapandı bildirimi"]
     end
 
-    subgraph AGENTS["🤖 Subagents (.claude/agents/)"]
-        A1["backend-specialist\nSonnet 4.6"]
-        A2["security-specialist\nSonnet 4.6"]
-        A3["test-engineer\nSonnet 4.6"]
-        A4["devops-engineer\nSonnet 4.6"]
-        A5["code-reviewer\nSonnet 4.6"]
+    subgraph GATES["🛡️ Quality Gates (20x alwaysApply: true)"]
+        G1["audit-trail-guardian · timezone-enforcer · privacy-pii-masking"]
+        G2["tenant-isolation · pre-flight-security · fail-fast-config"]
+        G3["validation-and-integrity · stateless-architecture · problem-details"]
+        G4["finite-state-machine · outbox-pattern-enforcer · ddd-ubiquitous-language"]
+        G5["structured-logging-audit · chaos-adversarial · graceful-degradation"]
+        G6["llm-hallucination-firewall · main-thread-and-performance"]
+        G7["critical-critique · update-changelog · escalation-workflow"]
     end
 
-    subgraph HOOKS["⚡ Hooks (Tool-Call Seviyesi)"]
-        H1["PreToolUse[Bash]\nDateTime.Now · rm -rf · DROP TABLE → BLOK"]
-        H2["PreToolUse[Write/Edit]\nHardcoded password → UYARI"]
-        H3["PostToolUse[Write/Edit]\n.cs dosyası → build hatırlatması"]
-        H4["Stop\nOturum tamamlandı bildirimi"]
+    subgraph AGENTS["🤖 Subagentlar (Sonnet 4.6)"]
+        A1["backend-specialist\n.NET 10, EF Core, CQRS, MediatR"]
+        A2["security-specialist\nOWASP, JWT, CVE — WebFetch dahil"]
+        A3["test-engineer\nxUnit, FluentValidation, TestContainers — Agent tool dahil"]
+        A4["devops-engineer\nDockerfile alpine, GitHub Actions, Trivy"]
+        A5["code-reviewer\nRead-only, satır numaralı bulgular"]
     end
 
-    subgraph MCP["🔌 MCP Server'lar"]
-        M1["microsoft-learn\n.NET 10 · EF Core · ASP.NET"]
-        M2["postgres\nDB schema · Query · Migration"]
-        M3["filesystem\nProje dışı dizin erişimi"]
-        M4["brave-search\nWeb araştırma"]
+    subgraph MCP["🔌 MCP Serverlar"]
+        M1["microsoft-learn\n.NET 10 resmi docs"]
+        M2["playwright\nE2E test + browser otomasyon"]
+        M3["postgres\nDB schema + query (env)"]
+        M4["filesystem\nProje dışı erişim (env)"]
+        M5["brave-search\nCVE + web arama (env)"]
     end
 
-    subgraph SKILLS["📚 Skills (.claude/skills/ — 127 adet)"]
-        S1["01 Orchestrators\n11 skill"]
-        S2["02 Specialists\n96 skill"]
-        S3["03 Gates\n20 skill"]
-        S4["04 Meta\n1 skill (plan-mode)"]
+    subgraph SKILLS["⚙️ Skill Kataloğu (139)"]
+        S1["plan-mode → native EnterPlanMode/ExitPlanMode"]
+        S2["graphify → knowledge graph sorgu/üret"]
+        S3["caveman, compress, commit, stats"]
+        S4["62 domain skill (.NET, API, güvenlik, test, DevOps)"]
     end
 
     User --> CC
-    CC --> GATES
-    CC --> AGENTS
     CC --> HOOKS
-    CC --> SKILLS
+    HOOKS --> GATES
+    GATES --> AGENTS
     AGENTS --> MCP
-    SKILLS --> MCP
+    CC --> SKILLS
 ```
 
----
+## Delegasyon Eşiği
 
-## Hook Akış Diyagramı
+Aşağıdakilerden **biri** varsa doğrudan yanıtlama — subagent'a delege et:
 
-```mermaid
-sequenceDiagram
-    participant U as Kullanıcı
-    participant C as Claude
-    participant H as Hook
-    participant T as Tool
+| Koşul | Örnek |
+|---|---|
+| 3+ dosya değişikliği | Yeni modül ekleme |
+| Yeni servis / katman | Domain entity + repository + handler |
+| Domain uzmanlığı | Güvenlik açığı, test stratejisi, infra |
+| Tahminen 10+ dakika | CI pipeline kurulumu |
 
-    U->>C: Görev ver
-    C->>H: PreToolUse tetiklenir
-    H->>H: Pattern kontrolü
-    alt Yasak pattern (DateTime.Now / rm -rf)
-        H-->>C: exit 1 — BLOK
-        C-->>U: Hata raporu
-    else Temiz
-        H-->>C: Devam
-        C->>T: Tool çalıştırılır
-        T-->>C: Sonuç
-        C->>H: PostToolUse tetiklenir
-        H->>H: .cs dosyası mı?
-        H-->>C: Build hatırlatması
-        C-->>U: Yanıt
-    end
+## Hook Doğrulama
+
+Tüm hook'lar 2026-09-14'te 8/8 senaryoda test edildi:
+
+| Hook | Pattern | Doğrulandı |
+|---|---|---|
+| PreToolUse[Bash] | `DateTime.Now[^O]` | ✓ |
+| PreToolUse[Bash] | `rm -rf` | ✓ |
+| PreToolUse[Bash] | `DROP TABLE` | ✓ |
+| PreToolUse[Bash] | `Thread\.Sleep` | ✓ |
+| PreToolUse[Bash] | `\.(Result\|Wait)\b` | ✓ |
+| PreToolUse[Write\|Edit] | `DateTime.Now` | ✓ |
+| PreToolUse[Write\|Edit] | `(password\|secret\|token)\s*=\s*"[^"]+"` | ✓ |
+| PreToolUse[Write\|Edit] | `Password=[^;>"]+` | ✓ |
+
+## Graphify Entegrasyonu
+
+```
+graphify . --code-only        # API key gerektirmez — AST bazlı
+graphify .                    # Kod + doc (ANTHROPIC_API_KEY gerekli)
+graphify update .             # Kod değişikliği sonrası incremental
+graphify query "soru"         # Doğal dil codebase sorusu
+graphify path "A" "B"         # İki sembol arası ilişki
+graphify explain "kavram"     # Odaklı modül açıklaması
 ```
 
----
+Graph çıktısı `graphify-out/` altında. Broad analiz için `graphify-out/GRAPH_REPORT.md` yerine önce `query`/`path`/`explain` kullan — token maliyeti çok daha düşük.
 
-## Agent Delegasyon Haritası
+## Reddedilen Yaklaşımlar
 
-```mermaid
-graph LR
-    MO["master-orchestrator"] --> BA["ba-orchestrator"]
-    MO --> CO["code-orchestrator"]
-    MO --> SO["security-orchestrator"]
-    MO --> TO["test-orchestrator"]
-    MO --> GO["git-orchestrator"]
-    MO --> DO["docs-orchestrator"]
-    MO --> DEP["deployment-orchestrator"]
-
-    CO -->|"3+ dosya / mimari değişiklik"| BS["backend-specialist\n(subagent)"]
-    SO -->|"OWASP / pentest"| SS["security-specialist\n(subagent)"]
-    TO -->|"test yazımı"| TE["test-engineer\n(subagent)"]
-    DEP -->|"CI/CD / infra"| DE["devops-engineer\n(subagent)"]
-    CO -->|"PR review"| CR["code-reviewer\n(subagent)"]
-```
-
----
-
-## Skill Kategorileri
-
-```mermaid
-pie title 127 Skill Dağılımı
-    "Specialists (Backend, Security, DevOps, Design...)" : 96
-    "Gates (Quality Enforcement)" : 20
-    "Orchestrators" : 10
-    "Meta (Plan Mode vb.)" : 1
-```
-
----
-
-## MCP Veri Akışı
-
-```mermaid
-graph LR
-    subgraph Agents
-        BS["backend-specialist"]
-        SS["security-specialist"]
-    end
-
-    subgraph MCP Servers
-        ML["microsoft-learn\nlearn.microsoft.com/api/mcp"]
-        PG["postgres\n@modelcontextprotocol/server-postgres"]
-        FS["filesystem\n@modelcontextprotocol/server-filesystem"]
-        BV["brave-search\n@modelcontextprotocol/server-brave-search"]
-    end
-
-    BS -->|".NET 10 / EF Core API referansı"| ML
-    BS -->|"Schema okuma, migration kontrolü"| PG
-    SS -->|"CVE araştırması, güvenlik advisory"| BV
-    BS -->|"Proje dışı kaynak erişimi"| FS
-```
+| Yasak | Alternatif |
+|---|---|
+| `DateTime.Now` | `DateTimeOffset.UtcNow` |
+| `task.Result` / `.Wait()` | `await task` |
+| `Thread.Sleep` | `await Task.Delay` |
+| Hardcoded secret | `IOptions<T>` + env var |
+| Mock DB test | TestContainers (real DB) |
+| `latest` Docker tag | Semantic versioning |
+| DataAnnotations ile MediatR validation | `IPipelineBehavior` + FluentValidation |
+| `CreatedAtAction(nameof(Create))` POST referansı | `CreatedAtAction(nameof(GetById))` GET referansı |
+| `DateTimeOffset` non-nullable ModifiedAt | `DateTimeOffset?` (0001-01-01 bug'ı) |
