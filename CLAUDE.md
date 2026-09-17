@@ -29,16 +29,76 @@ Ağır görevleri doğrudan yanıtlama — subagent'a delege et.
 **Delegasyon Eşiği:** Aşağıdakilerden herhangi biri varsa delege et:
 - 3+ dosya değişikliği gerekiyor
 - Yeni servis / modül / katman ekleniyor
-- Domain-specific uzmanlık gerekiyor (güvenlik açığı, test stratejisi, infra)
+- Domain-specific uzmanlık gerekiyor
 - Görev süresi tahminen 10+ dakika
 
-| Görev | Agent | Model |
-|---|---|---|
-| .NET 10, EF Core, CQRS, domain model | `backend-specialist` | Sonnet 4.6 |
-| OWASP, pentest, JWT, güvenlik analizi | `security-specialist` | Sonnet 4.6 |
-| Unit/Integration/E2E test, TDD | `test-engineer` | Sonnet 4.6 |
-| CI/CD, Docker, K8s, IaC | `devops-engineer` | Sonnet 4.6 |
-| PR review, kod kalite denetimi | `code-reviewer` | Sonnet 4.6 |
+### Teknik
+
+| Görev | Agent |
+|---|---|
+| .NET 10, EF Core, CQRS, domain model | `backend-specialist` |
+| React 19+, TypeScript, UI implementasyonu | `frontend-developer` |
+| Swift 6, SwiftUI, watchOS, iOS | `mobile-ios-swift` |
+| PostgreSQL, query optimizasyonu, migration | `database-optimizer` |
+| CI/CD, Docker, K8s, IaC | `devops-engineer` |
+| Harita, güzergah, gerçek zamanlı konum takibi | `gis-web-developer` |
+| Webhook, event-driven servis entegrasyonu | `integrations-webhook-specialist` |
+
+### Kalite & Güvenlik
+
+| Görev | Agent |
+|---|---|
+| PR review, kod kalite denetimi | `code-reviewer` |
+| Unit/Integration/E2E test, TDD | `test-engineer` |
+| Test senaryosu, edge case tasarımı | `testing-qa-engineer` |
+| Test stratejisi, test piramidi, araç seçimi | `testing-test-strategist` |
+| OWASP, pentest, JWT, güvenlik mimarisi, AI kod denetimi | `security-specialist` |
+| Secret/credential yönetimi, sızıntı önleme | `security-secrets-engineer` |
+| GDPR, App Store gizlilik, uyumluluk | `security-compliance-auditor` |
+| AI üretimi kod özel güvenlik denetimi | `security-ai-code-auditor` |
+| Prodüksiyon olayı, RCA, postmortem | `incident-response` |
+
+### Ürün & Tasarım
+
+| Görev | Agent |
+|---|---|
+| PRD, roadmap, özellik kararı | `product-manager` |
+| Sprint planı, backlog önceliklendirme | `product-sprint-prioritizer` |
+| Kullanıcı geri bildirimi analizi | `product-feedback-synthesizer` |
+| UI tasarımı, komponent hiyerarşisi | `design-ui-designer` |
+| Kullanıcı akışı, bilgi mimarisi | `design-ux-architect` |
+| Kullanıcı araştırması, test senaryoları | `design-ux-researcher` |
+| Ekran yayın kalite kontrolü | `design-ui-finish-gate-reviewer` |
+| Marka tutarlılığı denetimi | `design-brand-guardian` |
+| Persona bazlı UX walkthrough | `design-persona-walkthrough` |
+
+### Proje & Strateji
+
+| Görev | Agent |
+|---|---|
+| Sprint planı, risk yönetimi, timeline | `project-manager-senior` |
+| Toplantı notları, aksiyon maddeleri | `meeting-notes-specialist` |
+| Büyüme stratejisi, monetizasyon, rekabet | `strategy-business-strategist` |
+| OKR yazımı, quarter planlaması, odak | `strategy-okr-coach` |
+| Araştırma sentezi, kaynak analizi | `research-synthesizer` |
+
+### Pazarlama & Destek
+
+| Görev | Agent |
+|---|---|
+| İçerik stratejisi, App Store metni, release notes | `marketing-content-strategist` |
+| ASO, web SEO, anahtar kelime analizi | `marketing-seo-specialist` |
+| Pazarlama kopyası, onboarding metni, CTA | `marketing-copywriter` |
+| Kullanıcı teknik sorun çözme, FAQ | `support-technical-support` |
+| App Store yorum yanıtı, şikayet yönetimi | `support-customer-support` |
+| API dokümantasyonu, README, developer guide | `technical-writer` |
+
+### Karar Destek
+
+| Görev | Agent |
+|---|---|
+| Plan/fikir gerçeklik kontrolü, varsayım sorgulama | `specialized-reality-checker` |
+| Çok proje önceliklendirme, odak koruma | `specialized-focus-manager` |
 
 ---
 

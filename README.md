@@ -1,7 +1,7 @@
 # Claude Agency
 
-Claude Code için enterprise-grade multi-agent sistemi.
-127 uzman skill, 5 subagent, hook-based quality gates ve MCP entegrasyonu.
+Claude Code için enterprise-grade multi-agent sistemi.  
+**38 uzman agent**, 127 skill, hook-based quality gates ve MCP entegrasyonu.
 
 ## Hızlı Başlangıç
 
@@ -26,28 +26,88 @@ claude-agency/
 ├── CLAUDE.md                    # Global davranış + agent delegasyon haritası
 ├── setup.sh                     # Kurulum ve model seçim scripti
 ├── .claude/
-│   ├── agents/                  # 5 subagent tanımı
+│   ├── agents/                  # 38 subagent tanımı
 │   ├── skills/                  # 127 skill (Claude Code native)
 │   └── settings.json            # Hooks + MCP konfigürasyonu
 └── docs/
     ├── architecture.md          # Sistem diyagramları (Mermaid)
     ├── skill-catalog.md         # 127 skill tam kataloğu
-    ├── agents.md                # Subagent referansı
+    ├── agents.md                # 38 subagent referansı
     ├── hooks.md                 # Hook sistemi referansı
     └── mcp.md                   # MCP server referansı
 ```
 
 ---
 
-## Subagentlar
+## Agentlar (38)
+
+### Teknik
 
 | Agent | Görev | Model |
 |---|---|---|
 | `backend-specialist` | .NET 10, EF Core, CQRS | Sonnet 4.6 |
-| `security-specialist` | OWASP, pentest, JWT | Sonnet 4.6 |
-| `test-engineer` | Unit/Integration/E2E, TDD | Sonnet 4.6 |
+| `frontend-developer` | React 19+, TypeScript, Core Web Vitals | Sonnet 4.6 |
+| `mobile-ios-swift` | Swift 6, SwiftUI, watchOS | Sonnet 4.6 |
+| `database-optimizer` | PostgreSQL 17, EF Core migration, query optimizasyonu | Sonnet 4.6 |
 | `devops-engineer` | CI/CD, Docker, K8s, IaC | Sonnet 4.6 |
-| `code-reviewer` | Read-only kalite denetimi | Sonnet 4.6 |
+| `gis-web-developer` | Harita, güzergah planlama, gerçek zamanlı konum takibi | Sonnet 4.6 |
+| `integrations-webhook-specialist` | Webhook, event-driven entegrasyon | Sonnet 4.6 |
+
+### Kalite & Güvenlik
+
+| Agent | Görev | Model |
+|---|---|---|
+| `code-reviewer` | PR review, kod kalite denetimi | Sonnet 4.6 |
+| `test-engineer` | Unit/Integration/E2E, TDD | Sonnet 4.6 |
+| `testing-qa-engineer` | Test senaryosu, edge case tasarımı | Sonnet 4.6 |
+| `testing-test-strategist` | Test stratejisi, piramit, araç seçimi | Sonnet 4.6 |
+| `security-specialist` | OWASP, pentest, JWT, STRIDE, AI kod denetimi | Sonnet 4.6 |
+| `security-secrets-engineer` | Secret yönetimi, credential sızıntı önleme | Sonnet 4.6 |
+| `security-compliance-auditor` | GDPR, App Store gizlilik uyumu | Sonnet 4.6 |
+| `security-ai-code-auditor` | AI üretimi kod güvenlik denetimi | Sonnet 4.6 |
+| `incident-response` | Prodüksiyon olayı, SEV sınıflandırması, postmortem | Sonnet 4.6 |
+
+### Ürün & Tasarım
+
+| Agent | Görev | Model |
+|---|---|---|
+| `product-manager` | PRD, roadmap, özellik kararı | Sonnet 4.6 |
+| `product-sprint-prioritizer` | Sprint planı, backlog önceliklendirme | Sonnet 4.6 |
+| `product-feedback-synthesizer` | Kullanıcı geri bildirimi analizi | Sonnet 4.6 |
+| `design-ui-designer` | UI tasarımı, komponent hiyerarşisi | Sonnet 4.6 |
+| `design-ux-architect` | Kullanıcı akışı, bilgi mimarisi | Sonnet 4.6 |
+| `design-ux-researcher` | Kullanıcı araştırması, test senaryoları | Sonnet 4.6 |
+| `design-ui-finish-gate-reviewer` | Ekran yayın kalite kontrolü | Sonnet 4.6 |
+| `design-brand-guardian` | Marka tutarlılığı denetimi | Sonnet 4.6 |
+| `design-persona-walkthrough` | Persona bazlı UX walkthrough | Sonnet 4.6 |
+
+### Proje & Strateji
+
+| Agent | Görev | Model |
+|---|---|---|
+| `project-manager-senior` | Sprint planı, risk yönetimi, timeline | Sonnet 4.6 |
+| `meeting-notes-specialist` | Toplantı notları, aksiyon maddeleri | Sonnet 4.6 |
+| `strategy-business-strategist` | Büyüme stratejisi, monetizasyon, rekabet | Sonnet 4.6 |
+| `strategy-okr-coach` | OKR yazımı, quarter planlaması | Sonnet 4.6 |
+| `research-synthesizer` | Araştırma sentezi, kaynak analizi | Sonnet 4.6 |
+
+### Pazarlama & Destek
+
+| Agent | Görev | Model |
+|---|---|---|
+| `marketing-content-strategist` | İçerik stratejisi, App Store metni, release notes | Sonnet 4.6 |
+| `marketing-seo-specialist` | ASO, web SEO, anahtar kelime analizi | Sonnet 4.6 |
+| `marketing-copywriter` | Pazarlama kopyası, onboarding metni, CTA | Sonnet 4.6 |
+| `support-technical-support` | Kullanıcı teknik sorun çözme, FAQ | Sonnet 4.6 |
+| `support-customer-support` | App Store yorum yanıtı, şikayet yönetimi | Sonnet 4.6 |
+| `technical-writer` | API dokümantasyonu, README, developer guide | Sonnet 4.6 |
+
+### Karar Destek
+
+| Agent | Görev | Model |
+|---|---|---|
+| `specialized-reality-checker` | Plan/fikir gerçeklik kontrolü, varsayım sorgulama | Sonnet 4.6 |
+| `specialized-focus-manager` | Çok proje önceliklendirme, odak koruma | Sonnet 4.6 |
 
 Model değiştirmek için: `./setup.sh`
 
@@ -67,8 +127,6 @@ Model değiştirmek için: `./setup.sh`
 ---
 
 ## Hooks
-
-Tool-call seviyesinde garantili kalite kontrol:
 
 | Hook | Tetiklenir | Sonuç |
 |---|---|---|
@@ -99,20 +157,19 @@ Tool-call seviyesinde garantili kalite kontrol:
 |---|---|
 | [Architecture](docs/architecture.md) | Sistem diyagramları — genel bakış, hook akışı, agent delegasyonu |
 | [Skill Catalog](docs/skill-catalog.md) | 127 skill tam listesi ve açıklamaları |
-| [Agents](docs/agents.md) | 5 subagent detaylı referansı |
+| [Agents](docs/agents.md) | 38 subagent detaylı referansı |
 | [Hooks](docs/hooks.md) | Hook sistemi kullanım kılavuzu |
 | [MCP](docs/mcp.md) | MCP server kurulum ve referans |
 
 ---
 
-## autonomous-agency ile Fark
+## agency-agents ile Fark
 
-| | `autonomous-agency` | `claude-agency` |
+| | `agency-agents` | `claude-agency` |
 |---|---|---|
-| **Hedef** | Cursor, Windsurf, Claude Code, Cline | Yalnızca Claude Code |
-| **Build** | `setup.py` compile pipeline | Direkt, compile yok |
-| **Subagent** | Yok | 5 native agent |
-| **Hooks** | Yok | 4 hook |
+| **Hedef** | Cursor, Windsurf, Claude Code, Cline, Gemini... | Yalnızca Claude Code |
+| **Agent tipi** | Persona prompt (araç erişimi yok) | Native subagent (gerçek araç erişimi) |
+| **Hooks** | Yok | 4 hook — tool-call seviyesinde blok/uyarı |
+| **Quality gates** | Yok | 20 gate — her oturumda aktif |
 | **MCP** | Yok | 4 server |
-
-Multi-IDE ihtiyacın varsa: [autonomous-agency](https://github.com/GktuOktay/autonomous-agency)
+| **Kaynak** | agency-agents koleksiyonundan ilham alındı | claude-agency native formatına dönüştürüldü |
