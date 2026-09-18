@@ -154,6 +154,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .pill-violet{background:var(--violet-bg);color:var(--violet)}
 .pill-blue{background:var(--blue-bg);color:var(--blue)}
 .pill-emerald{background:var(--emerald-bg);color:var(--emerald)}
+.pill-cyan{background:var(--cyan-bg);color:var(--cyan)}
 
 /* Hierarchy view */
 .hier-wrap{max-width:880px;margin:0 auto;padding-bottom:40px}
@@ -281,6 +282,13 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <!-- OVERVIEW -->
       <div class="view active" id="v-overview">
         <div class="sh"><span class="sh-icon">🗺️</span><span class="sh-name">Sistem Akışı</span><span class="sh-meta">Kullanıcıdan MCP'ye tam yol</span></div>
+
+        <!-- Intro banner -->
+        <div style="background:var(--bg2);border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin-bottom:18px;font-size:13px;line-height:1.7">
+          <strong style="color:var(--blue);font-size:13px">Claude Agency nedir?</strong><br>
+          Claude Code'un native çoklu-agent sistemi. Her kullanıcı mesajı; <strong>Hook</strong> güvenlik kontrol katmanından, <strong>Quality Gate</strong> kod kalite kurallarından geçer. Karmaşık görevler otomatik olarak doğru <strong>Subagent</strong>'a delege edilir. Agentlar <strong>MCP server</strong>'lar aracılığıyla .NET dokümantasyonu, veritabanı, tarayıcı ve web aramasına erişir. <strong>139 Skill</strong> ile tekrarlayan işlemler tek komuta indirgenir.<br><br>
+          <span style="color:var(--muted)">Sol menüden detaylı kategorilere git · Hiyerarşi sekmesi tam top-down akışı gösterir · Her karta/chip'e tıklayarak kılavuz açabilirsin</span>
+        </div>
 
         <div class="flow-row">
           <div class="fn" style="--fc:var(--text)"><div class="fn-icon">👤</div><div class="fn-label">Kullanıcı</div><div class="fn-sub">İstek / Soru</div></div>
@@ -1229,7 +1237,7 @@ document.getElementById('ov-agents').innerHTML = Object.entries(AGENTS).flatMap(
 
 // Hierarchy chips
 function hierChip(label, color, onclick) {
-  return `<div class="hier-chip" style="--cc:${color}" onclick="${onclick}">${label}</div>`;
+  return `<div class="hier-chip" style="--cc:${color}" onclick='${onclick}'>${label}</div>`;
 }
 
 document.getElementById('hier-hooks').innerHTML = HOOKS.map(h => {
@@ -1308,13 +1316,19 @@ function buildGatePanel(g) {
 
 function buildAgentPanel(a) {
   if (!a) return '<div class="prow">—</div>';
-  return rows('Rol',[a.role]) +
-    rows('Tools', a.tools.map(t=>`<span class="tag-inline pill-blue" style="font-family:monospace;font-size:10px;padding:1px 6px;border-radius:20px">${t}</span>`).join(' ')) +
-    (a.mcp && a.mcp.length ? rows('MCP Bağlantıları', a.mcp) : '') +
-    rows('Delegasyon Tetikleyicileri', a.triggers) +
-    rows('Zorunlu Kurallar', a.rules) +
-    (a.output ? rows('Çıktı Formatı',[`<code>${a.output}</code>`]) : '') +
-    rows('Teknoloji Stack', [a.stack ? a.stack.join ? a.stack.join(' | ') : a.stack : '—']);
+  const catNames = {tech:'Teknik',qs:'Kalite & Güvenlik',pd:'Ürün & Tasarım',ps:'Proje & Strateji',mk:'Pazarlama & Destek',dc:'Karar Destek'};
+  const cat = Object.entries(AGENTS).find(([,arr])=>arr.some(x=>x.name===a.name))?.[0]||'';
+  return `<div class="psec"><div class="psec-label">Açıklama</div><div class="prow">${a.role}</div></div>` +
+    `<div class="psec"><div class="psec-label">Nasıl Çağırılır</div>
+      <div class="prow">Komut satırından: <code>claude --agent ${a.name}</code></div>
+      <div class="prow">Konuşmada: <em>"${a.name} agent'ını kullanarak ${a.triggers?.[0]||'görevi gerçekleştir'}"</em></div>
+      <div class="prow">Kategori: <span class="tag-inline pill-blue">${catNames[cat]||cat}</span>${a.mcp&&a.mcp.length?'  &nbsp;MCP erişimi: '+ a.mcp.map(m=>`<span class="tag-inline pill-emerald">${m.split('—')[0].trim()}</span>`).join(' '):''}</div>
+    </div>` +
+    rows('Bu Agent\'ı Ne Zaman Kullan', a.triggers) +
+    `<div class="psec"><div class="psec-label">Sahip Olduğu Araçlar</div><div class="prow">${a.tools.map(t=>`<span class="tag-inline pill-blue" style="font-family:monospace;font-size:10px;padding:1px 6px;border-radius:20px;margin-right:4px">${t}</span>`).join('')}</div></div>` +
+    rows('Uyması Gereken Kurallar', a.rules) +
+    (a.output ? `<div class="psec"><div class="psec-label">Çıktı Formatı</div><div class="prow"><code style="white-space:pre-wrap;display:block;font-size:11px;line-height:1.7">${a.output}</code></div></div>` : '') +
+    `<div class="psec"><div class="psec-label">Teknoloji Stack</div><div class="prow" style="font-family:monospace;font-size:11px">${a.stack?(Array.isArray(a.stack)?a.stack.join(' · '):a.stack):'—'}</div></div>`;
 }
 
 function buildMcpPanel(m) {
