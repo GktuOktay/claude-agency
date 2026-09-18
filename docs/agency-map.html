@@ -7,26 +7,26 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 :root {
-  --bg: #0d1117;
-  --bg2: #161b22;
-  --bg3: #21262d;
-  --border: #30363d;
-  --text: #e6edf3;
-  --muted: #7d8590;
-  --red: #f85149;
-  --amber: #d29922;
-  --blue: #58a6ff;
-  --emerald: #3fb950;
-  --violet: #bc8cff;
-  --cyan: #79c0ff;
-  --pink: #ff7b72;
-  --red-bg: rgba(248,81,73,.12);
-  --amber-bg: rgba(210,153,34,.12);
-  --blue-bg: rgba(88,166,255,.12);
-  --emerald-bg: rgba(63,185,80,.12);
-  --violet-bg: rgba(188,140,255,.12);
-  --cyan-bg: rgba(121,192,255,.12);
-  --pink-bg: rgba(255,123,114,.12);
+  --bg: #13151f;
+  --bg2: #1c1f2e;
+  --bg3: #262a3d;
+  --border: #373d57;
+  --text: #eef1f8;
+  --muted: #8b94b0;
+  --red: #ff6b6b;
+  --amber: #ffd166;
+  --blue: #74b9ff;
+  --emerald: #55efc4;
+  --violet: #d4a4ff;
+  --cyan: #81ecec;
+  --pink: #fd79a8;
+  --red-bg: rgba(255,107,107,.14);
+  --amber-bg: rgba(255,209,102,.14);
+  --blue-bg: rgba(116,185,255,.14);
+  --emerald-bg: rgba(85,239,196,.14);
+  --violet-bg: rgba(212,164,255,.14);
+  --cyan-bg: rgba(129,236,236,.14);
+  --pink-bg: rgba(253,121,168,.14);
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
@@ -39,12 +39,12 @@
   }
 }
 :root[data-theme="dark"] {
-  --bg:#0d1117; --bg2:#161b22; --bg3:#21262d; --border:#30363d;
-  --text:#e6edf3; --muted:#7d8590; --red:#f85149; --amber:#d29922;
-  --blue:#58a6ff; --emerald:#3fb950; --violet:#bc8cff; --cyan:#79c0ff; --pink:#ff7b72;
-  --red-bg:rgba(248,81,73,.12); --amber-bg:rgba(210,153,34,.12);
-  --blue-bg:rgba(88,166,255,.12); --emerald-bg:rgba(63,185,80,.12);
-  --violet-bg:rgba(188,140,255,.12); --cyan-bg:rgba(121,192,255,.12); --pink-bg:rgba(255,123,114,.12);
+  --bg:#13151f; --bg2:#1c1f2e; --bg3:#262a3d; --border:#373d57;
+  --text:#eef1f8; --muted:#8b94b0; --red:#ff6b6b; --amber:#ffd166;
+  --blue:#74b9ff; --emerald:#55efc4; --violet:#d4a4ff; --cyan:#81ecec; --pink:#fd79a8;
+  --red-bg:rgba(255,107,107,.14); --amber-bg:rgba(255,209,102,.14);
+  --blue-bg:rgba(116,185,255,.14); --emerald-bg:rgba(85,239,196,.14);
+  --violet-bg:rgba(212,164,255,.14); --cyan-bg:rgba(129,236,236,.14); --pink-bg:rgba(253,121,168,.14);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6}
@@ -155,6 +155,30 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .pill-blue{background:var(--blue-bg);color:var(--blue)}
 .pill-emerald{background:var(--emerald-bg);color:var(--emerald)}
 
+/* Hierarchy view */
+.hier-wrap{max-width:880px;margin:0 auto;padding-bottom:40px}
+.hier-level{position:relative}
+.hier-connector{display:flex;justify-content:center;align-items:center;height:44px;position:relative;flex-shrink:0}
+.hier-connector::before{content:'';position:absolute;left:50%;top:0;bottom:8px;width:2px;background:linear-gradient(180deg,var(--border),var(--muted));transform:translateX(-50%)}
+.hier-connector::after{content:'';position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid var(--muted)}
+.hier-box{border:2px solid var(--hc,var(--border));border-radius:12px;overflow:hidden;background:var(--bg2);transition:border-color .2s}
+.hier-box:hover{border-color:var(--hc,var(--blue))}
+.hier-head{padding:13px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--hc,var(--bg3)) 10%,var(--bg2))}
+.hier-head-icon{font-size:20px}
+.hier-head-name{font-size:14px;font-weight:700;color:var(--hc,var(--text))}
+.hier-head-desc{font-size:12px;color:var(--muted);margin-left:6px}
+.hier-head-badge{font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 9px;border-radius:20px;background:color-mix(in srgb,var(--hc,var(--bg3)) 18%,var(--bg3));color:var(--hc,var(--muted));margin-left:auto;font-weight:600;border:1px solid color-mix(in srgb,var(--hc,transparent) 30%,transparent)}
+.hier-items{display:flex;flex-wrap:wrap;gap:8px;padding:14px 16px;background:color-mix(in srgb,var(--hc,var(--bg)) 4%,var(--bg))}
+.hier-chip{padding:6px 13px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid color-mix(in srgb,var(--cc,var(--border)) 45%,transparent);color:var(--cc,var(--text));background:color-mix(in srgb,var(--cc,var(--bg3)) 12%,var(--bg2));transition:transform .12s,box-shadow .12s;white-space:nowrap}
+.hier-chip:hover{transform:translateY(-2px);box-shadow:0 4px 12px color-mix(in srgb,var(--cc,transparent) 25%,transparent)}
+.hier-split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hier-split-connector{display:flex;justify-content:center;align-items:center;height:44px;position:relative}
+.hier-split-connector::before{content:'';position:absolute;left:50%;top:0;height:18px;width:2px;background:var(--border);transform:translateX(-50%)}
+.hier-split-connector::after{content:'';position:absolute;left:25%;right:25%;top:18px;height:2px;background:var(--border)}
+.hier-split-legs{display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative}
+.hier-split-legs::before{content:'';position:absolute;left:25%;top:-2px;width:2px;height:18px;background:var(--border)}
+.hier-split-legs::after{content:'';position:absolute;left:75%;top:-2px;width:2px;height:18px;background:var(--border)}
+
 /* No results */
 .empty{text-align:center;padding:60px 20px;color:var(--muted)}
 .empty-icon{font-size:36px;margin-bottom:10px}
@@ -185,6 +209,9 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <div class="nav-label">Genel</div>
       <a class="nav-item active" data-view="overview" onclick="go('overview',this)">
         <span class="nav-dot" style="background:var(--blue)"></span>Sistem Akışı
+      </a>
+      <a class="nav-item" data-view="hierarchy" onclick="go('hierarchy',this)">
+        <span class="nav-dot" style="background:var(--amber)"></span>Hiyerarşi
       </a>
     </div>
 
@@ -277,6 +304,118 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <div class="divider"></div>
         <div class="sh"><span class="sh-icon">🤖</span><span class="sh-name">38 Agent — Hızlı Erişim</span></div>
         <div class="mini-grid" id="ov-agents"></div>
+      </div>
+
+      <!-- HIERARCHY -->
+      <div class="view" id="v-hierarchy">
+        <div class="sh"><span class="sh-icon">🏗️</span><span class="sh-name">Sistem Hiyerarşisi</span><span class="sh-meta">Kullanıcıdan araçlara — tam akış</span></div>
+        <div class="hier-wrap" id="hier-wrap">
+
+          <!-- L0: Kullanıcı -->
+          <div class="hier-level">
+            <div class="hier-box" style="--hc:var(--muted)">
+              <div class="hier-head">
+                <span class="hier-head-icon">👤</span>
+                <span class="hier-head-name">Kullanıcı</span>
+                <span class="hier-head-desc">İstek, soru veya görev girer</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hier-connector"></div>
+
+          <!-- L1: CLAUDE.md -->
+          <div class="hier-level">
+            <div class="hier-box" style="--hc:var(--cyan)">
+              <div class="hier-head">
+                <span class="hier-head-icon">📄</span>
+                <span class="hier-head-name">CLAUDE.md</span>
+                <span class="hier-head-desc">Global davranış kuralları · her oturumda yüklenir</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hier-connector"></div>
+
+          <!-- L2: Hooks -->
+          <div class="hier-level">
+            <div class="hier-box" style="--hc:var(--red)">
+              <div class="hier-head">
+                <span class="hier-head-icon">🔒</span>
+                <span class="hier-head-name">Hooks</span>
+                <span class="hier-head-desc">Tool çağrısı öncesi/sonrası otomatik kontrol</span>
+                <span class="hier-head-badge">6 hook</span>
+              </div>
+              <div class="hier-items" id="hier-hooks"></div>
+            </div>
+          </div>
+
+          <div class="hier-connector"></div>
+
+          <!-- L3: Quality Gates -->
+          <div class="hier-level">
+            <div class="hier-box" style="--hc:var(--violet)">
+              <div class="hier-head">
+                <span class="hier-head-icon">🛡️</span>
+                <span class="hier-head-name">Quality Gates</span>
+                <span class="hier-head-desc">alwaysApply: true · her yanıtta aktif</span>
+                <span class="hier-head-badge">20 gate</span>
+              </div>
+              <div class="hier-items" id="hier-gates"></div>
+            </div>
+          </div>
+
+          <div class="hier-connector"></div>
+
+          <!-- L4: Delegasyon karar -->
+          <div class="hier-level">
+            <div class="hier-box" style="--hc:var(--amber)">
+              <div class="hier-head">
+                <span class="hier-head-icon">⚖️</span>
+                <span class="hier-head-name">Delegasyon Kararı</span>
+                <span class="hier-head-desc">3+ dosya · yeni servis/katman · domain uzmanlığı · 10+ dk tahmin → Subagent</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hier-connector"></div>
+
+          <!-- L5: Agents -->
+          <div class="hier-level">
+            <div class="hier-box" style="--hc:var(--blue)">
+              <div class="hier-head">
+                <span class="hier-head-icon">🤖</span>
+                <span class="hier-head-name">Subagentlar</span>
+                <span class="hier-head-desc">claude-sonnet-4-6 · 6 kategori</span>
+                <span class="hier-head-badge">38 agent</span>
+              </div>
+              <div class="hier-items" id="hier-agents"></div>
+            </div>
+          </div>
+
+          <div class="hier-split-connector"></div>
+
+          <!-- L6 split: MCP + Skills -->
+          <div class="hier-split-legs">
+            <div class="hier-box" style="--hc:var(--emerald)">
+              <div class="hier-head">
+                <span class="hier-head-icon">🔌</span>
+                <span class="hier-head-name">MCP Serverlar</span>
+                <span class="hier-head-badge">5 server</span>
+              </div>
+              <div class="hier-items" id="hier-mcps"></div>
+            </div>
+            <div class="hier-box" style="--hc:var(--pink)">
+              <div class="hier-head">
+                <span class="hier-head-icon">⚙️</span>
+                <span class="hier-head-name">Skill Kataloğu</span>
+                <span class="hier-head-badge">139 skill</span>
+              </div>
+              <div class="hier-items" id="hier-skills"></div>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       <!-- HOOKS -->
@@ -1088,6 +1227,46 @@ document.getElementById('g-mcp').innerHTML = MCPS.map(m=>renderMcp(m)).join('');
 const colorMap = {tech:techColor,qs:qsColor,pd:pdColor,ps:psColor,mk:mkColor,dc:dcColor};
 document.getElementById('ov-agents').innerHTML = Object.entries(AGENTS).flatMap(([cat,agents])=>agents.map(a=>renderMini(a,colorMap[cat]))).join('');
 
+// Hierarchy chips
+function hierChip(label, color, onclick) {
+  return `<div class="hier-chip" style="--cc:${color}" onclick="${onclick}">${label}</div>`;
+}
+
+document.getElementById('hier-hooks').innerHTML = HOOKS.map(h => {
+  const col = h.effect==='BLOK'?'var(--red)':h.effect==='UYARI'?'var(--amber)':'var(--cyan)';
+  return hierChip(`${h.name} <small style="opacity:.7">${h.effect}</small>`, col,
+    `openPanel(${JSON.stringify(h.name)},${JSON.stringify(col)},buildHookPanel(HOOKS[${HOOKS.indexOf(h)}]))`);
+}).join('');
+
+document.getElementById('hier-gates').innerHTML = GATES.map((g,i) =>
+  hierChip(g.name, 'var(--violet)',
+    `openPanel(${JSON.stringify(g.name)},'var(--violet)',buildGatePanel(GATES[${i}]))`)
+).join('');
+
+const agentColorMapH = {tech:'var(--blue)',qs:'var(--red)',pd:'var(--pink)',ps:'var(--amber)',mk:'var(--emerald)',dc:'var(--cyan)'};
+document.getElementById('hier-agents').innerHTML = Object.entries(AGENTS).flatMap(([cat,agents]) =>
+  agents.map(a => hierChip(a.name, agentColorMapH[cat],
+    `openPanel(${JSON.stringify(a.name)},${JSON.stringify(agentColorMapH[cat])},buildAgentPanel(findAgent(${JSON.stringify(a.name)})))`))
+).join('');
+
+document.getElementById('hier-mcps').innerHTML = MCPS.map((m,i) =>
+  hierChip(m.name, 'var(--emerald)',
+    `openPanel(${JSON.stringify(m.name)},'var(--emerald)',buildMcpPanel(MCPS[${i}]))`)
+).join('');
+
+document.getElementById('hier-skills').innerHTML = SKILL_CATS.map(c =>
+  hierChip(`${c.label} (${c.count})`, 'var(--pink)',
+    `openPanel(${JSON.stringify(c.label)},'var(--pink)',buildSkillCatPanel(${JSON.stringify(c.id)}))`)
+).join('');
+
+function buildSkillCatPanel(catId) {
+  const cat = SKILL_CATS.find(c=>c.id===catId);
+  if (!cat) return '';
+  return rows('Kategori',[cat.label]) +
+    rows('Skill Sayısı',[cat.count.toString()]) +
+    rows('Skill Listesi', cat.items.map(s=>`<code>${s.n}</code> — ${s.d}`));
+}
+
 // Skills
 const sw = document.getElementById('skills-wrap');
 SKILL_CATS.forEach(cat => {
@@ -1182,7 +1361,7 @@ document.addEventListener('keydown', e => {
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
 
 const VIEW_TITLES = {
-  overview:'Sistem Akışı', hooks:'Hooks', gates:'Quality Gates',
+  overview:'Sistem Akışı', hierarchy:'Hiyerarşi', hooks:'Hooks', gates:'Quality Gates',
   tech:'Teknik Agentlar', qs:'Kalite & Güvenlik', pd:'Ürün & Tasarım',
   ps:'Proje & Strateji', mk:'Pazarlama & Destek', dc:'Karar Destek',
   mcp:'MCP Serverlar', skills:'Skill Kataloğu', graph:'Node Haritası'
