@@ -1317,18 +1317,31 @@ function buildGatePanel(g) {
 function buildAgentPanel(a) {
   if (!a) return '<div class="prow">—</div>';
   const catNames = {tech:'Teknik',qs:'Kalite & Güvenlik',pd:'Ürün & Tasarım',ps:'Proje & Strateji',mk:'Pazarlama & Destek',dc:'Karar Destek'};
-  const cat = Object.entries(AGENTS).find(([,arr])=>arr.some(x=>x.name===a.name))?.[0]||'';
-  return `<div class="psec"><div class="psec-label">Açıklama</div><div class="prow">${a.role}</div></div>` +
-    `<div class="psec"><div class="psec-label">Nasıl Çağırılır</div>
-      <div class="prow">Komut satırından: <code>claude --agent ${a.name}</code></div>
-      <div class="prow">Konuşmada: <em>"${a.name} agent'ını kullanarak ${a.triggers?.[0]||'görevi gerçekleştir'}"</em></div>
-      <div class="prow">Kategori: <span class="tag-inline pill-blue">${catNames[cat]||cat}</span>${a.mcp&&a.mcp.length?'  &nbsp;MCP erişimi: '+ a.mcp.map(m=>`<span class="tag-inline pill-emerald">${m.split('—')[0].trim()}</span>`).join(' '):''}</div>
-    </div>` +
-    rows('Bu Agent\'ı Ne Zaman Kullan', a.triggers) +
-    `<div class="psec"><div class="psec-label">Sahip Olduğu Araçlar</div><div class="prow">${a.tools.map(t=>`<span class="tag-inline pill-blue" style="font-family:monospace;font-size:10px;padding:1px 6px;border-radius:20px;margin-right:4px">${t}</span>`).join('')}</div></div>` +
-    rows('Uyması Gereken Kurallar', a.rules) +
-    (a.output ? `<div class="psec"><div class="psec-label">Çıktı Formatı</div><div class="prow"><code style="white-space:pre-wrap;display:block;font-size:11px;line-height:1.7">${a.output}</code></div></div>` : '') +
-    `<div class="psec"><div class="psec-label">Teknoloji Stack</div><div class="prow" style="font-family:monospace;font-size:11px">${a.stack?(Array.isArray(a.stack)?a.stack.join(' · '):a.stack):'—'}</div></div>`;
+  let cat = '';
+  for (const [k,arr] of Object.entries(AGENTS)) { if (arr.some(function(x){return x.name===a.name;})) { cat=k; break; } }
+  const mcpList = (a.mcp||[]);
+  const mcpBadges = mcpList.length ? ' &nbsp;MCP: ' + mcpList.map(function(m){
+    const nm = m.split('—')[0].split('—')[0].trim();
+    return '<span class="tag-inline pill-emerald">'+nm+'</span>';
+  }).join(' ') : '';
+  const stack = a.stack ? (Array.isArray(a.stack) ? a.stack.join(' · ') : a.stack) : '—';
+  const trigger0 = (a.triggers||[])[0] || 'görevi gerçekleştir';
+  const toolBadges = (a.tools||[]).map(function(t){
+    return '<span class="tag-inline pill-blue" style="font-family:monospace;font-size:10px;padding:1px 6px;border-radius:20px;margin-right:4px">'+t+'</span>';
+  }).join('');
+  const howBox = '<div class="psec" style="background:var(--blue-bg);border-radius:7px;padding:10px 14px;margin-top:14px">'
+    + '<div class="psec-label" style="color:var(--blue)">Nasıl Devreye Girer?</div>'
+    + '<div class="prow" style="border:none"><strong>Otomatik:</strong> Delegasyon koşulu sağlandığında ana Claude bu agentı Agent tool ile başlatır — sen bir şey yapmana gerek yok.</div>'
+    + '<div class="prow" style="border:none"><strong>Manuel:</strong> &ldquo;'+a.name+' agent\'nı kullanarak '+trigger0+'&rdquo; diyebilirsin.</div>'
+    + '<div class="prow" style="border:none;padding-top:0">Kategori: <span class="tag-inline pill-blue">'+(catNames[cat]||cat)+'</span>'+mcpBadges+'</div>'
+    + '</div>';
+  return rows('Rol ve Sorumluluk',[a.role])
+    + howBox
+    + rows('Bu Koşullarda Devreye Girer', a.triggers||[])
+    + '<div class="psec"><div class="psec-label">Erişebildiği Araçlar</div><div class="prow">'+toolBadges+'</div></div>'
+    + rows('Uymak Zorunda Olduğu Kurallar', a.rules||[])
+    + (a.output ? rows('Çıktı Formatı',['<code style="white-space:pre-wrap;font-size:11px">'+a.output+'</code>']) : '')
+    + '<div class="psec"><div class="psec-label">Teknoloji Stack</div><div class="prow" style="font-family:monospace;font-size:11px">'+stack+'</div></div>';
 }
 
 function buildMcpPanel(m) {
@@ -1432,23 +1445,23 @@ function buildGraphNodes() {
   let id = 0;
 
   // Layer 0 — entry
-  const nUser   = {id:id++, label:'👤 Kullanıcı',    color:'#7d8590', x:0, y:0, r:28, kind:'entry',   data:null};
-  const nClaude = {id:id++, label:'📄 CLAUDE.md',    color:'#7d8590', x:0, y:0, r:28, kind:'entry',   data:null};
+  const nUser   = {id:id++, label:'👤 Kullanıcı',    color:'#8b94b0', x:0, y:0, r:28, kind:'entry',   data:null};
+  const nClaude = {id:id++, label:'📄 CLAUDE.md',    color:'#81ecec', x:0, y:0, r:28, kind:'entry',   data:null};
   nodes.push(nUser, nClaude);
 
   // Layer 1 — hooks
   const hookNodes = HOOKS.map((h,i) => {
-    const col = h.effect==='BLOK' ? '#f85149' : h.effect==='UYARI' ? '#d29922' : '#79c0ff';
+    const col = h.effect==='BLOK' ? '#ff6b6b' : h.effect==='UYARI' ? '#ffd166' : '#81ecec';
     return {id:id++, label:h.name.replace('PreToolUse','Pre').replace('PostToolUse','Post'), color:col, x:0,y:0, r:22, kind:'hook', data:h};
   });
   hookNodes.forEach(n=>nodes.push(n));
 
   // Layer 2 — gates (grouped label)
-  const gateNodes = GATES.map((g,i) => ({id:id++, label:g.name, color:'#bc8cff', x:0,y:0, r:18, kind:'gate', data:g}));
+  const gateNodes = GATES.map((g,i) => ({id:id++, label:g.name, color:'#d4a4ff', x:0,y:0, r:18, kind:'gate', data:g}));
   gateNodes.forEach(n=>nodes.push(n));
 
   // Layer 3 — agents
-  const agentColorMap = {tech:'#58a6ff',qs:'#f85149',pd:'#ff7b72',ps:'#d29922',mk:'#3fb950',dc:'#79c0ff'};
+  const agentColorMap = {tech:'#74b9ff',qs:'#ff6b6b',pd:'#fd79a8',ps:'#ffd166',mk:'#55efc4',dc:'#81ecec'};
   const agentNodes = [];
   Object.entries(AGENTS).forEach(([cat, agents]) => {
     agents.forEach(a => {
@@ -1458,12 +1471,12 @@ function buildGraphNodes() {
   agentNodes.forEach(n=>nodes.push(n));
 
   // Layer 4 — MCP
-  const mcpNodes = MCPS.map(m => ({id:id++, label:m.name, color:'#3fb950', x:0,y:0, r:24, kind:'mcp', data:m}));
+  const mcpNodes = MCPS.map(m => ({id:id++, label:m.name, color:'#55efc4', x:0,y:0, r:24, kind:'mcp', data:m}));
   mcpNodes.forEach(n=>nodes.push(n));
 
   // Layer 5 — Skill categories
   const skillNodes = SKILL_CATS.map(c => {
-    const colors = {gate:'#bc8cff',sec:'#f85149',arch:'#58a6ff',ops:'#3fb950',tool:'#d29922',orc:'#79c0ff',dom:'#ff7b72'};
+    const colors = {gate:'#d4a4ff',sec:'#ff6b6b',arch:'#74b9ff',ops:'#55efc4',tool:'#ffd166',orc:'#81ecec',dom:'#fd79a8'};
     return {id:id++, label:`⚙️ ${c.label}`, color:colors[c.id]||'#7d8590', x:0,y:0, r:26, kind:'skill', data:c};
   });
   skillNodes.forEach(n=>nodes.push(n));
@@ -1551,10 +1564,10 @@ function drawGraph() {
   const ctx = canvas.getContext('2d');
   const isDark = !document.documentElement.dataset.theme || document.documentElement.dataset.theme === 'dark'
     || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && document.documentElement.dataset.theme !== 'light');
-  const bg     = isDark ? '#0d1117' : '#ffffff';
-  const border = isDark ? '#30363d' : '#d0d7de';
-  const text   = isDark ? '#e6edf3' : '#1f2328';
-  const muted  = isDark ? '#7d8590' : '#57606a';
+  const bg     = isDark ? '#13151f' : '#f6f8fa';
+  const border = isDark ? '#373d57' : '#d0d7de';
+  const text   = isDark ? '#eef1f8' : '#1f2328';
+  const muted  = isDark ? '#8b94b0' : '#57606a';
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = bg;
@@ -1584,16 +1597,16 @@ function drawGraph() {
     const r = isHovered ? n.r * 1.15 : n.r;
     ctx.beginPath();
     ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-    ctx.fillStyle = n.color + (isDark ? '22' : '18');
+    ctx.fillStyle = n.color + (isDark ? '30' : '22');
     ctx.fill();
-    ctx.strokeStyle = n.color + (isHovered ? 'ff' : 'aa');
-    ctx.lineWidth = isHovered ? 2.5 : 1.5;
+    ctx.strokeStyle = n.color + (isHovered ? 'ff' : 'cc');
+    ctx.lineWidth = isHovered ? 3 : 2;
     ctx.stroke();
 
     // Label
-    const labelSize = n.r < 20 ? 9 : n.r < 24 ? 10 : 11;
-    ctx.font = `${isHovered ? 600 : 400} ${labelSize}px "Inter", system-ui, sans-serif`;
-    ctx.fillStyle = isHovered ? n.color : (n.r < 20 ? muted : text);
+    const labelSize = n.r < 20 ? 10 : n.r < 24 ? 11 : 12;
+    ctx.font = (isHovered ? '700' : '600') + ' ' + labelSize + 'px "Inter", system-ui, sans-serif';
+    ctx.fillStyle = isHovered ? n.color : (n.r < 20 ? n.color + 'dd' : text);
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     // Wrap long labels
