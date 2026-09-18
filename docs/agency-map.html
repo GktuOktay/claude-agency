@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Claude Agency — Sistem Haritası</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #0d1117;
+  --bg2: #161b22;
+  --bg3: #21262d;
+  --border: #30363d;
+  --text: #e6edf3;
+  --muted: #7d8590;
+  --red: #f85149;
+  --amber: #d29922;
+  --blue: #58a6ff;
+  --emerald: #3fb950;
+  --violet: #bc8cff;
+  --cyan: #79c0ff;
+  --pink: #ff7b72;
+  --red-bg: rgba(248,81,73,.12);
+  --amber-bg: rgba(210,153,34,.12);
+  --blue-bg: rgba(88,166,255,.12);
+  --emerald-bg: rgba(63,185,80,.12);
+  --violet-bg: rgba(188,140,255,.12);
+  --cyan-bg: rgba(121,192,255,.12);
+  --pink-bg: rgba(255,123,114,.12);
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg:#ffffff; --bg2:#f6f8fa; --bg3:#eaeef2; --border:#d0d7de;
+    --text:#1f2328; --muted:#57606a; --red:#cf222e; --amber:#9a6700;
+    --blue:#0969da; --emerald:#1a7f37; --violet:#8250df; --cyan:#0550ae; --pink:#cf222e;
+    --red-bg:rgba(207,34,46,.08); --amber-bg:rgba(154,103,0,.08);
+    --blue-bg:rgba(9,105,218,.08); --emerald-bg:rgba(26,127,55,.08);
+    --violet-bg:rgba(130,80,223,.08); --cyan-bg:rgba(5,80,174,.08); --pink-bg:rgba(207,34,46,.08);
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#0d1117; --bg2:#161b22; --bg3:#21262d; --border:#30363d;
+  --text:#e6edf3; --muted:#7d8590; --red:#f85149; --amber:#d29922;
+  --blue:#58a6ff; --emerald:#3fb950; --violet:#bc8cff; --cyan:#79c0ff; --pink:#ff7b72;
+  --red-bg:rgba(248,81,73,.12); --amber-bg:rgba(210,153,34,.12);
+  --blue-bg:rgba(88,166,255,.12); --emerald-bg:rgba(63,185,80,.12);
+  --violet-bg:rgba(188,140,255,.12); --cyan-bg:rgba(121,192,255,.12); --pink-bg:rgba(255,123,114,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6}
+
+.shell{display:flex;height:100vh;overflow:hidden}
+
+/* Sidebar */
+.sidebar{width:224px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto}
+.sidebar-header{padding:16px 14px 12px;border-bottom:1px solid var(--border)}
+.sidebar-logo{font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+.sidebar-badges{display:flex;gap:5px;flex-wrap:wrap}
+.badge{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;padding:2px 6px;border-radius:20px;background:var(--bg3);color:var(--muted)}
+.nav-section{padding:10px 0 4px}
+.nav-label{padding:0 14px 4px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.nav-item{display:flex;align-items:center;gap:8px;padding:6px 14px;cursor:pointer;font-size:13px;color:var(--text);text-decoration:none;border-left:2px solid transparent;transition:background .1s}
+.nav-item:hover{background:var(--bg3)}
+.nav-item.active{background:var(--bg3);border-left-color:var(--blue);color:var(--blue)}
+.nav-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.nav-count{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+
+/* Main */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{padding:10px 20px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.search-wrap{position:relative;flex:1;max-width:340px}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.search-input{width:100%;padding:7px 12px 7px 30px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;font-family:inherit;outline:none}
+.search-input:focus{border-color:var(--blue)}
+.search-kbd{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:1px 5px}
+.view-title{font-size:14px;font-weight:600;margin-left:auto;color:var(--muted)}
+
+.content{flex:1;overflow-y:auto;padding:20px}
+.view{display:none}.view.active{display:block}
+
+/* Section header */
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:16px;margin-top:2px}
+.sh-icon{font-size:18px}
+.sh-name{font-size:15px;font-weight:700}
+.sh-meta{font-size:12px;color:var(--muted);margin-left:auto}
+.divider{height:1px;background:var(--border);margin:22px 0}
+
+/* Grid */
+.grid{display:grid;gap:10px}
+.g2{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.g3{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.g4{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+
+/* Card */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:13px;cursor:pointer;transition:border-color .15s,box-shadow .15s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--ca,var(--border))}
+.card:hover{border-color:var(--ca,var(--blue));box-shadow:0 2px 12px rgba(0,0,0,.2)}
+.card.hidden{display:none}
+.cn{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:500;color:var(--ca,var(--text));margin-bottom:3px}
+.cd{font-size:12px;color:var(--muted);line-height:1.45}
+.ct{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.tag{font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 6px;border-radius:20px;background:var(--bg3);color:var(--muted)}
+.tag.t{background:var(--blue-bg);color:var(--blue)}
+.tag.bl{background:var(--red-bg);color:var(--red)}
+.tag.wn{background:var(--amber-bg);color:var(--amber)}
+.tag.al{background:var(--violet-bg);color:var(--violet)}
+.tag.mc{background:var(--emerald-bg);color:var(--emerald)}
+.tag.cy{background:var(--cyan-bg);color:var(--cyan)}
+
+/* Color helpers */
+.c-red{--ca:var(--red)}.c-amber{--ca:var(--amber)}.c-blue{--ca:var(--blue)}
+.c-emerald{--ca:var(--emerald)}.c-violet{--ca:var(--violet)}.c-cyan{--ca:var(--cyan)}.c-pink{--ca:var(--pink)}
+
+/* Overview */
+.flow-row{display:flex;align-items:stretch;gap:0;margin-bottom:10px;flex-wrap:wrap}
+.fn{flex:1;min-width:110px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;text-align:center;cursor:pointer;transition:border-color .15s}
+.fn:hover{border-color:var(--fc,var(--blue))}
+.fn-icon{font-size:20px;margin-bottom:4px}
+.fn-label{font-size:13px;font-weight:600;color:var(--fc,var(--text))}
+.fn-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.fa{display:flex;align-items:center;padding:0 8px;color:var(--muted);font-size:16px}
+
+.mini-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin-bottom:20px}
+.mini{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:9px 11px;cursor:pointer;transition:border-color .15s;border-left:3px solid var(--mc,var(--border))}
+.mini:hover{border-color:var(--mc,var(--blue))}
+.mini.hidden{display:none}
+.mn{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--mc,var(--text))}
+.ms{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4}
+
+/* Panel */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:flex-end;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s}
+.overlay.open{opacity:1;pointer-events:all}
+.panel{width:100%;max-width:580px;max-height:82vh;background:var(--bg2);border-radius:14px 14px 0 0;border:1px solid var(--border);border-bottom:none;overflow-y:auto;transform:translateY(50px);transition:transform .25s ease;padding:0 0 40px}
+.overlay.open .panel{transform:translateY(0)}
+.panel-top{position:sticky;top:0;background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 20px 12px;display:flex;align-items:flex-start;gap:12px;z-index:1}
+.panel-handle{width:36px;height:4px;border-radius:2px;background:var(--border);margin:0 auto 10px}
+.panel-accent{width:4px;border-radius:2px;flex-shrink:0;align-self:stretch;background:var(--pa,var(--blue))}
+.panel-head{flex:1}
+.panel-title{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:var(--pa,var(--text));margin-bottom:3px}
+.panel-sub{font-size:13px;color:var(--muted);line-height:1.5}
+.panel-close{background:var(--bg3);border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:5px 12px;cursor:pointer;font-size:12px;font-family:inherit;flex-shrink:0}
+.panel-close:hover{color:var(--text);border-color:var(--text)}
+.panel-body{padding:0 20px}
+.psec{margin-top:16px}
+.psec-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+.prow{font-size:13px;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border);line-height:1.5}
+.prow:last-child{border-bottom:none}
+.prow code{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px;color:var(--cyan)}
+.prow .tag-inline{font-family:'JetBrains Mono',monospace;font-size:10px;padding:1px 5px;border-radius:20px}
+.pill-red{background:var(--red-bg);color:var(--red)}
+.pill-amber{background:var(--amber-bg);color:var(--amber)}
+.pill-violet{background:var(--violet-bg);color:var(--violet)}
+.pill-blue{background:var(--blue-bg);color:var(--blue)}
+.pill-emerald{background:var(--emerald-bg);color:var(--emerald)}
+
+/* No results */
+.empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty-icon{font-size:36px;margin-bottom:10px}
+
+@media(max-width:640px){
+  .sidebar{display:none}
+  .fa{padding:0 4px;font-size:13px}
+  .fn{min-width:90px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">Claude Agency</div>
+      <div class="sidebar-badges">
+        <span class="badge">38 agent</span>
+        <span class="badge">139 skill</span>
+        <span class="badge">5 MCP</span>
+        <span class="badge">20 gate</span>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Genel</div>
+      <a class="nav-item active" data-view="overview" onclick="go('overview',this)">
+        <span class="nav-dot" style="background:var(--blue)"></span>Sistem Akışı
+      </a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Kontrol</div>
+      <a class="nav-item" data-view="hooks" onclick="go('hooks',this)">
+        <span class="nav-dot" style="background:var(--red)"></span>Hooks<span class="nav-count">6</span>
+      </a>
+      <a class="nav-item" data-view="gates" onclick="go('gates',this)">
+        <span class="nav-dot" style="background:var(--violet)"></span>Quality Gates<span class="nav-count">20</span>
+      </a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Agentlar</div>
+      <a class="nav-item" data-view="tech" onclick="go('tech',this)">
+        <span class="nav-dot" style="background:var(--blue)"></span>Teknik<span class="nav-count">7</span>
+      </a>
+      <a class="nav-item" data-view="qs" onclick="go('qs',this)">
+        <span class="nav-dot" style="background:var(--red)"></span>Kalite & Güvenlik<span class="nav-count">9</span>
+      </a>
+      <a class="nav-item" data-view="pd" onclick="go('pd',this)">
+        <span class="nav-dot" style="background:var(--pink)"></span>Ürün & Tasarım<span class="nav-count">9</span>
+      </a>
+      <a class="nav-item" data-view="ps" onclick="go('ps',this)">
+        <span class="nav-dot" style="background:var(--amber)"></span>Proje & Strateji<span class="nav-count">5</span>
+      </a>
+      <a class="nav-item" data-view="mk" onclick="go('mk',this)">
+        <span class="nav-dot" style="background:var(--emerald)"></span>Pazarlama & Destek<span class="nav-count">6</span>
+      </a>
+      <a class="nav-item" data-view="dc" onclick="go('dc',this)">
+        <span class="nav-dot" style="background:var(--cyan)"></span>Karar Destek<span class="nav-count">2</span>
+      </a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Altyapı</div>
+      <a class="nav-item" data-view="mcp" onclick="go('mcp',this)">
+        <span class="nav-dot" style="background:var(--emerald)"></span>MCP Serverlar<span class="nav-count">5</span>
+      </a>
+      <a class="nav-item" data-view="skills" onclick="go('skills',this)">
+        <span class="nav-dot" style="background:var(--violet)"></span>Skill Kataloğu<span class="nav-count">139</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="topbar">
+      <div class="search-wrap">
+        <svg class="search-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input class="search-input" id="search" type="text" placeholder="Agent, skill veya hook ara..." oninput="doSearch(this.value)" autocomplete="off">
+      </div>
+      <span class="search-kbd">⌘K</span>
+      <span class="view-title" id="vtitle">Sistem Akışı</span>
+    </div>
+
+    <div class="content">
+
+      <!-- OVERVIEW -->
+      <div class="view active" id="v-overview">
+        <div class="sh"><span class="sh-icon">🗺️</span><span class="sh-name">Sistem Akışı</span><span class="sh-meta">Kullanıcıdan MCP'ye tam yol</span></div>
+
+        <div class="flow-row">
+          <div class="fn" style="--fc:var(--text)"><div class="fn-icon">👤</div><div class="fn-label">Kullanıcı</div><div class="fn-sub">İstek / Soru</div></div>
+          <div class="fa">→</div>
+          <div class="fn" style="--fc:var(--text)"><div class="fn-icon">📄</div><div class="fn-label">CLAUDE.md</div><div class="fn-sub">Global kurallar</div></div>
+          <div class="fa">→</div>
+          <div class="fn" style="--fc:var(--red)" onclick="go('hooks',null)"><div class="fn-icon">🔒</div><div class="fn-label">Hooks</div><div class="fn-sub">6 hook</div></div>
+          <div class="fa">→</div>
+          <div class="fn" style="--fc:var(--violet)" onclick="go('gates',null)"><div class="fn-icon">🛡️</div><div class="fn-label">Quality Gates</div><div class="fn-sub">20 gate</div></div>
+        </div>
+        <div class="flow-row">
+          <div class="fn" style="--fc:var(--amber)"><div class="fn-icon">⚖️</div><div class="fn-label">Delegasyon?</div><div class="fn-sub">3+ dosya / domain</div></div>
+          <div class="fa">→</div>
+          <div class="fn" style="--fc:var(--blue)" onclick="go('tech',null)"><div class="fn-icon">🤖</div><div class="fn-label">38 Agent</div><div class="fn-sub">Sonnet 4.6</div></div>
+          <div class="fa">→</div>
+          <div class="fn" style="--fc:var(--emerald)" onclick="go('mcp',null)"><div class="fn-icon">🔌</div><div class="fn-label">MCP</div><div class="fn-sub">5 server</div></div>
+          <div class="fa">+</div>
+          <div class="fn" style="--fc:var(--violet)" onclick="go('skills',null)"><div class="fn-icon">⚙️</div><div class="fn-label">139 Skill</div><div class="fn-sub">.claude/skills</div></div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="sh"><span class="sh-icon">🤖</span><span class="sh-name">38 Agent — Hızlı Erişim</span></div>
+        <div class="mini-grid" id="ov-agents"></div>
+      </div>
+
+      <!-- HOOKS -->
+      <div class="view" id="v-hooks">
+        <div class="sh"><span class="sh-icon">🔒</span><span class="sh-name">Hooks</span><span class="sh-meta">Tool-call seviyesinde otomatik kontrol</span></div>
+        <div class="grid g2" id="g-hooks"></div>
+      </div>
+
+      <!-- GATES -->
+      <div class="view" id="v-gates">
+        <div class="sh"><span class="sh-icon">🛡️</span><span class="sh-name">Quality Gates</span><span class="sh-meta">20 gate · alwaysApply: true</span></div>
+        <div class="grid g2" id="g-gates"></div>
+      </div>
+
+      <!-- AGENTS by category -->
+      <div class="view" id="v-tech"><div class="sh"><span class="sh-icon">🔧</span><span class="sh-name">Teknik Agentlar</span><span class="sh-meta">7 agent</span></div><div class="grid g2" id="g-tech"></div></div>
+      <div class="view" id="v-qs"><div class="sh"><span class="sh-icon">🛡️</span><span class="sh-name">Kalite & Güvenlik</span><span class="sh-meta">9 agent</span></div><div class="grid g2" id="g-qs"></div></div>
+      <div class="view" id="v-pd"><div class="sh"><span class="sh-icon">🎨</span><span class="sh-name">Ürün & Tasarım</span><span class="sh-meta">9 agent</span></div><div class="grid g2" id="g-pd"></div></div>
+      <div class="view" id="v-ps"><div class="sh"><span class="sh-icon">📋</span><span class="sh-name">Proje & Strateji</span><span class="sh-meta">5 agent</span></div><div class="grid g2" id="g-ps"></div></div>
+      <div class="view" id="v-mk"><div class="sh"><span class="sh-icon">📣</span><span class="sh-name">Pazarlama & Destek</span><span class="sh-meta">6 agent</span></div><div class="grid g2" id="g-mk"></div></div>
+      <div class="view" id="v-dc"><div class="sh"><span class="sh-icon">🔎</span><span class="sh-name">Karar Destek</span><span class="sh-meta">2 agent</span></div><div class="grid g2" id="g-dc"></div></div>
+
+      <!-- MCP -->
+      <div class="view" id="v-mcp">
+        <div class="sh"><span class="sh-icon">🔌</span><span class="sh-name">MCP Serverlar</span><span class="sh-meta">5 server · settings.json</span></div>
+        <div class="grid g2" id="g-mcp"></div>
+      </div>
+
+      <!-- SKILLS -->
+      <div class="view" id="v-skills">
+        <div class="sh"><span class="sh-icon">⚙️</span><span class="sh-name">Skill Kataloğu</span><span class="sh-meta">139 skill · .claude/skills/</span></div>
+        <div id="skills-wrap"></div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /shell -->
+
+<!-- Panel overlay -->
+<div class="overlay" id="overlay" onclick="maybeClose(event)">
+  <div class="panel" id="panel">
+    <div style="padding:12px 20px 0"><div class="panel-handle"></div></div>
+    <div class="panel-top">
+      <div class="panel-accent" id="p-accent"></div>
+      <div class="panel-head">
+        <div class="panel-title" id="p-title"></div>
+        <div class="panel-sub" id="p-sub"></div>
+      </div>
+      <button class="panel-close" onclick="closePanel()">✕ Kapat</button>
+    </div>
+    <div class="panel-body" id="p-body"></div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const HOOKS = [
+  {
+    name:'PreToolUse[Bash]', color:'var(--red)', effect:'BLOK',
+    desc:'Bash komutu çalıştırılmadan önce içeriği tarar. Yasak pattern tespit edilirse komut tamamen engellenir.',
+    patterns:[
+      {p:'DateTime.Now', why:'Local time zone hatalarına yol açar. DateTimeOffset.UtcNow kullan.'},
+      {p:'rm -rf', why:'Geri alınamaz toplu silme komutu.'},
+      {p:'DROP TABLE', why:'Tehlikeli veritabanı operasyonu.'},
+      {p:'Thread.Sleep', why:'Thread\'i bloke eder. await Task.Delay kullan.'},
+      {p:'.Result / .Wait()', why:'Sync-over-async deadlock riski.'},
+    ],
+    result:'Komut çalışmaz. Kullanıcıya hata mesajı döner.',
+    tags:['BLOK','DateTime.Now','rm -rf','DROP TABLE','Thread.Sleep','.Result/.Wait'],
+  },
+  {
+    name:'PreToolUse[Write|Edit]', color:'var(--amber)', effect:'UYARI',
+    desc:'Dosya yazılmadan/düzenlenmeden önce içerik taranır. Yasak pattern varsa uyarı verilir; yazma devam eder.',
+    patterns:[
+      {p:'DateTime.Now', why:'Local time kullanımı — DateTimeOffset.UtcNow gerekli.'},
+      {p:'password / secret / apikey = "..."', why:'Hardcoded credential — IOptions<T> + env var kullan.'},
+      {p:'Password=... (connection string)', why:'DB şifresi connection string\'de saklanamaz.'},
+      {p:'Thread.Sleep', why:'Senkron bekleme yasak.'},
+      {p:'.Result / .Wait()', why:'Sync-over-async deadlock riski.'},
+    ],
+    result:'Uyarı mesajı stderr\'e yazılır. Dosya yazılmaya devam eder.',
+    tags:['UYARI','hardcoded secret','DateTime.Now','sync-over-async'],
+  },
+  {
+    name:'PreToolUse[Bash|Grep]', color:'var(--cyan)', effect:'GUARD',
+    desc:'Bash veya Grep çağrısından önce Graphify knowledge graph\'ı günceller. Codebase sorularında token maliyetini düşürür.',
+    patterns:[{p:'graphify hook-guard search', why:'Arama öncesi graph güncellemesi'}],
+    result:'Graph güncellenir, sonra asıl komut çalışır.',
+    tags:['graphify','hook-guard','search'],
+  },
+  {
+    name:'PreToolUse[Read|Glob]', color:'var(--cyan)', effect:'GUARD',
+    desc:'Read veya Glob çağrısından önce Graphify knowledge graph\'ı senkronize eder.',
+    patterns:[{p:'graphify hook-guard read', why:'Dosya okuma öncesi graph senkronizasyonu'}],
+    result:'Graph güncellenir, sonra asıl okuma yapılır.',
+    tags:['graphify','hook-guard','read'],
+  },
+  {
+    name:'PostToolUse[Write|Edit]', color:'var(--emerald)', effect:'HATİRLATMA',
+    desc:'.cs uzantılı bir dosya yazıldıktan sonra otomatik olarak build hatırlatması yapar.',
+    patterns:[{p:'.cs dosyası yazıldı', why:'C# kodu değişti, build doğrulaması gerekli'}],
+    result:'"dotnet build çalıştır" mesajı stderr\'e yazılır.',
+    tags:['.cs','dotnet build','hatırlatma'],
+  },
+  {
+    name:'Stop', color:'var(--muted)', effect:'BİLDİRİM',
+    desc:'Claude oturumu kapandığında çalışır. Oturum sonunu loglar.',
+    patterns:[{p:'echo "[...] Oturum tamamlandı."', why:'Oturum kapanış bildirimi'}],
+    result:'Terminal\'e oturum kapanış mesajı yazılır.',
+    tags:['oturum','kapanış','log'],
+  },
+];
+
+const GATES = [
+  {name:'audit-trail-guardian',cat:'Veri',color:'var(--violet)',
+    desc:'Her veritabanı tablosunda CreatedBy, CreatedAt, ModifiedBy, ModifiedAt alanları zorunludur.',
+    rule:'Bu alanlar eksikse entity kabul edilmez.',
+    example:'public DateTimeOffset CreatedAt { get; init; }\npublic string CreatedBy { get; set; } = null!;',
+    why:'Denetim izi olmayan sistemler GDPR ve iç kontrol gereksinimlerini karşılamaz.'},
+  {name:'timezone-enforcer',cat:'Zaman',color:'var(--violet)',
+    desc:'DateTimeOffset.UtcNow zorunlu. DateTime.Now ve DateTime.UtcNow yasak.',
+    rule:'Local time zone farkları prodüksiyonda gece yarısı hata üretir.',
+    example:'var now = DateTimeOffset.UtcNow; // ✓\nvar now = DateTime.Now; // ✗ BLOK',
+    why:'DateTime.Now sunucunun local zone\'una bağlıdır; global deploy\'larda tarih hesapları bozulur.'},
+  {name:'privacy-pii-masking',cat:'Gizlilik',color:'var(--violet)',
+    desc:'Şifre, TCKN, kredi kartı numarası ve benzeri PII\'nin log\'a yazılması yasaktır.',
+    rule:'Structured log\'da hassas alan varsa maskeleme zorunlu.',
+    example:'logger.LogInformation("User {UserId} logged in", userId); // ✓\nlogger.LogInformation("Password {pw}", password); // ✗',
+    why:'GDPR ve KVKK kapsamında PII sızıntısı ciddi ceza riski taşır.'},
+  {name:'tenant-isolation',cat:'SaaS',color:'var(--violet)',
+    desc:'Multi-tenant sistemde her query\'de explicit TenantId filtresi zorunludur.',
+    rule:'Global query filter veya repository katmanında TenantId her zaman uygulanır.',
+    example:'.Where(x => x.TenantId == _tenantId) // zorunlu',
+    why:'TenantId filtresi eksikse bir tenant başka tenant\'ın verisini görebilir.'},
+  {name:'pre-flight-security',cat:'Güvenlik',color:'var(--violet)',
+    desc:'Kod yazılmadan önce güvenlik blueprint denetimi: auth, input validation, output encoding.',
+    rule:'Yeni endpoint açılırken auth, rate limit, input validation planlanmış olmalı.',
+    example:'[Authorize] + [ValidateAntiForgeryToken] + FluentValidation',
+    why:'Sonradan eklenen güvenlik katmanları mimari uyumsuzluk yaratır.'},
+  {name:'fail-fast-config',cat:'Config',color:'var(--violet)',
+    desc:'Uygulama başlarken tüm zorunlu konfigürasyon doğrulanır; eksikse açık hata fırlatılır.',
+    rule:'Sessiz fail yok. Eksik env var → açık InvalidOperationException.',
+    example:'builder.Services.AddOptions<DbConfig>()\n  .BindConfiguration("Db")\n  .ValidateDataAnnotations()\n  .ValidateOnStart();',
+    why:'Sessiz config hatası prodüksiyonda saatlerce fark edilmeyebilir.'},
+  {name:'validation-and-integrity',cat:'Veri',color:'var(--violet)',
+    desc:'3 katmanlı doğrulama zorunlu: DB constraints → FluentValidation → Client-side.',
+    rule:'Her katmanda ayrı doğrulama gerekir; sadece birine güvenmek yetmez.',
+    example:'DB: NOT NULL + CHECK → API: FluentValidation → UI: form validation',
+    why:'Tek katmanlı doğrulama bypass edilebilir.'},
+  {name:'stateless-architecture',cat:'Mimari',color:'var(--violet)',
+    desc:'Server-side session kullanımı yasak. JWT tabanlı stateless auth zorunlu.',
+    rule:'HttpContext.Session kullanılamaz; state JWT claim veya distributed cache\'te.',
+    example:'services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)',
+    why:'Stateful session horizontal scaling\'i engeller.'},
+  {name:'problem-details',cat:'API',color:'var(--violet)',
+    desc:'Tüm API hata yanıtları RFC 7807 (Problem Details) formatında döner.',
+    rule:'Ham exception stack trace veya düz string hata mesajı yasak.',
+    example:'{"type":"https://...","title":"Not Found","status":404,"detail":"..."}',
+    why:'Tutarsız hata formatı client entegrasyonunu zorlaştırır.'},
+  {name:'finite-state-machine',cat:'Mimari',color:'var(--violet)',
+    desc:'Kritik domain durum geçişleri (OrderStatus, PaymentState vb.) için FSM zorunlu.',
+    rule:'if/else zinciri ile durum yönetimi reddedilir; geçerli geçişler enum + guard ile tanımlanır.',
+    example:'Order.Transition(OrderStatus.Confirmed) // → throws if invalid',
+    why:'Loose durum yönetimi geçersiz state kombinasyonlarına yol açar.'},
+  {name:'outbox-pattern-enforcer',cat:'Event',color:'var(--violet)',
+    desc:'Domain event yayınlama transactional outbox pattern ile yapılır.',
+    rule:'Fire-and-forget event publish veya in-memory bus kullanımı yasak.',
+    example:'// DB transaction + OutboxMessage tablosuna yaz → background worker yayınlar',
+    why:'DB ve message bus atomik olmadan event kayıpları yaşanır.'},
+  {name:'ddd-ubiquitous-language',cat:'DDD',color:'var(--violet)',
+    desc:'Domain\'in ubiquitous language\'ı tutarlı kullanılır; aynı kavram farklı isimle adlandırılamaz.',
+    rule:'Kod-doküman-konuşma arasında terminoloji birliği zorunlu.',
+    example:'Order, order, siparis, siparish → hepsi "Order" olmalı',
+    why:'Farklı isimler domain bilgisini silar, onboarding\'i zorlaştırır.'},
+  {name:'structured-logging-audit',cat:'Log',color:'var(--violet)',
+    desc:'Async exception loglama zorunlu. Audit trail immutable yapıda tutulur.',
+    rule:'Senkron log (Console.WriteLine vb.) yasak; Serilog/structured log zorunlu.',
+    example:'logger.LogError(ex, "Order {OrderId} failed", orderId);',
+    why:'Senkron log high-load\'da performans sorununa yol açar.'},
+  {name:'chaos-adversarial',cat:'Test',color:'var(--violet)',
+    desc:'Network timeout, 503 servisi bulunamadı ve null input senaryoları test planına dahil zorunlu.',
+    rule:'Sadece happy path testleri yeterli değil.',
+    example:'Polly retry + circuit breaker testleri; null/empty input edge case\'leri',
+    why:'Unhappy path testleri olmadan prodüksiyon sürprizleri kaçınılmaz.'},
+  {name:'graceful-degradation',cat:'Resilience',color:'var(--violet)',
+    desc:'Bağımlı bir servis düşerse fallback mekanizması zorunlu.',
+    rule:'Exception bubble etmek yerine degraded mode veya cached response dön.',
+    example:'catch (HttpRequestException) { return cachedResult ?? DefaultResult; }',
+    why:'Kascading failure tüm sistemi çökertir.'},
+  {name:'llm-hallucination-firewall',cat:'AI',color:'var(--violet)',
+    desc:'LLM (Claude, GPT vb.) çıktısı doğrulanmadan parse edilemez ve kullanılamaz.',
+    rule:'JSON.Parse(llmOutput) doğrudan çağrılamaz; önce schema validation zorunlu.',
+    example:'var validated = JsonSerializer.Deserialize<T>(llmOutput);\nif (validated is null) throw;',
+    why:'LLM çıktısı her zaman geçerli format üretmez; hallüsinasyon riski taşır.'},
+  {name:'main-thread-and-performance',cat:'Perf',color:'var(--violet)',
+    desc:'UI thread\'ini bloke eden iş yasak. Ağ ve dosya operasyonları async yapılır.',
+    rule:'SwiftUI, React — main thread\'de senkron I/O kabul edilmez.',
+    example:'await viewModel.loadAsync() // ✓\nviewModel.loadSync() // ✗ UI freeze',
+    why:'Ana thread blokaj kullanıcı arayüzünü dondurur, App Store puanını düşürür.'},
+  {name:'critical-critique',cat:'Süreç',color:'var(--violet)',
+    desc:'Her teknik çözümde en az bir alternatif ve risk analizi zorunlu.',
+    rule:'Tek seçenek önermek kabul edilmez; trade-off açıklanmalı.',
+    example:'Seçenek A: +hız -karmaşıklık / Seçenek B: +sadelik -perf',
+    why:'Tek seçenek sunmak kör nokta yaratır; alternatif bağlamı korur.'},
+  {name:'update-changelog',cat:'Süreç',color:'var(--violet)',
+    desc:'Her kod değişikliğinde CHANGELOG.md güncellenmesi zorunlu.',
+    rule:'Değişiklik belgelenmeden commit kabul edilmez.',
+    example:'## [1.2.0] - 2026-09-18\n### Added\n- GIS real-time tracking',
+    why:'Changelog olmadan sürüm geçmişi kaybolur, release notları yazılamaz.'},
+  {name:'escalation-workflow',cat:'Süreç',color:'var(--violet)',
+    desc:'Kritik mimari karar noktalarında kullanıcıya onay sorulur; otonom ilerlenemez.',
+    rule:'Büyük refactor, yeni bağımlılık, migrasyona break change → eskalasyon zorunlu.',
+    example:'⚠️ Bu değişiklik breaking change içeriyor. Devam etmek ister misin?',
+    why:'Otonom kritik kararlar geri alınamaz sonuçlara yol açabilir.'},
+];
+
+const AGENTS = {
+  tech:[
+    {name:'backend-specialist',color:'var(--blue)',
+      desc:'.NET 10, EF Core 9, Clean Architecture, CQRS, MediatR uzmanı.',
+      role:'Principal Backend Engineer. API katmanından domain katmanına kadar tüm backend sorumluluğu.',
+      tools:['Read','Edit','Write','Bash'],
+      mcp:['microsoft-learn — .NET 10 resmi docs'],
+      triggers:['Yeni entity / domain model ekleme','EF Core migration yazımı','Repository veya service katmanı ekleme','CQRS command/query handler geliştirme','API endpoint tasarımı'],
+      rules:['Mock DB test yasak — TestContainers zorunlu','DateTimeOffset.UtcNow zorunlu','FluentValidation + IPipelineBehavior zorunlu','RFC 7807 hata formatı'],
+      stack:['.NET 10 · EF Core 9 · MediatR · FluentValidation · xUnit · TestContainers']},
+    {name:'frontend-developer',color:'var(--blue)',
+      desc:'React 19+, TypeScript strict, Tailwind CSS, Core Web Vitals uzmanı.',
+      role:'Principal Frontend Engineer. UI komponentten performans optimizasyonuna kadar.',
+      tools:['Read','Edit','Write','Bash'],
+      mcp:[],
+      triggers:['UI komponent geliştirme','State yönetimi (Zustand/React Query)','Performans optimizasyonu (LCP, CLS, FID)','Erişilebilirlik (WCAG 2.1 AA)'],
+      rules:['TypeScript strict mode zorunlu','any tipi yasak','CSS-in-JS yerine Tailwind','Bundle size bütçesi korunmalı'],
+      stack:['React 19+ · TypeScript 5+ · Tailwind CSS · Vite · Vitest · Playwright']},
+    {name:'mobile-ios-swift',color:'var(--blue)',
+      desc:'Swift 6.1, SwiftUI 6, watchOS 11+, Swift Data, WCSession uzmanı.',
+      role:'iOS/watchOS Principal Engineer. Alarmo gibi Apple platform projeleri.',
+      tools:['Read','Edit','Write','Bash'],
+      mcp:[],
+      triggers:['iOS veya watchOS özellik geliştirme','WCSession senkronizasyonu','HealthKit / EventKit entegrasyonu','Xcode build veya provisioning sorunu','Swift Data migration'],
+      rules:['Swift 6 strict concurrency zorunlu','@MainActor UI güncellemeleri','Swift Testing framework (XCTest değil)','Privacy manifest (PrivacyInfo.xcprivacy)'],
+      stack:['Swift 6.1 · SwiftUI 6 · Swift Data · WCSession · Swift Testing · watchOS 11+']},
+    {name:'database-optimizer',color:'var(--blue)',
+      desc:'PostgreSQL 17, EF Core 9, query optimizasyonu, zero-downtime migration uzmanı.',
+      role:'Database Performance Engineer. Yavaş query\'den schema migration\'a kadar.',
+      tools:['Read','Edit','Write','Bash'],
+      mcp:['postgres — DB schema okuma, query çalıştırma'],
+      triggers:['Yavaş query analizi ve EXPLAIN ANALYZE','Index stratejisi','EF Core N+1 problem tespiti','Zero-downtime migration (expand/contract pattern)'],
+      rules:['Breaking migration yasak — expand/contract zorunlu','Index yaratmadan önce query plan analizi','JSONB kullanımını minimize et'],
+      stack:['PostgreSQL 17 · EF Core 9 · pgvector · EXPLAIN ANALYZE · Flyway']},
+    {name:'devops-engineer',color:'var(--blue)',
+      desc:'GitHub Actions, Docker, Kubernetes, Terraform, Azure/AWS uzmanı.',
+      role:'DevOps/Platform Engineer. CI/CD\'den IaC\'ye kadar.',
+      tools:['Read','Edit','Write','Bash'],
+      mcp:[],
+      triggers:['CI/CD pipeline kurulumu veya güncelleme','Container image optimizasyonu','Kubernetes manifest yazımı','Zero-downtime deployment stratejisi','IaC (Terraform/Bicep)'],
+      rules:['latest Docker tag yasak — semantic versioning','Trivy container scan zorunlu','Secret\'lar .env\'de değil vault\'ta','Rollback planı zorunlu'],
+      stack:['GitHub Actions · Docker · Kubernetes · Terraform · Azure / AWS · Trivy']},
+    {name:'gis-web-developer',color:'var(--blue)',
+      desc:'MapLibre GL JS, Leaflet, WebSocket tabanlı gerçek zamanlı konum takibi, güzergah planlama uzmanı.',
+      role:'Web GIS Engineer. ServisPass gibi güzergah/konum bazlı uygulamalar.',
+      tools:['Read','Edit','Write','Bash'],
+      mcp:[],
+      triggers:['Harita entegrasyonu ve özelleştirme','Canlı araç/servis takibi (WebSocket)','Güzergah hesaplama (OSRM / Google Directions)','Coğrafi veri görselleştirme','1000+ nokta cluster yönetimi'],
+      rules:['WebSocket yeniden bağlanma mantığı zorunlu','1000+ nokta için cluster kullan','Mobil dokunmatik olaylar test edilmeli'],
+      stack:['MapLibre GL JS · Leaflet · Deck.gl · OSRM · WebSocket · GeoJSON']},
+    {name:'integrations-webhook-specialist',color:'var(--blue)',
+      desc:'Webhook tasarımı, HMAC-SHA256 imzalama, idempotency, event-driven entegrasyon uzmanı.',
+      role:'Integration Engineer. Üçüncü parti servis ve webhook mimarileri.',
+      tools:['Read','Edit','Write','Bash'],
+      mcp:[],
+      triggers:['Webhook endpoint tasarımı','HMAC imzalama ve doğrulama','Idempotency key implementasyonu','Event-driven servis entegrasyonu'],
+      rules:['HMAC-SHA256 imzalama zorunlu','Idempotency key her webhook\'ta','Retry mantığı exponential backoff ile','Dead letter queue zorunlu'],
+      stack:['.NET 10 · HMAC-SHA256 · RabbitMQ / Azure Service Bus · Polly']},
+  ],
+  qs:[
+    {name:'code-reviewer',color:'var(--red)',
+      desc:'Kod kalite denetimi. Her bulgu satır numarasıyla raporlanır. Read-only — kod yazmaz.',
+      role:'Principal Code Reviewer. Nesnel, satır numaralı, actionable bulgular.',
+      tools:['Read','Bash'],
+      mcp:[],
+      triggers:['PR review talebi','Kod kalitesi sorusu','Architecture smell tespiti'],
+      rules:['Read-only — kod yazamaz, yalnızca raporlar','Her bulgu L{n} formatında','FIX önerisi her bulguyla birlikte'],
+      output:'L{n}: [🔴CRITICAL|🟡WARN|🔵INFO] kategori: sorun → Fix: çözüm',
+      stack:['Read · Bash (grep/find için)']},
+    {name:'test-engineer',color:'var(--red)',
+      desc:'xUnit, NUnit, TestContainers, Playwright, k6 uzmanı.',
+      role:'Test Automation Engineer. Unit\'ten E2E\'ye, load testine kadar.',
+      tools:['Read','Edit','Write','Bash'],
+      mcp:['playwright — browser otomasyon, E2E test'],
+      triggers:['Unit ve integration test yazımı','TDD ile geliştirme','E2E test senaryoları','Load test (k6)'],
+      rules:['Mock DB yasak — TestContainers zorunlu','Test coverage hedefi branch+line','Flaky test kabul edilmez'],
+      stack:['xUnit · NUnit · TestContainers · Playwright · k6 · FluentAssertions']},
+    {name:'testing-qa-engineer',color:'var(--red)',
+      desc:'Test senaryosu tasarımı, edge case tespiti, acceptance criteria uzmanı.',
+      role:'QA Engineer. Test planından acceptance criteria\'ya.',
+      tools:['Read','Write','Edit','Bash'],
+      mcp:[],
+      triggers:['Test planı yazımı','Regresyon test listesi oluşturma','"Bu özelliği nasıl test ederiz?" sorusu'],
+      rules:['Edge case\'ler happy path\'ten önce listelenir','Acceptance criteria Given/When/Then formatında'],
+      stack:['Gherkin · BDD · Test Design Techniques']},
+    {name:'testing-test-strategist',color:'var(--red)',
+      desc:'Test piramidi tasarımı, araç seçimi, CI/CD test entegrasyonu uzmanı.',
+      role:'Test Strategy Architect. Hangi testleri ne kadar yazacağız kararı.',
+      tools:['Read','Write'],
+      mcp:[],
+      triggers:['Yeni proje test altyapısı kurulumu','"Hangi testleri ne kadar yazalım?" kararı'],
+      rules:['Test piramidi oranları belgelenir','Araç seçimi proje stack\'ine göre'],
+      stack:['Test Pyramid · Risk-based testing · CI/CD integration']},
+    {name:'security-specialist',color:'var(--red)',
+      desc:'OWASP Top 10, STRIDE tehdit modelleme, JWT/OAuth2, API güvenliği, AI üretimi kod denetimi uzmanı.',
+      role:'Principal Security Engineer. Projenin tek güvenlik otoritesi.',
+      tools:['Read','Bash','WebSearch','WebFetch'],
+      mcp:['brave-search — CVE araştırma ve web arama'],
+      triggers:['Pentest ve güvenlik review','Auth implementasyonu','Mimari tehdit modelleme','AI üretimi kodu güvenlik denetimi'],
+      rules:['Saldırgan perspektif zorunlu','FIX olmadan raw bulgu yasak','KRİTİK → YÜKSEK → ORTA → DÜŞÜK sırası'],
+      output:'[KRİTİK|YÜKSEK|ORTA|DÜŞÜK] bulgu → PoC → Fix',
+      stack:['OWASP Top 10 · STRIDE · JWT · OAuth2 · CVE araştırma']},
+    {name:'security-secrets-engineer',color:'var(--red)',
+      desc:'Credential yönetimi, hardcoded secret tespiti, key rotation, .env güvenliği uzmanı.',
+      role:'Secrets & Credential Engineer.',
+      tools:['Read','Bash'],
+      mcp:[],
+      triggers:['Secret sızıntısı şüphesi','CI/CD secret kurulumu','Key rotation planlaması'],
+      rules:['Hardcoded secret her zaman sıfır tolerans','git-secrets veya gitleaks kontrolü'],
+      stack:['git-secrets · gitleaks · Azure Key Vault · GitHub Secrets']},
+    {name:'security-compliance-auditor',color:'var(--red)',
+      desc:'GDPR, Apple App Store PrivacyInfo.xcprivacy, veri saklama politikası uzmanı.',
+      role:'Compliance Auditor. Yasal ve platform gereksinimleri.',
+      tools:['Read','Write'],
+      mcp:[],
+      triggers:['App Store privacy review öncesi','GDPR uyumluluk denetimi','Veri envanteri çıkarma'],
+      rules:['PrivacyInfo.xcprivacy eksiksiz doldurulmalı','Veri saklama süresi belgelenmeli'],
+      stack:['GDPR · KVKK · Apple PrivacyInfo.xcprivacy · CCPA']},
+    {name:'security-ai-code-auditor',color:'var(--red)',
+      desc:'Claude, Copilot, Cursor üretimli kodda özel güvenlik riski tespiti. Hallüsinasyon kaynaklı paket doğrulama.',
+      role:'AI Code Security Auditor.',
+      tools:['Read','Bash'],
+      mcp:[],
+      triggers:['AI ile yazılan PR\'ın güvenlik review\'u','Hallüsinasyon kaynaklı paket adı doğrulama'],
+      rules:['Tüm AI üretimi paket adları npm/nuget\'te doğrulanır','Dependency confusion saldırısı kontrolü zorunlu'],
+      stack:['npm audit · dotnet list package --vulnerable · Snyk']},
+    {name:'incident-response',color:'var(--red)',
+      desc:'SEV sınıflandırması, 5 Whys kök neden analizi, blameless postmortem uzmanı.',
+      role:'Incident Commander. Prodüksiyon olayı yönetimi ve analizi.',
+      tools:['Read','Bash'],
+      mcp:[],
+      triggers:['Prodüksiyon olayı yönetimi','Postmortem yazımı','Runbook oluşturma'],
+      rules:['SEV1-4 sınıflandırması zorunlu','Blameless kültür — kişi değil sistem sorgulanır','5 Whys kök neden analizi'],
+      output:'SEV sınıfı → Etkilenen sistem → Zaman çizelgesi → Kök neden → Aksiyon planı',
+      stack:['SEV Classification · 5 Whys · Blameless Postmortem · Runbook']},
+  ],
+  pd:[
+    {name:'product-manager',color:'var(--pink)',
+      desc:'PRD yazımı, RICE önceliklendirme, roadmap planlaması uzmanı.',
+      role:'Product Manager. Özellik kararından roadmap\'e kadar.',
+      tools:['Read','Write','Edit'],mcp:[],
+      triggers:['PRD yazımı','Roadmap hazırlanması','Özellik karar belgesi','RICE hesaplaması'],
+      rules:['PRD\'de başarı metrikleri zorunlu','RICE score açıklanmalı'],
+      stack:['PRD · RICE Scoring · Roadmap · User Story']},
+    {name:'product-sprint-prioritizer',color:'var(--pink)',
+      desc:'Sprint kapasitesi ve backlog sıralama uzmanı.',
+      role:'Sprint Planner. Genel proje planlaması için project-manager-senior.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['Sprint planlama toplantısı','Backlog grooming','Kapasite hesaplama'],
+      rules:['Kapasitede buffer bırakılır','Bağımlılıklar önceden belirlenir'],
+      stack:['Story Points · Sprint Velocity · Backlog Grooming']},
+    {name:'product-feedback-synthesizer',color:'var(--pink)',
+      desc:'App Store yorumları, destek ticketları ve anket verilerinden içgörü sentezi.',
+      role:'Feedback Analyst. Ham geri bildirimden actionable içgörüye.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['App Store yorum analizi','Destek ticket trend analizi','Kullanıcı araştırması sentezi'],
+      rules:['Kalitatif ve kantitatif veriler birleştirilir','Her içgörü kaynak kanıtıyla desteklenir'],
+      stack:['Sentiment Analysis · Affinity Mapping · NPS · User Interviews']},
+    {name:'design-ui-designer',color:'var(--pink)',
+      desc:'Platform tasarım dili (Apple HIG), görsel hiyerarşi, erişilebilirlik uzmanı.',
+      role:'UI Designer. Komponent tasarımından ekran hiyerarşisine.',
+      tools:['Read','Write','Edit'],mcp:[],
+      triggers:['UI komponent tasarımı','Görsel hiyerarşi kararı','WCAG erişilebilirlik kontrolü'],
+      rules:['Apple HIG kuralları zorunlu','WCAG 2.1 AA minimum','4.5:1 kontrast oranı'],
+      stack:['Apple HIG · WCAG 2.1 · Figma · Design Tokens']},
+    {name:'design-ux-architect',color:'var(--pink)',
+      desc:'Kullanıcı akışı, bilgi mimarisi, navigasyon yapısı uzmanı.',
+      role:'UX Architect. Akıştan bilgi mimarisine.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['Kullanıcı akışı tasarımı','Navigasyon yapısı kararı','Bilgi mimarisi çıkarma'],
+      rules:['Kullanıcı iş hedefleri merkeze alınır','Navigasyon 3 tıklama kuralı gözetilir'],
+      stack:['User Flow · IA · Card Sorting · Sitemap']},
+    {name:'design-ux-researcher',color:'var(--pink)',
+      desc:'Kullanıcı araştırması, görüşme soruları, bulgular raporu uzmanı.',
+      role:'UX Researcher.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['Kullanıcı araştırması planı','Görüşme sorusu hazırlama','Araştırma bulguları raporlama'],
+      rules:['Yanlılığa yol açan yönlendirici soru yasak','En az 5 kullanıcı ile test önerilir'],
+      stack:['User Interview · Usability Testing · Affinity Diagram · Jobs-to-be-Done']},
+    {name:'design-ui-finish-gate-reviewer',color:'var(--pink)',
+      desc:'Ekranın yayına çıkmadan son kalite kontrolü: spacing, durum kapsamı, erişilebilirlik, platform uyumu.',
+      role:'UI Finish Gate Reviewer. Read-only — yalnızca denetler.',
+      tools:['Read'],mcp:[],
+      triggers:['Ekran yayına gitmeden önce final inceleme'],
+      rules:['8px grid spacing kontrolü','Empty, loading, error, success state\'leri var mı?','WCAG kontrast kontrolü'],
+      output:'✓ spacing · ✓ states · ✓ a11y · ✓ platform uyumu'},
+    {name:'design-brand-guardian',color:'var(--pink)',
+      desc:'Görsel kimlik ve ses tonu tutarlılığı denetimi uzmanı. Read-only.',
+      role:'Brand Consistency Auditor.',
+      tools:['Read'],mcp:[],
+      triggers:['Marka tutarlılığı kontrolü','Yeni içerik tonu denetimi'],
+      rules:['Renk, tipografi, ikonografi brand kit ile uyumlu olmalı','Ses tonu belgelenmiş kılavuza uymalı'],
+      stack:['Brand Guidelines · Voice & Tone · Design Tokens']},
+    {name:'design-persona-walkthrough',color:'var(--pink)',
+      desc:'Persona bazlı UX senaryo değerlendirmesi uzmanı. Read-only.',
+      role:'Persona-based UX Evaluator.',
+      tools:['Read'],mcp:[],
+      triggers:['Persona bazlı UX senaryosu değerlendirmesi'],
+      rules:['Her persona\'nın hedef ve kısıtlamaları gözetilir','Çelişkili persona ihtiyaçları raporlanır'],
+      stack:['Persona · Scenario-based Evaluation · Cognitive Walkthrough']},
+  ],
+  ps:[
+    {name:'project-manager-senior',color:'var(--amber)',
+      desc:'Sprint planı, risk yönetimi, milestone takibi, haftalık durum raporu uzmanı.',
+      role:'Senior Project Manager. Sprint planlamadan risk yönetimine.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['Sprint planlaması','Risk yönetimi','Milestone takibi','Haftalık durum raporu'],
+      rules:['Her sprint\'te risk log güncellenir','Milestone\'lar gün bazlı tarihlendirilir'],
+      stack:['Agile · Sprint Planning · Risk Register · Status Report']},
+    {name:'meeting-notes-specialist',color:'var(--amber)',
+      desc:'Toplantı notlarını yapılandırma, karar ve aksiyon maddesi çıkarma uzmanı.',
+      role:'Meeting Facilitator & Documenter.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['Toplantı notları yazımı ve yapılandırma','Aksiyon maddesi listesi çıkarma'],
+      rules:['Her aksiyon maddesinde owner ve deadline zorunlu','Kararlar gerekçesiyle belgelenir'],
+      output:'📋 Kararlar | ✅ Aksiyon maddeleri (owner + deadline) | ❓ Açık sorular'},
+    {name:'strategy-business-strategist',color:'var(--amber)',
+      desc:'Büyüme stratejisi, monetizasyon modeli, SWOT/RICE/Ansoff analizi uzmanı.',
+      role:'Business Strategist.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['Büyüme stratejisi geliştirme','Monetizasyon modeli tasarımı','Rekabet analizi'],
+      rules:['Strateji kanıt temelli olmalı','Rakip analizi güncel verilerle yapılır'],
+      stack:['SWOT · RICE · Ansoff Matrix · TAM/SAM/SOM · OKR']},
+    {name:'strategy-okr-coach',color:'var(--amber)',
+      desc:'OKR yazımı, quarter planlaması, çok proje kapasite dengesi uzmanı.',
+      role:'OKR Coach.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['OKR yazımı','Quarter planlaması','Çok proje kapasite dengesi'],
+      rules:['Objective ilham verici, KR ölçülebilir olmalı','Her KR\'da baseline ve hedef değer zorunlu'],
+      stack:['OKR Framework · Objectives · Key Results · Capacity Planning']},
+    {name:'research-synthesizer',color:'var(--amber)',
+      desc:'Çoklu kaynak sentezi, rakip analizi, araştırma bulguları raporlaması uzmanı.',
+      role:'Research Analyst.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['Araştırma sentezi ve raporlama','Rakip analizi','Pazar araştırması'],
+      rules:['Kaynak kalitesi değerlendirilir','Çelişkili bulgular belirtilir'],
+      stack:['Literature Review · Competitor Analysis · Market Research']},
+  ],
+  mk:[
+    {name:'marketing-content-strategist',color:'var(--emerald)',
+      desc:'App Store metni, release notes, teknik blog, developer içeriği uzmanı.',
+      role:'Content Strategist.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['App Store açıklaması yazımı','Release notes hazırlama','Teknik blog yazısı'],
+      rules:['App Store metni anahtar kelime optimize edilmeli','Release notes kullanıcı perspektifinden yazılır'],
+      stack:['ASO · Content Strategy · Technical Writing · Release Management']},
+    {name:'marketing-seo-specialist',color:'var(--emerald)',
+      desc:'ASO (App Store Optimization), web SEO, anahtar kelime araştırması uzmanı.',
+      role:'SEO/ASO Specialist.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['App Store anahtar kelime optimizasyonu','Web SEO analizi','Anahtar kelime araştırması'],
+      rules:['ASO için başlık + altyazı + açıklama optimize edilir','Core Web Vitals SEO\'yu etkiler'],
+      stack:['ASO · Google Search Console · Keywords · Core Web Vitals']},
+    {name:'marketing-copywriter',color:'var(--emerald)',
+      desc:'Pazarlama kopyası, onboarding ekran metinleri, push notification, CTA uzmanı.',
+      role:'Copywriter.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['Pazarlama kopyası yazımı','Onboarding metni','Push notification metni','CTA yazımı'],
+      rules:['Kopyada kullanıcı değeri önce, özellik ikinci','A/B test edilebilir varyantlar üretilir'],
+      stack:['Copywriting · UX Writing · A/B Testing · CTA Optimization']},
+    {name:'support-technical-support',color:'var(--emerald)',
+      desc:'Kullanıcı teknik sorun çözme adımları, FAQ ve destek dokümanı yazımı uzmanı.',
+      role:'Technical Support Writer.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['Teknik destek yanıtı','FAQ hazırlama','Kullanıcı kılavuzu yazımı'],
+      rules:['Adımlar numaralandırılır','Ekran görüntüsü referansları eklenir'],
+      stack:['Knowledge Base · Zendesk · FAQ · User Manual']},
+    {name:'support-customer-support',color:'var(--emerald)',
+      desc:'App Store yorum yanıtı, empati odaklı kullanıcı iletişimi, şikayet yönetimi uzmanı.',
+      role:'Customer Support Specialist. Yazma tool\'u vardır, okuma yoktur.',
+      tools:['Write'],mcp:[],
+      triggers:['App Store yorum yanıtı','Kullanıcı şikayeti yönetimi'],
+      rules:['Empati önce, çözüm sonra','Özür 1 kez yeterli','İsmi kullanarak kişisel hitap'],
+      stack:['Customer Empathy · App Store Reply · Complaint Management']},
+    {name:'technical-writer',color:'var(--emerald)',
+      desc:'API dokümantasyonu, README, mimari belgeler, developer guide uzmanı.',
+      role:'Technical Writer.',
+      tools:['Read','Write','Edit'],mcp:[],
+      triggers:['API dokümantasyonu yazımı','README hazırlama','Mimari karar belgesi (ADR)','Developer guide'],
+      rules:['OpenAPI/Swagger formatı zorunlu','Örnek request/response her endpoint\'te'],
+      stack:['OpenAPI · Swagger · ADR · Markdown · Docusaurus']},
+  ],
+  dc:[
+    {name:'specialized-reality-checker',color:'var(--cyan)',
+      desc:'Plan ve fikirlerin varsayım testi, kör nokta tespiti, gerçekçilik değerlendirmesi uzmanı.',
+      role:'Devil\'s Advocate / Reality Checker. Read-only — sorgular, kod yazmaz.',
+      tools:['Read'],mcp:[],
+      triggers:['Plan gerçeklik kontrolü','Varsayım testi','Kör nokta tespiti'],
+      rules:['Her iddiayı kanıt ister','İyimser tahminleri sorgular','En kötü senaryo listelenir'],
+      output:'Varsayım listesi → Doğrulama durumu → Kör noktalar → Alternatif senaryo'},
+    {name:'specialized-focus-manager',color:'var(--cyan)',
+      desc:'Çok proje önceliklendirme, haftalık odak planı, bağlam geçiş yönetimi uzmanı.',
+      role:'Focus & Priority Manager. Alarmo, ServisPass, ResQLink gibi paralel projeler.',
+      tools:['Read','Write'],mcp:[],
+      triggers:['Çok proje arasında önceliklendirme','Haftalık odak planı oluşturma','Bağlam geçiş maliyeti analizi'],
+      rules:['Odak blokları bölünemez','Bağlam geçiş maliyeti her karar noktasında hesaplanır'],
+      output:'📅 Haftalık odak planı | 🔀 Geçiş maliyeti analizi | ⚡ Hızlı karar matris'},
+  ],
+};
+
+const MCPS = [
+  {name:'microsoft-learn',color:'var(--emerald)',
+    desc:'Resmi Microsoft dokümantasyonu. .NET 10, EF Core, ASP.NET Core, Azure referans kaynağı.',
+    type:'URL tabanlı MCP (npm gerektirmez)',
+    url:'https://learn.microsoft.com/api/mcp',
+    env:'Zorunlu değil — direkt URL',
+    users:['backend-specialist'],
+    usecases:['EF Core migration API başvurusu','.NET 10 yeni özellik araştırması','ASP.NET Core middleware sıralaması','Azure servis dokümantasyonu'],
+    note:'Harici web araması yapmadan resmi dokümana ulaşır — hallüsinasyon riskini düşürür.'},
+  {name:'playwright',color:'var(--emerald)',
+    desc:'Browser otomasyon, E2E test, web scraping ve UI doğrulama.',
+    type:'NPM paketi',
+    pkg:'@playwright/mcp',
+    env:'Zorunlu değil',
+    users:['test-engineer'],
+    usecases:['E2E test senaryosu çalıştırma','UI eleman doğrulama','Web scraping','Görsel regresyon testi'],
+    note:'Claude\'un doğrudan browser kontrolü yapabilmesini sağlar.'},
+  {name:'postgres',color:'var(--emerald)',
+    desc:'PostgreSQL veritabanı schema okuma, query çalıştırma ve migration kontrolü.',
+    type:'NPM paketi',
+    pkg:'@modelcontextprotocol/server-postgres',
+    env:'POSTGRES_CONNECTION_STRING zorunlu',
+    users:['database-optimizer','backend-specialist'],
+    usecases:['Canlı schema okuma','Slow query analizi (EXPLAIN ANALYZE)','Migration çakışma kontrolü','Index kullanım istatistikleri'],
+    note:'.env dosyasında bağlantı bilgisi güvenli şekilde tanımlanır.'},
+  {name:'filesystem',color:'var(--emerald)',
+    desc:'Proje dışı dizinlere güvenli erişim. Paylaşılan kütüphaneler veya servis repoları.',
+    type:'NPM paketi',
+    pkg:'@modelcontextprotocol/server-filesystem',
+    env:'PROJECT_ROOT zorunlu',
+    users:['backend-specialist','frontend-developer','devops-engineer','database-optimizer'],
+    usecases:['Paylaşılan kütüphane kaynaklarına erişim','Mono-repo dışı bağımlılık okuma','Komşu servis repo\'su inceleme'],
+    note:'Sadece PROJECT_ROOT altındaki dizinlere erişim izni verilir.'},
+  {name:'brave-search',color:'var(--emerald)',
+    desc:'CVE araştırma, resmi dokümantasyon dışı web arama, güncel güvenlik açığı takibi.',
+    type:'NPM paketi',
+    pkg:'@modelcontextprotocol/server-brave-search',
+    env:'BRAVE_API_KEY zorunlu',
+    users:['security-specialist'],
+    usecases:['CVE numarası araştırma','Güvenlik açığı güncel durum kontrolü','NPM/NuGet paket güvenlik geçmişi'],
+    note:'brave.com/search/api üzerinden ücretsiz API key alınabilir (aylık 2000 sorgu).'},
+];
+
+const SKILL_CATS = [
+  {id:'gate',label:'Quality Gates',count:20,color:'var(--violet)',
+    items:[
+      {n:'audit-trail-guardian-gate',d:'DB tablolarında CreatedBy/ModifiedAt zorunlu'},
+      {n:'timezone-enforcer-gate',d:'DateTimeOffset.UtcNow zorunlu'},
+      {n:'privacy-pii-masking-gate',d:'PII loglama yasak'},
+      {n:'tenant-isolation-gate',d:'Multi-tenant TenantId filtresi zorunlu'},
+      {n:'pre-flight-security-gate',d:'Kod öncesi güvenlik blueprint'},
+      {n:'fail-fast-config-gate',d:'App başlangıcında config doğrulama'},
+      {n:'validation-and-integrity-gate',d:'3-tier: DB→FluentValidation→Client'},
+      {n:'stateless-architecture-gate',d:'Session yasak · JWT zorunlu'},
+      {n:'problem-details-gate',d:'RFC 7807 hata formatı'},
+      {n:'finite-state-machine-gate',d:'Kritik durum geçişleri → FSM'},
+      {n:'outbox-pattern-enforcer',d:'Event yayınlama → outbox'},
+      {n:'ddd-ubiquitous-language-gate',d:'Domain dili tutarlılığı'},
+      {n:'structured-logging-audit-gate',d:'Async log · immutable audit'},
+      {n:'chaos-adversarial-gate',d:'Timeout/503/null senaryoları zorunlu'},
+      {n:'graceful-degradation-gate',d:'Servis düşerse fallback zorunlu'},
+      {n:'llm-hallucination-firewall-gate',d:'LLM çıktısı doğrulanmadan parse edilemez'},
+      {n:'main-thread-and-performance-gate',d:'UI thread blocking yasak'},
+      {n:'critical-critique-gate',d:'Her çözümde alternatif + risk'},
+      {n:'update-changelog-workflow',d:'Her değişiklikte CHANGELOG'},
+      {n:'escalation-workflow',d:'Kritik karar → kullanıcı onayı'},
+    ]},
+  {id:'sec',label:'Pentest & Güvenlik',count:12,color:'var(--red)',
+    items:[
+      {n:'master-pentester',d:'Kapsamlı penetrasyon testi'},
+      {n:'api-pentest',d:'API güvenlik testi'},
+      {n:'jwt-token-security-pentester',d:'JWT zafiyet analizi'},
+      {n:'cors-misconfiguration-pentester',d:'CORS yanlış yapılandırma'},
+      {n:'csrf-attack-simulation-specialist',d:'CSRF saldırı simülasyonu'},
+      {n:'for-xss-vulnerabilities-pentester',d:'XSS zafiyet testi'},
+      {n:'oauth2-implementation-flaws-pentester',d:'OAuth2 implementasyon hataları'},
+      {n:'for-broken-access-control-pentester',d:'Kırık erişim kontrolü testi'},
+      {n:'api-for-broken-object-level-authorization-pentester',d:'BOLA/IDOR testi'},
+      {n:'api-for-mass-assignment-vulnerability-pentester',d:'Mass assignment zafiyeti'},
+      {n:'mobile-api-authentication-pentester',d:'Mobil API auth testi'},
+      {n:'graphql-security-assessment-specialist',d:'GraphQL güvenlik değerlendirmesi'},
+    ]},
+  {id:'arch',label:'Mimari & Tasarım',count:15,color:'var(--blue)',
+    items:[
+      {n:'dotnet-enterprise-architect',d:'.NET kurumsal mimari kararları'},
+      {n:'clean-code-reviewer',d:'Clean code prensipleri review'},
+      {n:'api-versioning-architect',d:'API versiyon stratejisi'},
+      {n:'cache-invalidation-architect',d:'Cache geçersizleştirme stratejisi'},
+      {n:'circuit-breaker-specialist',d:'Circuit breaker pattern implementasyonu'},
+      {n:'distributed-saga-manager',d:'Dağıtık saga pattern'},
+      {n:'edge-and-gateway-architect',d:'API gateway ve edge mimari'},
+      {n:'iac-architect',d:'Infrastructure as Code stratejisi'},
+      {n:'ba-orchestrator',d:'Business Analysis orkestrasyon'},
+      {n:'ba-architect',d:'BA mimari kararları'},
+      {n:'ba-elicitor',d:'Gereksinim toplama teknikleri'},
+      {n:'schema',d:'Veritabanı schema tasarımı'},
+      {n:'blast-radius-specialist',d:'Değişiklik etki analizi'},
+      {n:'db-architect-security',d:'DB güvenlik mimarisi'},
+      {n:'correlation-id-specialist',d:'Dağıtık izleme correlation ID'},
+    ]},
+  {id:'ops',label:'DevOps & Operasyon',count:10,color:'var(--emerald)',
+    items:[
+      {n:'ci-cd-engineer',d:'CI/CD pipeline tasarımı'},
+      {n:'container-master',d:'Docker ve container optimizasyonu'},
+      {n:'cloud-deployer',d:'Cloud deployment stratejisi'},
+      {n:'gitops-manager',d:'GitOps workflow yönetimi'},
+      {n:'deployment-orchestrator',d:'Deployment orkestrasyon'},
+      {n:'observability-setup',d:'Gözlemlenebilirlik altyapısı kurulumu'},
+      {n:'zero-downtime-deployment-strategist',d:'Sıfır kesintili deployment'},
+      {n:'scanning-containers-with-trivy-in-cicd',d:'CI/CD\'de Trivy container tarama'},
+      {n:'performance-tester',d:'Performans ve yük testi'},
+      {n:'e2e-tester',d:'E2E test otomasyonu'},
+    ]},
+  {id:'tool',label:'Araçlar',count:20,color:'var(--amber)',
+    items:[
+      {n:'graphify-tool',d:'Codebase knowledge graph oluşturma'},
+      {n:'caveman',d:'Caveman debug tekniği'},
+      {n:'caveman-commit',d:'Commit mesajı yardımcısı'},
+      {n:'caveman-compress',d:'Context sıkıştırma'},
+      {n:'caveman-stats',d:'Codebase istatistikleri'},
+      {n:'caveman-review',d:'Hızlı kod review'},
+      {n:'cavecrew',d:'Caveman tool koleksiyonu'},
+      {n:'focus-budget-tool',d:'Odak bütçesi yönetimi'},
+      {n:'corporate-memory-specialist',d:'Kurumsal hafıza yönetimi'},
+      {n:'image-to-code-tool',d:'Görsel → kod dönüşümü'},
+      {n:'office-documents-tool',d:'Office belge işleme'},
+      {n:'humanizer-tool',d:'Teknik metni sadeleştirme'},
+      {n:'mentor-mode-tool',d:'Öğretici açıklama modu'},
+      {n:'make-plan',d:'Uygulama planı hazırlama'},
+      {n:'skill-creator-tool',d:'Yeni skill oluşturma'},
+      {n:'mcp-builder-tool',d:'MCP server geliştirme'},
+      {n:'prototype',d:'Hızlı prototip oluşturma'},
+      {n:'forensic-detective',d:'Kod forensik analizi'},
+      {n:'recon-specialist',d:'Keşif ve bilgi toplama'},
+      {n:'imagegen-frontend-tool',d:'Görsel oluşturma ön yüz'},
+    ]},
+  {id:'orc',label:'Orchestrator',count:12,color:'var(--cyan)',
+    items:[
+      {n:'master-orchestrator',d:'Ana orkestrasyon kontrolü'},
+      {n:'code-orchestrator',d:'Kod geliştirme orkestrasyon'},
+      {n:'test-orchestrator',d:'Test süreçleri orkestrasyon'},
+      {n:'design-orchestrator',d:'Tasarım süreçleri orkestrasyon'},
+      {n:'docs-orchestrator',d:'Dokümantasyon orkestrasyon'},
+      {n:'marketing-orchestrator',d:'Pazarlama aktiviteleri orkestrasyon'},
+      {n:'security-orchestrator',d:'Güvenlik değerlendirme orkestrasyon'},
+      {n:'project-bootstrap-orchestrator',d:'Yeni proje kurulum orkestrasyon'},
+      {n:'api-handoff-workflow',d:'API teslim workflow\'u'},
+      {n:'generate-standup-workflow',d:'Günlük standup raporu'},
+      {n:'git-orchestrator',d:'Git workflow orkestrasyon'},
+      {n:'git-pr-reviewer',d:'PR review süreci'},
+    ]},
+  {id:'dom',label:'Domain Uzmanlığı',count:'50+',color:'var(--pink)',
+    items:[
+      {n:'swift-architecture-auditor',d:'Swift mimari denetimi'},
+      {n:'mobile-flutter-swift-architect',d:'Flutter/Swift mobil mimari'},
+      {n:'apple-design',d:'Apple tasarım prensipleri'},
+      {n:'ui-animation',d:'UI animasyon tasarımı'},
+      {n:'copywriting',d:'Metin yazarlığı'},
+      {n:'brandkit',d:'Marka kimliği oluşturma'},
+      {n:'technical-seo-architect',d:'Teknik SEO mimarisi'},
+      {n:'pick-ui-library',d:'UI kütüphane seçimi'},
+      {n:'product-designer',d:'Ürün tasarımı'},
+      {n:'product-marketer',d:'Ürün pazarlama'},
+      {n:'tech-business-analyst',d:'Teknik iş analizi'},
+      {n:'feature-ideator',d:'Özellik fikirlendirme'},
+      {n:'a11y-and-i18n-engineer',d:'Erişilebilirlik ve çoklu dil'},
+      {n:'finops-architect',d:'Cloud maliyet optimizasyonu'},
+      {n:'high-end-visual-design',d:'Üst düzey görsel tasarım'},
+      {n:'legacy-code-migrator-specialist',d:'Legacy kod göçü'},
+      {n:'concurrency-and-memory-profiler',d:'Eşzamanlılık ve bellek profili'},
+      {n:'secret-scanner',d:'Secret tarama'},
+      {n:'dependency-audit-gate',d:'Bağımlılık güvenlik denetimi'},
+      {n:'sca-dependency-scanning-with-snyk-specialist',d:'Snyk ile SCA tarama'},
+      {n:'adversarial-code-reviewer',d:'Saldırgan perspektifli review'},
+      {n:'client-security',d:'İstemci tarafı güvenlik'},
+      {n:'socratic-clarification-gate',d:'Sokratik soru tekniği'},
+      {n:'no-truncation-gate',d:'Yanıt kesme yasak kuralı'},
+      {n:'swagger-and-xml-doc-gate',d:'Swagger + XML dokümantasyon'},
+      {n:'turkish-language-enforcer-gate',d:'Türkçe dil zorunluluğu'},
+      {n:'git-conventional-commits-workflow',d:'Conventional commit standartları'},
+      {n:'git-issue-manager',d:'Git issue yönetimi'},
+      {n:'git-repo-setup-workflow',d:'Repo kurulum workflow\'u'},
+      {n:'unit-test-architect',d:'Unit test mimarisi'},
+      {n:'test-driven-development-gate',d:'TDD kuralları ve kısıtlamaları'},
+      {n:'design-taste-frontend-gate',d:'Frontend estetik kalite kapısı'},
+      {n:'api-documentation-architect',d:'API dokümantasyon mimarisi'},
+      {n:'api-security-with-owasp-top-10-pentester',d:'OWASP Top 10 API güvenliği'},
+      {n:'api-authentication-weaknesses-pentester',d:'API kimlik doğrulama zafiyetleri'},
+      {n:'secrets-scanning-in-ci-cd-specialist',d:'CI/CD\'de secret tarama'},
+      {n:'onboarding',d:'Yeni kullanıcı karşılama'},
+      {n:'init',d:'Proje başlatma'},
+      {n:'run',d:'Uygulama başlatma'},
+      {n:'security-review',d:'Güvenlik review'},
+      {n:'simplify',d:'Kod sadeleştirme'},
+      {n:'code-review',d:'Kapsamlı kod review'},
+      {n:'loop',d:'Yinelemeli görev döngüsü'},
+      {n:'schedule',d:'Zamanlanmış görev oluşturma'},
+      {n:'claude-api',d:'Claude API referansı'},
+      {n:'dataviz',d:'Veri görselleştirme'},
+      {n:'artifact-design',d:'Artifact tasarım kılavuzu'},
+      {n:'artifact-capabilities',d:'Artifact runtime yetenekleri'},
+    ]},
+];
+
+// ── RENDER FUNCTIONS ──────────────────────────────────────────────────────────
+
+function pdata(d) {
+  // Serialize for onclick
+  return JSON.stringify(d).replace(/"/g,'&quot;');
+}
+
+function renderHook(h) {
+  const pill = h.effect==='BLOK'?'pill-red':h.effect==='UYARI'?'pill-amber':'pill-blue';
+  return `<div class="card" style="--ca:${h.color}" onclick='openPanel(${JSON.stringify(h.name)},${JSON.stringify(h.color)},buildHookPanel(HOOKS.find(x=>x.name===${JSON.stringify(h.name)})))'>
+    <div class="cn">${h.name}</div>
+    <div class="cd">${h.desc}</div>
+    <div class="ct">
+      <span class="tag-inline ${pill}" style="font-family:monospace;font-size:10px;padding:2px 6px;border-radius:20px">${h.effect}</span>
+      ${h.tags.slice(1).map(t=>`<span class="tag">${t}</span>`).join('')}
+    </div>
+  </div>`;
+}
+
+function renderGate(g) {
+  return `<div class="card" style="--ca:${g.color}" onclick='openPanel(${JSON.stringify(g.name)},${JSON.stringify(g.color)},buildGatePanel(GATES.find(x=>x.name===${JSON.stringify(g.name)})))'>
+    <div class="cn">${g.name}</div>
+    <div class="cd">${g.desc}</div>
+    <div class="ct"><span class="tag al">alwaysApply</span><span class="tag">${g.cat}</span></div>
+  </div>`;
+}
+
+function renderAgent(a, color) {
+  return `<div class="card" style="--ca:${color}" onclick='openPanel(${JSON.stringify(a.name)},${JSON.stringify(color)},buildAgentPanel(findAgent(${JSON.stringify(a.name)})))'>
+    <div class="cn">${a.name}</div>
+    <div class="cd">${a.desc}</div>
+    <div class="ct">
+      ${a.tools.map(t=>`<span class="tag t">${t}</span>`).join('')}
+      ${(a.mcp||[]).map(m=>`<span class="tag mc">${m.split(' ')[0]}</span>`).join('')}
+    </div>
+  </div>`;
+}
+
+function renderMcp(m) {
+  return `<div class="card" style="--ca:${m.color}" onclick='openPanel(${JSON.stringify(m.name)},${JSON.stringify(m.color)},buildMcpPanel(MCPS.find(x=>x.name===${JSON.stringify(m.name)})))'>
+    <div class="cn">${m.name}</div>
+    <div class="cd">${m.desc}</div>
+    <div class="ct">
+      <span class="tag mc">MCP</span>
+      <span class="tag">${m.env.includes('env')?'env gerekli':'hazır'}</span>
+    </div>
+  </div>`;
+}
+
+function renderSkillItem(s, color) {
+  return `<div class="card" style="--ca:${color}" onclick='openPanel(${JSON.stringify(s.n)},${JSON.stringify(color)},buildSkillPanel(${JSON.stringify(s)}))'>
+    <div class="cn">${s.n}</div>
+    <div class="cd">${s.d}</div>
+  </div>`;
+}
+
+function renderMini(a, color) {
+  return `<div class="mini" style="--mc:${color}" onclick='openPanel(${JSON.stringify(a.name)},${JSON.stringify(color)},buildAgentPanel(findAgent(${JSON.stringify(a.name)})))'>
+    <div class="mn">${a.name}</div>
+    <div class="ms">${a.desc.split(',').slice(0,2).join(',')}</div>
+  </div>`;
+}
+
+// Build grids
+document.getElementById('g-hooks').innerHTML = HOOKS.map(h=>renderHook(h)).join('');
+document.getElementById('g-gates').innerHTML = GATES.map(g=>renderGate(g)).join('');
+
+const techColor='var(--blue)',qsColor='var(--red)',pdColor='var(--pink)',psColor='var(--amber)',mkColor='var(--emerald)',dcColor='var(--cyan)';
+document.getElementById('g-tech').innerHTML = AGENTS.tech.map(a=>renderAgent(a,techColor)).join('');
+document.getElementById('g-qs').innerHTML = AGENTS.qs.map(a=>renderAgent(a,qsColor)).join('');
+document.getElementById('g-pd').innerHTML = AGENTS.pd.map(a=>renderAgent(a,pdColor)).join('');
+document.getElementById('g-ps').innerHTML = AGENTS.ps.map(a=>renderAgent(a,psColor)).join('');
+document.getElementById('g-mk').innerHTML = AGENTS.mk.map(a=>renderAgent(a,mkColor)).join('');
+document.getElementById('g-dc').innerHTML = AGENTS.dc.map(a=>renderAgent(a,dcColor)).join('');
+document.getElementById('g-mcp').innerHTML = MCPS.map(m=>renderMcp(m)).join('');
+
+// Overview mini
+const colorMap = {tech:techColor,qs:qsColor,pd:pdColor,ps:psColor,mk:mkColor,dc:dcColor};
+document.getElementById('ov-agents').innerHTML = Object.entries(AGENTS).flatMap(([cat,agents])=>agents.map(a=>renderMini(a,colorMap[cat]))).join('');
+
+// Skills
+const sw = document.getElementById('skills-wrap');
+SKILL_CATS.forEach(cat => {
+  sw.innerHTML += `<div style="margin-bottom:28px">
+    <div class="sh"><span class="sh-name" style="color:${cat.color};font-size:14px">${cat.label}</span><span class="sh-meta">${cat.count} skill</span></div>
+    <div class="grid g3">${cat.items.map(s=>renderSkillItem(s,cat.color)).join('')}</div>
+  </div>`;
+});
+
+// ── PANEL BUILDERS ────────────────────────────────────────────────────────────
+
+function findAgent(name) {
+  for (const cat of Object.values(AGENTS)) {
+    const found = cat.find(a=>a.name===name);
+    if (found) return found;
+  }
+}
+
+function rows(label, items) {
+  if (!items || !items.length) return '';
+  return `<div class="psec"><div class="psec-label">${label}</div>${items.map(i=>`<div class="prow">${i}</div>`).join('')}</div>`;
+}
+
+function buildHookPanel(h) {
+  if (!h) return '<div class="prow">—</div>';
+  const pill = h.effect==='BLOK'?'pill-red':h.effect==='UYARI'?'pill-amber':'pill-blue';
+  return rows('Açıklama',[h.desc]) +
+    rows('Tetiklenen Patternler', h.patterns.map(p=>`<code>${p.p}</code> — ${p.why}`)) +
+    rows('Sonuç',[h.result]);
+}
+
+function buildGatePanel(g) {
+  if (!g) return '<div class="prow">—</div>';
+  return rows('Açıklama',[g.desc]) +
+    rows('Kural',[g.rule]) +
+    rows('Örnek',[`<code style="display:block;white-space:pre-wrap;font-size:11px;line-height:1.6">${g.example}</code>`]) +
+    rows('Neden Önemli',[g.why]);
+}
+
+function buildAgentPanel(a) {
+  if (!a) return '<div class="prow">—</div>';
+  return rows('Rol',[a.role]) +
+    rows('Tools', a.tools.map(t=>`<span class="tag-inline pill-blue" style="font-family:monospace;font-size:10px;padding:1px 6px;border-radius:20px">${t}</span>`).join(' ')) +
+    (a.mcp && a.mcp.length ? rows('MCP Bağlantıları', a.mcp) : '') +
+    rows('Delegasyon Tetikleyicileri', a.triggers) +
+    rows('Zorunlu Kurallar', a.rules) +
+    (a.output ? rows('Çıktı Formatı',[`<code>${a.output}</code>`]) : '') +
+    rows('Teknoloji Stack', [a.stack ? a.stack.join ? a.stack.join(' | ') : a.stack : '—']);
+}
+
+function buildMcpPanel(m) {
+  if (!m) return '<div class="prow">—</div>';
+  return rows('Açıklama',[m.desc]) +
+    rows('Tip',[m.type]) +
+    rows(m.url ? 'URL' : 'NPM Paketi', [m.url || m.pkg]) +
+    rows('Çevre Değişkeni',[m.env]) +
+    rows('Kullanan Agentlar', m.users) +
+    rows('Kullanım Senaryoları', m.usecases) +
+    rows('Not',[m.note]);
+}
+
+function buildSkillPanel(s) {
+  if (!s) return '<div class="prow">—</div>';
+  return rows('Açıklama',[s.d]) +
+    rows('Dosya Yolu',[`<code>.claude/skills/${s.n}</code>`]) +
+    rows('Nasıl Kullanılır',[`Slash komutu: <code>/${s.n}</code>`,`Skill tool: <code>Skill({skill:"${s.n}"})</code>`]);
+}
+
+// ── PANEL OPEN/CLOSE ──────────────────────────────────────────────────────────
+
+function openPanel(title, color, html) {
+  document.getElementById('p-title').textContent = title;
+  document.getElementById('p-accent').style.background = color;
+  document.getElementById('p-sub').textContent = '';
+  document.getElementById('p-body').innerHTML = html;
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closePanel() {
+  document.getElementById('overlay').classList.remove('open');
+}
+
+function maybeClose(e) {
+  if (e.target === document.getElementById('overlay')) closePanel();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closePanel();
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); document.getElementById('search').focus(); }
+});
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+
+const VIEW_TITLES = {
+  overview:'Sistem Akışı', hooks:'Hooks', gates:'Quality Gates',
+  tech:'Teknik Agentlar', qs:'Kalite & Güvenlik', pd:'Ürün & Tasarım',
+  ps:'Proje & Strateji', mk:'Pazarlama & Destek', dc:'Karar Destek',
+  mcp:'MCP Serverlar', skills:'Skill Kataloğu'
+};
+
+function go(id, el) {
+  document.querySelectorAll('.view').forEach(v=>{v.classList.remove('active');v.style.display='';});
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const v = document.getElementById('v-'+id);
+  if (v) v.classList.add('active');
+  if (el) el.classList.add('active');
+  else { const n = document.querySelector(`[data-view="${id}"]`); if(n) n.classList.add('active'); }
+  document.getElementById('vtitle').textContent = VIEW_TITLES[id] || id;
+  document.getElementById('search').value = '';
+  clearSearch();
+}
+
+// ── SEARCH ────────────────────────────────────────────────────────────────────
+
+function doSearch(q) {
+  const term = q.trim().toLowerCase();
+  if (!term) { clearSearch(); return; }
+  document.querySelectorAll('.view').forEach(v=>{ v.style.display='block'; v.classList.remove('active'); });
+  document.getElementById('v-overview').style.display = 'none';
+  document.querySelectorAll('.card, .mini').forEach(c => {
+    c.classList.toggle('hidden', !c.textContent.toLowerCase().includes(term));
+  });
+  document.getElementById('vtitle').textContent = `"${q}"`;
+}
+
+function clearSearch() {
+  document.querySelectorAll('.card, .mini').forEach(c=>c.classList.remove('hidden'));
+  document.querySelectorAll('.view').forEach(v=>{ v.style.display=''; });
+  const active = document.querySelector('.nav-item.active');
+  if (active) {
+    const id = active.getAttribute('data-view');
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    const v = document.getElementById('v-'+id);
+    if (v) v.classList.add('active');
+  }
+}
+</script>
+</body>
+</html>
