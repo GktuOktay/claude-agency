@@ -1,40 +1,86 @@
-# Contributing Guidelines
+# 🤝 Contributing Guidelines
 
-Bu projeye katkıda bulunmak istediğiniz için teşekkür ederiz! Lütfen aşağıdaki yönergeleri izleyin.
+🌐 **English** · [Türkçe](CONTRIBUTING.tr.md)
 
-## How to Contribute
-1. Projeyi fork'layın.
-2. Yeni bir branch oluşturun (`git checkout -b feature/yeni-ozellik`).
-3. Değişikliklerinizi yapın.
-4. Commit'leyin (`git commit -m 'feat: yeni özellik eklendi'`).
-5. Branch'inize push'layın (`git push origin feature/yeni-ozellik`).
-6. Pull Request (PR) oluşturun.
+Thank you for your interest in contributing to **Claude Agency**! To maintain high engineering standards and seamless multi-agent orchestration, please follow the guidelines below.
 
-## Skill Ekleme Rehberi
-Yeni bir skill eklerken, `SKILL.md` formatında olmalı ve başında aşağıdaki gibi bir YAML frontmatter içermelidir:
-```yaml
 ---
-name: Skill_Name
-description: Skill'in kısa açıklaması
+
+## 🚀 How to Contribute
+
+1. **Fork** the repository on GitHub.
+2. Create a feature branch from `main`:
+   ```bash
+   git checkout -b feature/my-new-skill
+   ```
+3. Commit your changes following [Conventional Commits](https://www.conventionalcommits.org/):
+   ```bash
+   git commit -m "feat(skill): add new cloud security audit skill"
+   ```
+4. Push to your fork:
+   ```bash
+   git push origin feature/my-new-skill
+   ```
+5. Open a **Pull Request (PR)** against `main`.
+
 ---
+
+## 🛠️ Adding a New Skill
+
+All skills reside in `.claude/skills/<skill-name>/SKILL.md`. Each skill MUST start with YAML frontmatter on line 1:
+
+```markdown
+---
+name: my-skill-name
+description: "Brief one-sentence description explaining triggers and capabilities."
+alwaysApply: false
+---
+
+# Skill Title
+
+Skill instructions, guidelines, and execution steps...
 ```
-İçerik kısmında skill'in ne işe yaradığını ve nasıl kullanılacağını açıklayın.
 
-## Agent Ekleme Rehberi
-Yeni bir agent eklerken, agent'ın markdown dosyası boş olmamalıdır. Agent'ın amacını, kullandığı skill'leri ve davranışlarını net bir şekilde belirtin.
+### Skill Standards:
+- **Zero Truncation**: Never use placeholders like `...` or `// rest remains the same`.
+- **Anti-Sycophancy**: Maintain objective, direct engineering critique.
+- **Frontmatter**: Must strictly begin with `---` on line 1.
 
-## Commit Standartları
-Projeye katkıda bulunurken [Conventional Commits](https://www.conventionalcommits.org/) standartlarını kullanıyoruz. Örnek commit mesajları:
-- `feat:` (Yeni bir özellik eklendiğinde)
-- `fix:` (Bir hata düzeltildiğinde)
-- `docs:` (Sadece dökümantasyon değişiklikleri yapıldığında)
-- `chore:` (Build süreci, araçlar vs. güncellendiğinde)
+---
 
-## Pull Request (PR) Kuralları
-- PR açıklamasını eksiksiz doldurun.
-- Varsa ilgili issue'ları linkleyin.
-- Kodunuzun mevcut mimari ve kodlama standartlarına uygun olduğundan emin olun.
-- PR şablonundaki kontrol listesini tamamlayın.
+## 🤖 Adding or Modifying Subagents
 
-## Code of Conduct
-Tüm katkıcılar [Code of Conduct](CODE_OF_CONDUCT.md) belgesindeki kurallara uymakla yükümlüdür.
+Subagents reside in `.claude/agents/<agent-name>.md`. Each agent definition must include:
+1. **Frontmatter**: `name`, `description`, `model`, and allowed `tools`.
+2. **Persona & Scope**: Specific domain boundaries (e.g., backend, security, testing).
+3. **Mandatory Rules & Workflows**: Explicit operational constraints and checklists.
+
+---
+
+## 📝 Commit Standards
+
+We enforce [Conventional Commits](https://www.conventionalcommits.org/):
+
+| Type | Description |
+|---|---|
+| `feat:` | A new skill, agent, or feature |
+| `fix:` | Bug fix in prompts, scripts, or hooks |
+| `docs:` | Documentation changes only |
+| `refactor:` | Refactoring existing skills without behavior changes |
+| `chore:` | Tooling, CI, or dependency updates |
+
+---
+
+## 🚦 Pull Request Checklist
+
+Before submitting your PR, verify:
+- [ ] All `SKILL.md` files begin with `---` YAML frontmatter.
+- [ ] No agent definition file is empty.
+- [ ] Documentation catalogs (`docs/skill-catalog.md`, `docs/agents.md`) are updated if counts changed.
+- [ ] CI validation passes on your fork.
+
+---
+
+## 📜 Code of Conduct
+
+All contributors are expected to adhere to our [Code of Conduct](CODE_OF_CONDUCT.md).

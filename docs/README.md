@@ -2,6 +2,8 @@
 
 Claude Agency sisteminin tüm mimari, ajan, yetenek ve konfigürasyon referansları aşağıda listelenmiştir.
 
+> 🌐 **Dil Politikası:** Bu dizindeki dokümantasyon ve ajan personoları, `CLAUDE.md`'deki temel kurala uygun olarak **Türkçe** hazırlanmıştır (kod blokları ve teknik terminoloji evrensel İngilizce'dir). Genel açık kaynak katkıcıları için kök dizindeki `README.md` ve `CONTRIBUTING.md` İngilizce olarak sunulmaktadır.
+
 ---
 
 ## 🗺️ Canlı Görsel Harita

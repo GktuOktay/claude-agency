@@ -149,9 +149,16 @@ flowchart TD
 | [flow-diagram.md](docs/flow-diagram.md) | Lifecycle and task flow diagrams |
 | [memory-guide.md](docs/memory-guide.md) | Persistent project memory guide |
 
+## 🌐 Language Policy
+
+This repository implements a deliberate hybrid language architecture:
+- **Public Entrypoints**: Fully bilingual (`README.md` & `CONTRIBUTING.md` in English; `README.tr.md` & `CONTRIBUTING.tr.md` in Turkish).
+- **Documentation (`docs/`) & Agent Personas (`.claude/agents/`)**: Authored in **Turkish prose** (with English code and technical nomenclature), strictly aligning with the core persona rules in `CLAUDE.md`.
+- **Skills (`.claude/skills/`)**: Turkish capability descriptions for Claude Code semantic routing, with universal English engineering checklists and code examples.
+
 ## 🤝 Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](CONTRIBUTING.md) ([Türkçe](CONTRIBUTING.tr.md)) for guidelines.
 
 ## 📄 License
 

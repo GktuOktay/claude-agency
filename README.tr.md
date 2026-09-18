@@ -149,9 +149,16 @@ flowchart TD
 | [flow-diagram.md](docs/flow-diagram.md) | Yaşam döngüsü ve detaylı akış diyagramları |
 | [memory-guide.md](docs/memory-guide.md) | Kalıcı proje hafıza sistemi rehberi |
 
+## 🌐 Dil Politikası (Language Policy)
+
+Bu depo bilinçli bir hibrit dil mimarisine sahiptir:
+- **Giriş Belgeleri**: Tamamen çift dilli (`README.md` & `CONTRIBUTING.md` İngilizce; `README.tr.md` & `CONTRIBUTING.tr.md` Türkçe).
+- **Dokümantasyon (`docs/`) ve Alt Ajanlar (`.claude/agents/`)**: `CLAUDE.md`'deki temel persona kuralına uygun olarak **Türkçe anlatım** (İngilizce kod ve teknik terminoloji) ile yazılmıştır.
+- **Beceriler (`.claude/skills/`)**: Claude Code anlamsal tetikleyicileri için Türkçe açıklamalar, kural gövdelerinde ise uluslararası İngilizce mühendislik kontrol listeleri ve kod standartları barındırır.
+
 ## 🤝 Katkıda Bulunma
 
-Kurallar için [CONTRIBUTING.md](CONTRIBUTING.md) dosyasına bakın.
+Kurallar için [CONTRIBUTING.tr.md](CONTRIBUTING.tr.md) ([English](CONTRIBUTING.md)) dosyasına bakın.
 
 ## 📄 Lisans
 

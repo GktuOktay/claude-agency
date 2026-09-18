@@ -15,37 +15,43 @@ jobs:
 
       - name: Count skills and agents
         run: |
-          echo "Counting skills and agents..."
-          find . -name "SKILL.md" -o -path "*/skills/*.md" | wc -l
-          find . -path "*/agents/*.md" | wc -l
-          echo "Done."
+          echo "=== Envanter Sayımı ==="
+          SKILLS_COUNT=$(find .claude/skills -name "SKILL.md" | wc -l)
+          AGENTS_COUNT=$(find .claude/agents -maxdepth 1 -name "*.md" | wc -l)
+          echo "Bulunan Skill Sayısı: $SKILLS_COUNT"
+          echo "Bulunan Agent Sayısı: $AGENTS_COUNT"
+          
+          if [ "$SKILLS_COUNT" -eq 0 ]; then
+            echo "HATA: Hiç skill bulunamadı!"
+            exit 1
+          fi
+          if [ "$AGENTS_COUNT" -eq 0 ]; then
+            echo "HATA: Hiç agent bulunamadı!"
+            exit 1
+          fi
 
       - name: Validate SKILL.md frontmatter
         run: |
-          echo "Validating SKILL.md files have YAML frontmatter..."
-          find . -name "SKILL.md" -o -path "*/skills/*.md" | while read -r file; do
+          echo "=== SKILL.md YAML Frontmatter Doğrulaması ==="
+          find .claude/skills -name "SKILL.md" | while read -r file; do
             if [ -f "$file" ]; then
               if ! head -n 1 "$file" | grep -q "^---$"; then
-                echo "Error: $file does not start with ---"
+                echo "Hata: $file '---' ile başlamıyor!"
                 exit 1
               fi
             fi
           done
+          echo "Tüm SKILL.md dosyaları geçerli YAML frontmatter ile başlıyor."
 
       - name: Validate agent markdown files are non-empty
         run: |
-          echo "Validating agent files..."
-          find . -path "*/agents/*.md" | while read -r file; do
+          echo "=== Agent Dosyaları Doğrulaması ==="
+          find .claude/agents -maxdepth 1 -name "*.md" | while read -r file; do
             if [ -f "$file" ]; then
               if [ ! -s "$file" ]; then
-                echo "Error: Agent file $file is empty"
+                echo "Hata: Agent dosyası $file boş!"
                 exit 1
               fi
             fi
           done
-
-      - name: Run markdownlint
-        continue-on-error: true
-        run: |
-          npm install -g markdownlint-cli
-          markdownlint "**/*.md"
+          echo "Tüm agent dosyaları dolu ve geçerli."
