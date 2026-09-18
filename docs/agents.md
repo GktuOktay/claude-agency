@@ -1,337 +1,110 @@
-# Subagent Referansı
+# Subagent Referansı — 38 Agent
 
-Claude Code'un native subagent sistemi ile ağır görevler izole, doğru modelle çalışır.
-
-## Ne Zaman Subagent Kullanılır?
-
-- 3'ten fazla dosya değiştirecek görevler
-- Domain uzmanlığı gerektiren işler
-- Ana context window'u kirletmemek istediğinde
-- Paralel yürütme gereken bağımsız görevler
+> Claude Agency'nin tüm subagent tanımları. Her agent `.claude/agents/<agent-name>.md` yolunda tanımlıdır.
 
 ---
 
-## Teknik Agentlar
+## 🔧 Teknik (7)
 
-### `backend-specialist`
-**Tools:** Read, Edit, Write, Bash
-
-.NET 10, EF Core 9+, Clean Architecture, CQRS, MediatR uzmanı.
-
-**Delegasyon tetikleyicileri:** Yeni entity/domain model, EF Core migration, repository/service katmanı, CQRS handler
-
-**Kaynak önceliği:** microsoft-learn MCP → dotnet/dotnet GitHub
-
----
-
-### `frontend-developer`
-**Tools:** Read, Edit, Write, Bash
-
-React 19+, TypeScript strict, Tailwind CSS, Core Web Vitals uzmanı.
-
-**Delegasyon tetikleyicileri:** UI komponent geliştirme, state yönetimi, performans optimizasyonu, erişilebilirlik
+| Agent | Görev | Uzmanlık |
+|---|---|---|
+| `backend-specialist` | Backend geliştirme | .NET 10, EF Core, CQRS, MediatR, Vertical Slice |
+| `frontend-developer` | Frontend geliştirme | React 19+, TypeScript, Core Web Vitals |
+| `mobile-ios-swift` | Mobil geliştirme | Swift 6, SwiftUI, watchOS, iOS |
+| `database-optimizer` | Veritabanı optimizasyonu | PostgreSQL 17, EF Core migration, query tuning |
+| `devops-engineer` | DevOps süreçleri | CI/CD, Docker, Kubernetes, IaC |
+| `gis-web-developer` | Harita ve konum | Harita, güzergah planlama, gerçek zamanlı konum |
+| `integrations-webhook-specialist` | Entegrasyon | Webhook, event-driven servis entegrasyonu |
 
 ---
 
-### `mobile-ios-swift`
-**Tools:** Read, Edit, Write, Bash
+## ✅ Kalite & Güvenlik (9)
 
-Swift 6.1, SwiftUI 6, watchOS 11+, Swift Testing, Swift Data, WCSession uzmanı.
-
-**Delegasyon tetikleyicileri:** iOS/watchOS özellik geliştirme, WCSession senkronizasyonu, HealthKit/EventKit entegrasyonu, Xcode build sorunları
-
----
-
-### `database-optimizer`
-**Tools:** Read, Edit, Write, Bash
-
-PostgreSQL 17, EF Core 9, query optimizasyonu, zero-downtime migration uzmanı.
-
-**Delegasyon tetikleyicileri:** Yavaş query analizi, index stratejisi, EF Core N+1 tespiti, migration yazımı
+| Agent | Görev | Uzmanlık |
+|---|---|---|
+| `code-reviewer` | Kod inceleme | PR review, kod kalite denetimi |
+| `test-engineer` | Test geliştirme | Unit/Integration/E2E, TDD |
+| `testing-qa-engineer` | QA mühendisliği | Test senaryosu, edge case tasarımı |
+| `testing-test-strategist` | Test stratejisi | Test piramidi, araç seçimi, kapsam analizi |
+| `security-specialist` | Güvenlik mimarisi | OWASP, pentest, JWT, STRIDE, AI kod denetimi |
+| `security-secrets-engineer` | Secret yönetimi | Credential sızıntı önleme, secret rotation |
+| `security-compliance-auditor` | Uyumluluk | GDPR, App Store gizlilik, veri koruma |
+| `security-ai-code-auditor` | AI kod denetimi | AI üretimi kod özel güvenlik taraması |
+| `incident-response` | Olay müdahalesi | Prodüksiyon olayı, SEV sınıflandırma, postmortem |
 
 ---
 
-### `devops-engineer`
-**Tools:** Read, Edit, Write, Bash
+## 🎨 Ürün & Tasarım (9)
 
-GitHub Actions, Docker, Kubernetes, Terraform, Azure/AWS uzmanı.
-
-**Delegasyon tetikleyicileri:** CI/CD pipeline, container image, IaC, zero-downtime deployment
-
----
-
-### `gis-web-developer`
-**Tools:** Read, Edit, Write, Bash
-
-MapLibre GL JS, Leaflet, WebSocket tabanlı gerçek zamanlı konum takibi, güzergah planlama uzmanı.
-
-**Delegasyon tetikleyicileri:** Harita entegrasyonu, canlı araç/servis takibi, güzergah hesaplama, coğrafi veri görselleştirme
+| Agent | Görev | Uzmanlık |
+|---|---|---|
+| `product-manager` | Ürün yönetimi | PRD, roadmap, özellik kararı |
+| `product-sprint-prioritizer` | Sprint planlama | Backlog önceliklendirme, velocity analizi |
+| `product-feedback-synthesizer` | Geri bildirim | Kullanıcı geri bildirimi sentezi ve tematik analiz |
+| `design-ui-designer` | UI tasarım | Tailwind CSS, Radix UI, responsive design |
+| `design-ux-architect` | UX mimari | Kullanıcı akışı, bilgi mimarisi, wireframe |
+| `design-ux-researcher` | UX araştırma | Kullanıcı araştırması, usability testleri |
+| `design-ui-finish-gate-reviewer` | UI kalite kontrol | Piksel mükemmelliği, görsel tutarlılık denetimi |
+| `design-brand-guardian` | Marka koruma | Marka tutarlılığı, stil rehberi uyumu |
+| `design-persona-walkthrough` | Persona testi | Persona bazlı UX walkthrough ve senaryo testi |
 
 ---
 
-### `integrations-webhook-specialist`
-**Tools:** Read, Edit, Write, Bash
+## 📊 Proje & Strateji (5)
 
-Webhook tasarımı, HMAC imzalama, idempotency, event-driven entegrasyon uzmanı.
-
-**Delegasyon tetikleyicileri:** Webhook endpoint tasarımı, üçüncü parti servis entegrasyonu, event-driven mimari
-
----
-
-## Kalite & Güvenlik Agentları
-
-### `code-reviewer`
-**Tools:** Read, Bash *(Read-only — kod yazmaz)*
-
-Kod kalite denetimi. Her bulgu satır numarasıyla raporlanır.
-
-**Çıktı formatı:** `L{n}: [🔴CRITICAL|🟡WARN|🔵INFO] kategori: sorun → Fix: çözüm`
+| Agent | Görev | Uzmanlık |
+|---|---|---|
+| `project-manager-senior` | Proje yönetimi | Sprint planı, risk yönetimi, timeline |
+| `meeting-notes-specialist` | Toplantı notları | Aksiyon maddeleri, karar takibi |
+| `strategy-business-strategist` | İş stratejisi | Büyüme stratejisi, monetizasyon, rekabet analizi |
+| `strategy-okr-coach` | OKR koçluğu | OKR yazımı, quarter planlaması, odak |
+| `research-synthesizer` | Araştırma sentezi | Kaynak analizi, araştırma raporlama |
 
 ---
 
-### `test-engineer`
-**Tools:** Read, Edit, Write, Bash
+## 📢 Pazarlama & Destek (6)
 
-xUnit, NUnit, TestContainers, Playwright, k6 uzmanı.
-
-**Kural:** Mock DB yasak — TestContainers zorunlu.
-
----
-
-### `testing-qa-engineer`
-**Tools:** Read, Write, Edit, Bash
-
-Test senaryosu tasarımı, edge case tespiti, acceptance criteria uzmanı.
-
-**Delegasyon tetikleyicileri:** Test planı yazımı, regresyon test listesi, "bu özelliği nasıl test ederiz?"
+| Agent | Görev | Uzmanlık |
+|---|---|---|
+| `marketing-content-strategist` | İçerik stratejisi | App Store metni, release notes, blog |
+| `marketing-seo-specialist` | SEO | ASO, web SEO, anahtar kelime analizi |
+| `marketing-copywriter` | Metin yazarlığı | Pazarlama kopyası, onboarding metni, CTA |
+| `support-technical-support` | Teknik destek | Kullanıcı sorun çözme, FAQ |
+| `support-customer-support` | Müşteri desteği | Şikayet yönetimi, memnuniyet takibi |
+| `technical-writer` | Teknik yazarlık | API dokümantasyonu, teknik rehberler |
 
 ---
 
-### `testing-test-strategist`
-**Tools:** Read, Write
+## 🎯 Özel Görev (2)
 
-Test piramidi tasarımı, araç seçimi, CI/CD test entegrasyonu uzmanı.
-
-**Delegasyon tetikleyicileri:** Yeni proje test altyapısı kurulumu, "hangi testleri ne kadar yazalım?" kararları
-
----
-
-### `security-specialist`
-**Tools:** Read, Bash, WebSearch, WebFetch
-
-OWASP Top 10, STRIDE tehdit modelleme, JWT/OAuth2, API güvenliği, AI üretimi kod denetimi uzmanı.  
-Üç bölüm: **Kod Güvenliği** · **Güvenlik Mimarisi** · **AI Kod Denetimi**
-
-**Delegasyon tetikleyicileri:** Pentest, güvenlik review, auth implementasyonu, mimari tehdit modelleme
-
-**Çıktı formatı:** `[KRİTİK|YÜKSEK|ORTA|DÜŞÜK] bulgu → PoC → Fix`
+| Agent | Görev | Uzmanlık |
+|---|---|---|
+| `specialized-focus-manager` | Odak yönetimi | Görev kapsamını daraltma, scope creep engelleme |
+| `specialized-reality-checker` | Gerçeklik kontrolü | Fizibilite analizi, varsayım doğrulama |
 
 ---
 
-### `security-secrets-engineer`
-**Tools:** Read, Bash
+## Delegasyon Kuralları
 
-Credential yönetimi, hardcoded secret tespiti, key rotation, .env güvenliği uzmanı.
+`CLAUDE.md`'de tanımlanan delegasyon eşiği — aşağıdakilerden herhangi biri varsa ilgili subagent'a delege et:
 
-**Delegasyon tetikleyicileri:** Secret sızıntısı şüphesi, credential yönetimi yapılandırması, CI/CD secret kurulumu
-
----
-
-### `security-compliance-auditor`
-**Tools:** Read, Write
-
-GDPR, Apple App Store PrivacyInfo.xcprivacy, veri saklama politikası uzmanı.
-
-**Delegasyon tetikleyicileri:** App Store privacy review, GDPR uyumluluk denetimi, veri envanteri
+| Kriter | Eşik |
+|---|---|
+| Dosya değişikliği | 3+ dosya |
+| Yeni modül/servis | Herhangi bir yeni katman |
+| Domain uzmanlığı | Özel alan bilgisi gereken görev |
+| Tahmini süre | 10+ dakika |
 
 ---
 
-### `security-ai-code-auditor`
-**Tools:** Read, Bash
-
-AI araçlarının (Claude, Copilot, Cursor) ürettiği kodda özel güvenlik riski tespiti uzmanı.
-
-**Delegasyon tetikleyicileri:** AI ile yazılan PR'ın güvenlik review'u, hallüsinasyon kaynaklı paket doğrulama
-
----
-
-### `incident-response`
-**Tools:** Read, Bash
-
-SEV sınıflandırması, 5 Whys kök neden analizi, blameless postmortem uzmanı.
-
-**Delegasyon tetikleyicileri:** Prodüksiyon olayı yönetimi, postmortem yazımı, runbook oluşturma
-
----
-
-## Ürün & Tasarım Agentları
-
-### `product-manager`
-**Tools:** Read, Write, Edit
-
-PRD yazımı, RICE önceliklendirme, roadmap planlaması uzmanı.
-
----
-
-### `product-sprint-prioritizer`
-**Tools:** Read, Write
-
-Sprint kapasitesi ve backlog sıralama uzmanı. (Genel proje planlaması için `project-manager-senior`)
-
----
-
-### `product-feedback-synthesizer`
-**Tools:** Read, Write
-
-App Store yorumları, destek ticketları ve anket verilerinden içgörü sentezi uzmanı.
-
----
-
-### `design-ui-designer`
-**Tools:** Read, Write, Edit
-
-Platform tasarım dili (Apple HIG), görsel hiyerarşi, erişilebilirlik uzmanı.
-
----
-
-### `design-ux-architect`
-**Tools:** Read, Write
-
-Kullanıcı akışı, bilgi mimarisi, navigasyon yapısı uzmanı.
-
----
-
-### `design-ux-researcher`
-**Tools:** Read, Write
-
-Kullanıcı araştırması, görüşme soruları, bulgular raporu uzmanı.
-
----
-
-### `design-ui-finish-gate-reviewer`
-**Tools:** Read
-
-Ekranın yayına çıkmadan önce son kalite kontrolü — spacing, durum kapsamı, erişilebilirlik, platform uyumu.
-
----
-
-### `design-brand-guardian`
-**Tools:** Read
-
-Görsel kimlik ve ses tonu tutarlılığı denetimi uzmanı.
-
----
-
-### `design-persona-walkthrough`
-**Tools:** Read
-
-Persona bazlı UX senaryo değerlendirmesi uzmanı.
-
----
-
-## Proje & Strateji Agentları
-
-### `project-manager-senior`
-**Tools:** Read, Write
-
-Sprint planı, risk yönetimi, milestone takibi, haftalık durum raporu uzmanı.
-
----
-
-### `meeting-notes-specialist`
-**Tools:** Read, Write
-
-Toplantı notlarını yapılandırma, karar ve aksiyon maddesi çıkarma uzmanı.
-
----
-
-### `strategy-business-strategist`
-**Tools:** Read, Write
-
-Büyüme stratejisi, monetizasyon modeli, SWOT/RICE/Ansoff analizi uzmanı.
-
----
-
-### `strategy-okr-coach`
-**Tools:** Read, Write
-
-OKR yazımı, quarter planlaması, çok proje kapasite dengesi uzmanı.
-
----
-
-### `research-synthesizer`
-**Tools:** Read, Write
-
-Çoklu kaynak sentezi, rakip analizi, araştırma bulguları raporlaması uzmanı.
-
----
-
-## Pazarlama & Destek Agentları
-
-### `marketing-content-strategist`
-**Tools:** Read, Write
-
-App Store metni, release notes, teknik blog, developer içeriği uzmanı.
-
----
-
-### `marketing-seo-specialist`
-**Tools:** Read, Write
-
-ASO (App Store Optimization), web SEO, anahtar kelime araştırması uzmanı.
-
----
-
-### `marketing-copywriter`
-**Tools:** Read, Write
-
-Pazarlama kopyası, onboarding ekran metinleri, push notification, CTA uzmanı.
-
----
-
-### `support-technical-support`
-**Tools:** Read, Write
-
-Kullanıcı teknik sorun çözme adımları, FAQ ve destek dokümanı yazımı uzmanı.
-
----
-
-### `support-customer-support`
-**Tools:** Write
-
-App Store yorum yanıtı, empati odaklı kullanıcı iletişimi, şikayet yönetimi uzmanı.
-
----
-
-### `technical-writer`
-**Tools:** Read, Write, Edit
-
-API dokümantasyonu, README, mimari belgeleri, developer guide uzmanı.
-
----
-
-## Karar Destek Agentları
-
-### `specialized-reality-checker`
-**Tools:** Read
-
-Plan ve fikirlerin varsayım testı, kör nokta tespiti, gerçekçilik değerlendirmesi uzmanı.
-
----
-
-### `specialized-focus-manager`
-**Tools:** Read, Write
-
-Çok proje önceliklendirme, haftalık odak planı, bağlam geçiş yönetimi uzmanı.
-
----
-
-## Model Değiştirme
-
-```bash
-# Tek agent için
-sed -i 's/model: claude-sonnet-4-6/model: claude-opus-5/' .claude/agents/backend-specialist.md
-
-# Tüm agentlar için
-./setup.sh
-```
+## Özet
+
+| Kategori | Agent Sayısı |
+|---|---|
+| Teknik | 7 |
+| Kalite & Güvenlik | 9 |
+| Ürün & Tasarım | 9 |
+| Proje & Strateji | 5 |
+| Pazarlama & Destek | 6 |
+| Özel Görev | 2 |
+| **TOPLAM** | **38** |

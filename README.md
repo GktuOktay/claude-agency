@@ -1,175 +1,156 @@
-# Claude Agency
+# 🏗️ Claude Agency
 
-Claude Code için enterprise-grade multi-agent sistemi.  
-**38 uzman agent**, 127 skill, hook-based quality gates ve MCP entegrasyonu.
+🌐 **English** · [Türkçe](README.tr.md)
 
-## Hızlı Başlangıç
+> Enterprise-grade multi-agent orchestration for Claude Code.  
+> **139 expert skills**, 38 subagents, hook-based quality gates, and MCP integration.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Skills](https://img.shields.io/badge/Skills-139-green.svg)](docs/skill-catalog.md)
+[![Agents](https://img.shields.io/badge/Agents-38-orange.svg)](docs/agents.md)
+
+## What Is This?
+
+Claude Agency transforms Claude Code from a general-purpose assistant into a **team of 38 specialized subagents** orchestrated by a hierarchical skill system. Instead of one AI doing everything, the right expert handles each task.
+
+## ⚡ Quick Start
 
 ```bash
 git clone https://github.com/GktuOktay/claude-agency.git
 cd claude-agency
-./setup.sh   # model seçimi + MCP konfigürasyonu
-claude       # Claude Code'u başlat
+./setup.sh   # Interactive: model selection + MCP configuration
+claude       # Launch Claude Code
 ```
 
-`setup.sh` ne yapar:
-1. **Model seçimi** — Sonnet 4.6 / Opus 5 / Karma
-2. **MCP seçimi** — PostgreSQL, Filesystem, Brave Search aktifleştirme
-3. **.env oluşturma** — API key ve bağlantı bilgileri
+`setup.sh` handles:
+1. **Model selection** — Sonnet 4.6 / Opus 5 / Hybrid (Security+Backend → Opus)
+2. **MCP activation** — PostgreSQL, Filesystem, Brave Search, Playwright
+3. **Environment setup** — API keys and connection strings
 
----
+## 🏛️ Architecture
 
-## Yapı
-
+```mermaid
+flowchart TD
+    User([User Request]) --> CLAUDE_MD[CLAUDE.md Delegation Rules]
+    
+    CLAUDE_MD -->|Evaluate Task| Decision{Delegation Threshold Met?}
+    Decision -->|No| Claude[Claude General]
+    Decision -->|Yes| OrchestratorLayer
+    
+    subgraph OrchestratorLayer [Orchestrator Layer (11 Orchestrators)]
+        master[Master Orchestrator]
+        code[Code Orchestrator]
+        security[Security Orchestrator]
+        test[Test Orchestrator]
+        design[Design Orchestrator]
+        deployment[Deployment Orchestrator]
+        git[Git Orchestrator]
+        docs[Docs Orchestrator]
+        ba[BA Orchestrator]
+        marketing[Marketing Orchestrator]
+        project[Project Bootstrap Orchestrator]
+    end
+    
+    OrchestratorLayer --> SpecialistLayer
+    
+    subgraph SpecialistLayer [Specialist Layer (38 Specialists)]
+        Backend[Backend Specialists]
+        Frontend[Frontend Specialists]
+        Mobile[Mobile Specialists]
+        SecuritySpec[Security Specialists]
+        DevOps[DevOps Specialists]
+        DesignSpec[Design Specialists]
+        Product[Product Specialists]
+        Strategy[Strategy & Support]
+    end
+    
+    SpecialistLayer --> QualityGates
+    
+    subgraph QualityGates [Quality Gates (28 Gates)]
+        TDD[TDD Gate]
+        AntiSycophancy[Anti-Sycophancy]
+        PII[PII Masking]
+        Hallucination[Hallucination Firewall]
+        Logging[Structured Logging]
+        SecurityScan[Security Audits]
+    end
+    
+    QualityGates --> Output([Final Output Delivered])
 ```
-claude-agency/
-├── CLAUDE.md                    # Global davranış + agent delegasyon haritası
-├── setup.sh                     # Kurulum ve model seçim scripti
-├── .claude/
-│   ├── agents/                  # 38 subagent tanımı
-│   ├── skills/                  # 127 skill (Claude Code native)
-│   └── settings.json            # Hooks + MCP konfigürasyonu
-└── docs/
-    ├── architecture.md          # Sistem diyagramları (Mermaid)
-    ├── skill-catalog.md         # 127 skill tam kataloğu
-    ├── agents.md                # 38 subagent referansı
-    ├── hooks.md                 # Hook sistemi referansı
-    └── mcp.md                   # MCP server referansı
-```
 
----
+## 📦 What's Inside?
 
-## Agentlar (38)
+### Skills (139)
 
-### Teknik
-
-| Agent | Görev | Model |
+| Category | Count | Examples |
 |---|---|---|
-| `backend-specialist` | .NET 10, EF Core, CQRS | Sonnet 4.6 |
-| `frontend-developer` | React 19+, TypeScript, Core Web Vitals | Sonnet 4.6 |
-| `mobile-ios-swift` | Swift 6, SwiftUI, watchOS | Sonnet 4.6 |
-| `database-optimizer` | PostgreSQL 17, EF Core migration, query optimizasyonu | Sonnet 4.6 |
-| `devops-engineer` | CI/CD, Docker, K8s, IaC | Sonnet 4.6 |
-| `gis-web-developer` | Harita, güzergah planlama, gerçek zamanlı konum takibi | Sonnet 4.6 |
-| `integrations-webhook-specialist` | Webhook, event-driven entegrasyon | Sonnet 4.6 |
+| 🎼 Orchestrators | 11 | master, code, security, test, design, deployment, git, docs, ba, marketing, project-bootstrap |
+| 🔧 Specialists | ~55 | dotnet-enterprise, swift-architecture, clean-code, db-architect, graphify, caveman, humanizer |
+| 🚦 Quality Gates | 28 | TDD gate, PII masking, anti-sycophancy, hallucination firewall, structured logging |
+| 🛡️ Security & Pentest | ~21 | OWASP top 10, JWT vulns, XSS, CORS, CSRF, OAuth2 flaws, mass assignment |
+| ⚙️ Workflows & Tools | ~24 | API handoff, standup generator, changelog, caveman compress, skill creator |
 
-### Kalite & Güvenlik
+→ [Full catalog: docs/skill-catalog.md](docs/skill-catalog.md)
 
-| Agent | Görev | Model |
-|---|---|---|
-| `code-reviewer` | PR review, kod kalite denetimi | Sonnet 4.6 |
-| `test-engineer` | Unit/Integration/E2E, TDD | Sonnet 4.6 |
-| `testing-qa-engineer` | Test senaryosu, edge case tasarımı | Sonnet 4.6 |
-| `testing-test-strategist` | Test stratejisi, piramit, araç seçimi | Sonnet 4.6 |
-| `security-specialist` | OWASP, pentest, JWT, STRIDE, AI kod denetimi | Sonnet 4.6 |
-| `security-secrets-engineer` | Secret yönetimi, credential sızıntı önleme | Sonnet 4.6 |
-| `security-compliance-auditor` | GDPR, App Store gizlilik uyumu | Sonnet 4.6 |
-| `security-ai-code-auditor` | AI üretimi kod güvenlik denetimi | Sonnet 4.6 |
-| `incident-response` | Prodüksiyon olayı, SEV sınıflandırması, postmortem | Sonnet 4.6 |
+### Subagents (38)
 
-### Ürün & Tasarım
-
-| Agent | Görev | Model |
-|---|---|---|
-| `product-manager` | PRD, roadmap, özellik kararı | Sonnet 4.6 |
-| `product-sprint-prioritizer` | Sprint planı, backlog önceliklendirme | Sonnet 4.6 |
-| `product-feedback-synthesizer` | Kullanıcı geri bildirimi analizi | Sonnet 4.6 |
-| `design-ui-designer` | UI tasarımı, komponent hiyerarşisi | Sonnet 4.6 |
-| `design-ux-architect` | Kullanıcı akışı, bilgi mimarisi | Sonnet 4.6 |
-| `design-ux-researcher` | Kullanıcı araştırması, test senaryoları | Sonnet 4.6 |
-| `design-ui-finish-gate-reviewer` | Ekran yayın kalite kontrolü | Sonnet 4.6 |
-| `design-brand-guardian` | Marka tutarlılığı denetimi | Sonnet 4.6 |
-| `design-persona-walkthrough` | Persona bazlı UX walkthrough | Sonnet 4.6 |
-
-### Proje & Strateji
-
-| Agent | Görev | Model |
-|---|---|---|
-| `project-manager-senior` | Sprint planı, risk yönetimi, timeline | Sonnet 4.6 |
-| `meeting-notes-specialist` | Toplantı notları, aksiyon maddeleri | Sonnet 4.6 |
-| `strategy-business-strategist` | Büyüme stratejisi, monetizasyon, rekabet | Sonnet 4.6 |
-| `strategy-okr-coach` | OKR yazımı, quarter planlaması | Sonnet 4.6 |
-| `research-synthesizer` | Araştırma sentezi, kaynak analizi | Sonnet 4.6 |
-
-### Pazarlama & Destek
-
-| Agent | Görev | Model |
-|---|---|---|
-| `marketing-content-strategist` | İçerik stratejisi, App Store metni, release notes | Sonnet 4.6 |
-| `marketing-seo-specialist` | ASO, web SEO, anahtar kelime analizi | Sonnet 4.6 |
-| `marketing-copywriter` | Pazarlama kopyası, onboarding metni, CTA | Sonnet 4.6 |
-| `support-technical-support` | Kullanıcı teknik sorun çözme, FAQ | Sonnet 4.6 |
-| `support-customer-support` | App Store yorum yanıtı, şikayet yönetimi | Sonnet 4.6 |
-| `technical-writer` | API dokümantasyonu, README, developer guide | Sonnet 4.6 |
-
-### Karar Destek
-
-| Agent | Görev | Model |
-|---|---|---|
-| `specialized-reality-checker` | Plan/fikir gerçeklik kontrolü, varsayım sorgulama | Sonnet 4.6 |
-| `specialized-focus-manager` | Çok proje önceliklendirme, odak koruma | Sonnet 4.6 |
-
-Model değiştirmek için: `./setup.sh`
-
----
-
-## Quality Gates (Her Zaman Aktif)
-
-20 gate `alwaysApply: true` ile her oturumda devrede:
-
-- `audit-trail-guardian-gate` — DB'de `CreatedBy`, `ModifiedAt` zorunlu
-- `timezone-enforcer-gate` — `DateTimeOffset.UtcNow` zorunlu
-- `privacy-pii-masking-gate` — Şifre, TCKN loglama yasak
-- `tenant-isolation-gate` — SaaS'da `TenantId` filtresi zorunlu
-- `pre-flight-security-gate` — Kod öncesi güvenlik blueprint
-- ve 15 daha fazlası → [docs/skill-catalog.md](docs/skill-catalog.md)
-
----
-
-## Hooks
-
-| Hook | Tetiklenir | Sonuç |
-|---|---|---|
-| `PreToolUse[Bash]` | `DateTime.Now`, `rm -rf`, `DROP TABLE` | **BLOK** |
-| `PreToolUse[Write/Edit]` | Hardcoded password | Uyarı |
-| `PostToolUse[Write/Edit]` | `.cs` dosyası yazıldı | Build hatırlatması |
-
-→ [docs/hooks.md](docs/hooks.md)
-
----
-
-## MCP Server'lar
-
-| Server | Amaç | Şart |
-|---|---|---|
-| `microsoft-learn` | .NET 10, EF Core resmi docs | Yok |
-| `postgres` | DB schema, query, migration | `POSTGRES_CONNECTION_STRING` |
-| `filesystem` | Proje dışı dizin erişimi | `PROJECT_ROOT` |
-| `brave-search` | CVE araştırma, web arama | `BRAVE_API_KEY` |
-
-→ [docs/mcp.md](docs/mcp.md)
-
----
-
-## Dokümantasyon
-
-| Döküman | İçerik |
+| Domain | Agents |
 |---|---|
-| [Architecture](docs/architecture.md) | Sistem diyagramları — genel bakış, hook akışı, agent delegasyonu |
-| [Skill Catalog](docs/skill-catalog.md) | 127 skill tam listesi ve açıklamaları |
-| [Agents](docs/agents.md) | 38 subagent detaylı referansı |
-| [Hooks](docs/hooks.md) | Hook sistemi kullanım kılavuzu |
-| [MCP](docs/mcp.md) | MCP server kurulum ve referans |
+| Technical | backend-specialist, frontend-developer, mobile-ios-swift, database-optimizer, devops-engineer, gis-web-developer, integrations-webhook-specialist |
+| Quality & Security | code-reviewer, test-engineer, testing-qa-engineer, testing-test-strategist, security-specialist, security-secrets-engineer, security-compliance-auditor, security-ai-code-auditor, incident-response |
+| Product & Design | product-manager, product-sprint-prioritizer, product-feedback-synthesizer, design-ui-designer, design-ux-architect, design-ux-researcher, design-ui-finish-gate-reviewer, design-brand-guardian, design-persona-walkthrough |
+| Strategy & Support | project-manager-senior, meeting-notes-specialist, strategy-business-strategist, strategy-okr-coach, research-synthesizer, marketing-content-strategist, marketing-seo-specialist, marketing-copywriter, support-technical-support, support-customer-support, technical-writer, specialized-focus-manager, specialized-reality-checker |
 
----
+→ [Full reference: docs/agents.md](docs/agents.md)
 
-## agency-agents ile Fark
+## 🔄 How It Works
 
-| | `agency-agents` | `claude-agency` |
-|---|---|---|
-| **Hedef** | Cursor, Windsurf, Claude Code, Cline, Gemini... | Yalnızca Claude Code |
-| **Agent tipi** | Persona prompt (araç erişimi yok) | Native subagent (gerçek araç erişimi) |
-| **Hooks** | Yok | 4 hook — tool-call seviyesinde blok/uyarı |
-| **Quality gates** | Yok | 20 gate — her oturumda aktif |
-| **MCP** | Yok | 4 server |
-| **Kaynak** | agency-agents koleksiyonundan ilham alındı | claude-agency native formatına dönüştürüldü |
+1. **Request arrives** → `CLAUDE.md` delegation rules evaluate the task
+2. **Delegation threshold** — If 3+ files, new module, domain expertise, or 10+ min task → delegate
+3. **Orchestrator activates** → Routes to the right specialist
+4. **Specialist executes** → Only specialists write code (orchestrators never do)
+5. **Quality gates audit** → TDD, security, logging, anti-sycophancy checks
+6. **Output delivered** → Honest, no-fluff response (anti-sycophancy enforced)
+
+## 🔧 Configuration
+
+### MCP Servers (Optional)
+- **PostgreSQL** — Read live DB schema to prevent hallucination
+- **Filesystem** — File system access
+- **Brave Search** — Web search capability
+- **Playwright** — E2E testing and web scraping
+- **MS Learn** — Microsoft documentation (always active)
+
+### Hook System
+- Pre-write quality checks
+- Post-write linting
+- Notification system
+
+→ [Details: docs/hooks.md](docs/hooks.md) · [MCP: docs/mcp.md](docs/mcp.md)
+
+## 🌍 Core Principles
+
+- **Anti-sycophancy** — No praise-spam, no apologies, no filler. Challenges bad decisions.
+- **Zero-assumption** — Ambiguous task? Halt and ask max 2-3 Socratic questions.
+- **Security paranoia** — All external input is malicious until proven otherwise.
+- **DRY enforcement** — Scan codebase for existing abstractions before writing new code.
+- **Scientific debugging** — Analyze logs → hypothesis → targeted fix. No trial-and-error.
+
+## 📚 Documentation
+
+| Document | Content |
+|---|---|
+| [architecture.md](docs/architecture.md) | System diagrams (Mermaid) |
+| [agents.md](docs/agents.md) | 38 subagent reference |
+| [skill-catalog.md](docs/skill-catalog.md) | 139 skill full catalog |
+| [hooks.md](docs/hooks.md) | Hook system reference |
+| [mcp.md](docs/mcp.md) | MCP server configuration |
+| [flow-diagram.md](docs/flow-diagram.md) | Detailed flow diagrams |
+
+## 🤝 Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## 📄 License
+
+MIT — see [LICENSE](LICENSE) for details.

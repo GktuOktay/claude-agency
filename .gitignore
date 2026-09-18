@@ -1,6 +1,34 @@
+# Environment
 .env
 .env.local
-*.pyc
-__pycache__/
+.env.*.local
+
+# Generated output
+graphify-out/
+
+# Legacy
+CLAUDE.original.md
+
+# OS
 .DS_Store
-*.graphify-bak
+Thumbs.db
+*.swp
+*~
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Node (MCP servers)
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Backup files
+*.bak
+*.orig

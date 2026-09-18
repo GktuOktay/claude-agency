@@ -1,184 +1,242 @@
-# Skill Kataloğu
+# Skill Kataloğu — 139 Skill
 
-127 skill, 4 kategoride. `alwaysApply: true` olanlar her oturumda aktiftir.
-
----
-
-## 🔴 Gates — Her Zaman Aktif (20 skill)
-
-Kalite kapıları — kod yazılmadan önce otomatik devreye girer, itiraz edilemez.
-
-| Skill | Görev |
-|---|---|
-| `audit-trail-guardian-gate` | DB tablolarında `CreatedBy`, `ModifiedAt` zorunlu |
-| `chaos-adversarial-gate` | Network timeout, 503, null input senaryoları zorunlu |
-| `critical-critique-gate` | Her çözümde alternatif + risk analizi zorunlu |
-| `ddd-ubiquitous-language-gate` | Domain dili tutarlılığı — her entity tek isimde |
-| `escalation-workflow` | Kritik karar noktalarında kullanıcıya eskalasyon |
-| `fail-fast-config-gate` | Uygulama başlangıcında tüm config doğrulama |
-| `finite-state-machine-gate` | Kritik durum geçişleri FSM ile — `if/else` yasak |
-| `graceful-degradation-gate` | Bağımlı servis düştüğünde fallback zorunlu |
-| `llm-hallucination-firewall-gate` | LLM çıktısını doğrulamadan parse etme yasak |
-| `main-thread-and-performance-gate` | UI thread blocking operasyonlar yasak |
-| `master-orchestrator` | Tüm alt orkestratörlerin ana koordinatörü |
-| `outbox-pattern-enforcer` | Event yayınlama — outbox pattern zorunlu |
-| `pre-flight-security-gate` | Kod öncesi güvenlik blueprint denetimi |
-| `privacy-pii-masking-gate` | Şifre, TCKN, kredi kartı loglama yasak |
-| `problem-details-gate` | RFC 7807 Problem Details formatı zorunlu |
-| `stateless-architecture-gate` | Server-side session yasak — JWT zorunlu |
-| `tenant-isolation-gate` | SaaS'da explicit `TenantId` filtresi zorunlu |
-| `timezone-enforcer-gate` | `DateTimeOffset.UtcNow` zorunlu — `DateTime.Now` yasak |
-| `update-changelog-workflow` | Her değişiklikte CHANGELOG güncelleme |
-| `validation-and-integrity-gate` | 3-tier validation: DB → FluentValidation → Client |
+> Claude Agency'nin tam skill envanteri. Her skill `.claude/skills/<skill-name>/SKILL.md` yolunda tanımlıdır.
 
 ---
 
-## 🎼 Orchestrators (10 skill)
+## 🎼 Orkestratörler (11)
 
-Görevleri alır, alt skill'lere ve subagent'lara delege eder. Kendisi kod yazmaz.
+Orkestratörler doğrudan kod yazmaz — görev analizi, routing ve delegasyon yapar.
 
-| Skill | Görev |
-|---|---|
-| `ba-orchestrator` | İş analizi → EARS gereksinim → teknik şema |
-| `code-orchestrator` | Kod geliştirme koordinasyonu |
-| `deployment-orchestrator` | Release ve deploy yönetimi |
-| `design-orchestrator` | UI/UX tasarım koordinasyonu |
-| `docs-orchestrator` | Dokümantasyon üretim koordinasyonu |
-| `git-orchestrator` | Branch, PR, merge stratejisi |
-| `marketing-orchestrator` | Pazarlama içerik koordinasyonu |
-| `project-bootstrap-orchestrator` | Yeni proje kurulumu |
-| `security-orchestrator` | Güvenlik analizi koordinasyonu |
-| `test-orchestrator` | Test stratejisi ve koordinasyonu |
-
----
-
-## 🔧 Specialists (96 skill)
-
-Talep üzerine tetiklenir. Domain uzmanlığı gerektiren görevler.
-
-### Backend & Data
-| Skill | Görev |
-|---|---|
-| `dotnet-enterprise-architect` | .NET 10 Clean Architecture, CQRS, MediatR |
-| `db-architect-security` | DB tasarımı, RLS, güvenli şema |
-| `schema` | DB şema tasarımı ve migration |
-| `cache-invalidation-architect` | Cache stratejisi ve invalidation |
-| `distributed-saga-manager` | Distributed transaction ve saga pattern |
-| `outbox-pattern-enforcer` | Event-driven outbox implementasyonu |
-| `edge-and-gateway-architect` | API Gateway, rate limiting, reverse proxy |
-| `circuit-breaker-specialist` | Resilience pattern, Polly |
-| `legacy-code-migrator-specialist` | Eski kod modernizasyonu |
-| `concurrency-and-memory-profiler` | Thread safety, memory leak analizi |
-| `correlation-id-specialist` | Distributed tracing, request correlation |
-| `document-and-asset-manager` | Dosya yönetimi, storage stratejisi |
-
-### Security & Pentest
-| Skill | Görev |
-|---|---|
-| `master-pentester` | Tam kapsamlı güvenlik testi koordinatörü |
-| `api-pentest` | API endpoint güvenlik testi |
-| `api-security-with-owasp-top-10-pentester` | OWASP API Top 10 sistematik testi |
-| `api-authentication-weaknesses-pentester` | Auth mekanizması zayıflık testi |
-| `api-for-broken-object-level-authorization-pentester` | BOLA/IDOR testi |
-| `api-for-mass-assignment-vulnerability-pentester` | Mass assignment zafiyeti |
-| `cors-misconfiguration-pentester` | CORS yanlış konfigürasyonu testi |
-| `csrf-attack-simulation-specialist` | CSRF saldırı simülasyonu |
-| `for-broken-access-control-pentester` | Kırık erişim kontrolü testi |
-| `for-json-web-token-vulnerabilities-pentester` | JWT zafiyet testi |
-| `for-xss-vulnerabilities-pentester` | XSS zafiyet testi |
-| `graphql-security-assessment-specialist` | GraphQL güvenlik değerlendirmesi |
-| `jwt-token-security-pentester` | JWT implementasyon güvenliği |
-| `mobile-api-authentication-pentester` | Mobil API auth testi |
-| `oauth2-implementation-flaws-pentester` | OAuth2 implementasyon hataları |
-| `client-security` | Frontend güvenlik kontrolleri |
-| `recon-specialist` | Keşif ve saldırı yüzeyi analizi |
-| `secret-scanner` | Kod içi sır/anahtar taraması |
-| `secret-scanning-with-gitleaks-specialist` | Gitleaks ile git geçmişi tarama |
-| `secrets-scanning-in-ci-cd-specialist` | CI/CD pipeline sır taraması |
-| `sca-dependency-scanning-with-snyk-specialist` | Bağımlılık güvenlik taraması |
-
-### DevOps & Cloud
-| Skill | Görev |
-|---|---|
-| `ci-cd-engineer` | GitHub Actions, pipeline tasarımı |
-| `cloud-deployer` | AWS/Azure/GCP deployment |
-| `container-master` | Docker, container optimizasyonu |
-| `scanning-containers-with-trivy-in-cicd` | Container image güvenlik taraması |
-| `iac-architect` | Terraform, Bicep, IaC tasarımı |
-| `gitops-manager` | GitOps workflow ve ArgoCD |
-| `zero-downtime-deployment-strategist` | Blue-green, rolling deployment |
-| `finops-architect` | Cloud maliyet optimizasyonu |
-| `observability-setup` | Logging, tracing, metrics kurulumu |
-
-### Frontend & Design
-| Skill | Görev |
-|---|---|
-| `design-orchestrator` | UI/UX koordinasyonu |
-| `high-end-visual-design` | Premium görsel tasarım |
-| `apple-design` | iOS/macOS HIG uyumlu tasarım |
-| `ui-animation` | Animasyon ve geçiş tasarımı |
-| `image-to-code-tool` | Görsel → kod dönüşümü |
-| `pick-ui-library` | UI kütüphane seçimi ve karşılaştırması |
-| `a11y-and-i18n-engineer` | Erişilebilirlik (WCAG) ve i18n |
-| `mobile-flutter-swift-architect` | Flutter/Swift mimari |
-| `swift-architecture-auditor` | Swift kod mimari denetimi |
-| `main-thread-and-performance-gate` | UI thread performans kontrolü |
-| `prototype` | Hızlı prototip üretimi |
-
-### API & Documentation
-| Skill | Görev |
-|---|---|
-| `api-documentation-architect` | Swagger/OpenAPI dokümantasyon |
-| `api-versioning-architect` | Breaking change koruması |
-| `api-handoff-workflow` | Backend → Frontend teslim süreci |
-| `swagger-and-xml-doc-gate` | XML dokümantasyon zorunluluğu |
-| `docs-orchestrator` | Dokümantasyon üretim koordinasyonu |
-
-### Testing
-| Skill | Görev |
-|---|---|
-| `e2e-tester` | E2E test yazımı (Playwright) |
-| `unit-test-architect` | Unit test mimarisi |
-| `test-driven-development-gate` | TDD zorunluluğu |
-| `performance-tester` | Yük ve performans testi (k6) |
-
-### Workflows & Tools
-| Skill | Görev |
-|---|---|
-| `git-conventional-commits-workflow` | Conventional Commits zorunluluğu |
-| `git-pr-reviewer` | PR review otomasyonu |
-| `git-issue-manager` | Issue yönetimi |
-| `git-repo-setup-workflow` | Yeni repo kurulum akışı |
-| `generate-standup-workflow` | Günlük standup raporu |
-| `update-changelog-workflow` | CHANGELOG otomasyonu |
-| `escalation-workflow` | Kritik karar eskalasyonu |
-| `caveman-optimizer` | Token sıkıştırma, Conventional Commits |
-| `make-plan` | Görev planlaması |
-| `plan-mode` | Büyük görevlerde plan → onay → uygula |
-| `codebase-explorer-tool` | Kod tabanı keşfi |
-| `graphify-tool` | Mermaid diyagram üretimi |
-| `forensic-detective` | Hata kök neden analizi |
-| `blast-radius-specialist` | Değişiklik etki alanı hesaplama |
-| `tech-debt-collector` | Teknik borç tespiti ve önceliklendirme |
-
-### Business & Strategy
-| Skill | Göre |
-|---|---|
-| `ba-architect` | İş gereksinimleri → teknik şema |
-| `ba-elicitor` | EARS gereksinim analizi |
-| `tech-business-analyst` | Teknik iş analizi |
-| `feature-ideator` | Özellik fikir üretimi |
-| `product-designer` | Ürün tasarım stratejisi |
-| `product-marketer` | Ürün pazarlama |
-| `copywriting` | İçerik yazımı |
-| `brandkit` | Marka kimliği yönetimi |
-| `marketing-orchestrator` | Pazarlama koordinasyonu |
-| `technical-seo-architect` | Teknik SEO mimarisi |
+| # | Skill | Açıklama |
+|---|---|---|
+| 1 | `master-orchestrator` | Ana yönetici — tüm alt orkestratörleri yönlendirir |
+| 2 | `code-orchestrator` | Kod yazma, refactor ve mimari süreçleri yönetir |
+| 3 | `security-orchestrator` | Güvenlik taramaları, pentest ve kod zafiyet denetimleri |
+| 4 | `test-orchestrator` | Unit, E2E, performans ve yük testlerini yönetir |
+| 5 | `design-orchestrator` | UI/UX tasarım, animasyon ve frontend estetik süreçleri |
+| 6 | `deployment-orchestrator` | CI/CD, altyapı yönetimi ve bulut süreçleri |
+| 7 | `git-orchestrator` | Commit standartları, PR yönetimi ve sürüm kontrolü |
+| 8 | `docs-orchestrator` | Doküman üretim süreçleri (PDF, Word, Excel, PPT) |
+| 9 | `ba-orchestrator` | İş analizi ve teknik tasarım yönlendirmesi |
+| 10 | `marketing-orchestrator` | Pazarlama metinleri ve App Store süreçleri |
+| 11 | `project-bootstrap-orchestrator` | Yeni proje kurulum otomasyonu |
 
 ---
 
-## 🧠 Meta (1 skill)
+## 🔧 Uzmanlar — Backend & Data (16)
 
-| Skill | Görev |
+| # | Skill | Açıklama |
+|---|---|---|
+| 1 | `dotnet-enterprise-architect` | .NET Core, C#, EF Core kurumsal mimarisi |
+| 2 | `db-architect-security` | Veritabanı mimarisi ve güvenlik standartları |
+| 3 | `schema` | İlişkisel ve NoSQL şema tasarım kalıpları |
+| 4 | `api-versioning-architect` | API versiyonlama stratejileri |
+| 5 | `api-documentation-architect` | Stripe/Vercel kalitesinde API dokümantasyonu |
+| 6 | `blast-radius-specialist` | Değişiklik etki alanı analizi |
+| 7 | `cache-invalidation-architect` | Önbellek geçersizleştirme stratejileri |
+| 8 | `circuit-breaker-specialist` | Devre kesici ve dayanıklılık kalıpları |
+| 9 | `distributed-saga-manager` | Dağıtık işlem yönetimi (Saga pattern) |
+| 10 | `outbox-pattern-enforcer` | Transactional Outbox pattern zorunluluğu |
+| 11 | `concurrency-and-memory-profiler` | Deadlock, memory leak ve race condition denetimi |
+| 12 | `edge-and-gateway-architect` | API Gateway ve Edge güvenliği |
+| 13 | `document-and-asset-manager` | Dosya ve varlık yönetimi |
+| 14 | `forensic-detective` | Kod arkeolojisi ve kök neden analizi |
+| 15 | `legacy-code-migrator-specialist` | Diller arası kod dönüşümü |
+| 16 | `tech-debt-collector` | Teknik borç takibi ve önceliklendirme |
+
+---
+
+## 🔧 Uzmanlar — Frontend & Mobile (8)
+
+| # | Skill | Açıklama |
+|---|---|---|
+| 1 | `apple-design` | Apple HIG tabanlı iOS/macOS tasarım |
+| 2 | `high-end-visual-design` | Premium UI tasarım prensipleri |
+| 3 | `mobile-flutter-swift-architect` | Flutter ve Swift/SwiftUI mimari uzmanı |
+| 4 | `swift-architecture-auditor` | Swift/iOS mimari denetim ve MVVM/TCA kontrolü |
+| 5 | `pick-ui-library` | UI kütüphane seçim rehberi |
+| 6 | `ui-animation` | Web ve mobil animasyon optimizasyonu |
+| 7 | `a11y-and-i18n-engineer` | Erişilebilirlik (WCAG) ve çoklu dil desteği |
+| 8 | `technical-seo-architect` | Teknik SEO ve Core Web Vitals |
+
+---
+
+## 🔧 Uzmanlar — DevOps & Cloud (12)
+
+| # | Skill | Açıklama |
+|---|---|---|
+| 1 | `ci-cd-engineer` | GitHub Actions, GitLab CI, Jenkins pipeline'ları |
+| 2 | `cloud-deployer` | Vercel, Netlify, Cloudflare dağıtımı |
+| 3 | `container-master` | Dockerfile, Kubernetes, Helm yapılandırmaları |
+| 4 | `iac-architect` | Terraform, Pulumi, Ansible altyapı yönetimi |
+| 5 | `gitops-manager` | ArgoCD/Flux ile GitOps tabanlı CD |
+| 6 | `observability-setup` | Prometheus, Grafana, ELK izleme altyapısı |
+| 7 | `correlation-id-specialist` | Dağıtık izleme korelasyon ID yönetimi |
+| 8 | `finops-architect` | Bulut maliyet optimizasyonu |
+| 9 | `zero-downtime-deployment-strategist` | Sıfır kesinti dağıtım stratejileri |
+| 10 | `git-conventional-commits-workflow` | Conventional Commits ve branch standartları |
+| 11 | `git-repo-setup-workflow` | GitHub repo kurulum ve topluluk standartları |
+| 12 | `update-changelog-workflow` | Otomatik CHANGELOG güncelleme |
+
+---
+
+## 🔧 Uzmanlar — Product & BA (14)
+
+| # | Skill | Açıklama |
+|---|---|---|
+| 1 | `ba-architect` | Mermaid akış diyagramları ve teknik şemalar |
+| 2 | `ba-elicitor` | EARS formatında gereksinim analizi |
+| 3 | `tech-business-analyst` | Teknik iş analizi ve gereksinim dokümanları |
+| 4 | `make-plan` | Proje planlama ve görev dağılımı |
+| 5 | `feature-ideator` | Yeni özellik fikirleri ve backlog |
+| 6 | `product-designer` | Ürün tasarımı ve wireframe planlaması |
+| 7 | `product-marketer` | App Store açıklamaları ve pazarlama metinleri |
+| 8 | `brandkit` | Marka tutarlılığı ve görsel kurallar |
+| 9 | `copywriting` | UX/UI metinleri, CTA ve hata mesajları |
+| 10 | `onboarding` | İlk kullanım deneyimi tasarımı |
+| 11 | `prototype` | Hızlı prototipleme ve MVP geliştirme |
+| 12 | `corporate-memory-specialist` | Kurumsal hafıza ve bilgi yönetimi |
+| 13 | `git-issue-manager` | GitHub/GitLab issue yönetimi |
+| 14 | `git-pr-reviewer` | PR oluşturma ve code review süreçleri |
+
+---
+
+## 🔧 Uzmanlar — QA & Testing (4)
+
+| # | Skill | Açıklama |
+|---|---|---|
+| 1 | `unit-test-architect` | Birim testleri, mock/stub ve edge case senaryoları |
+| 2 | `e2e-tester` | Cypress/Playwright ile E2E testler |
+| 3 | `performance-tester` | Yük testi, benchmark ve performans optimizasyonu |
+| 4 | `smoke-monkey-tester` | Smoke testler ve chaos/monkey testleri |
+
+---
+
+## 🛡️ Güvenlik & Pentest (21)
+
+| # | Skill | Açıklama |
+|---|---|---|
+| 1 | `api-pentest` | Endpoint güvenliği ve rate limiting testleri |
+| 2 | `api-security-with-owasp-top-10-pentester` | OWASP API Top 10 (2023) değerlendirmesi |
+| 3 | `api-authentication-weaknesses-pentester` | API kimlik doğrulama zafiyet testleri |
+| 4 | `api-for-broken-object-level-authorization-pentester` | BOLA/IDOR testleri (OWASP API1:2023) |
+| 5 | `api-for-mass-assignment-vulnerability-pentester` | Toplu atama (mass assignment) testleri |
+| 6 | `client-security` | XSS, CSRF, CSP ve DOM tabanlı zafiyet engelleme |
+| 7 | `cors-misconfiguration-pentester` | CORS hatalı yapılandırma tespiti |
+| 8 | `csrf-attack-simulation-specialist` | CSRF saldırı simülasyonu |
+| 9 | `for-broken-access-control-pentester` | Kırık erişim kontrolü testleri (OWASP A01) |
+| 10 | `for-json-web-token-vulnerabilities-pentester` | JWT algoritma karmaşası ve zafiyet testleri |
+| 11 | `for-xss-vulnerabilities-pentester` | Reflected, Stored, DOM tabanlı XSS testleri |
+| 12 | `graphql-security-assessment-specialist` | GraphQL introspection ve enjeksiyon testleri |
+| 13 | `jwt-token-security-pentester` | JWT kriptografik analiz |
+| 14 | `master-pentester` | Test stratejileri ve pentest yönetimi |
+| 15 | `mobile-api-authentication-pentester` | Mobil API kimlik doğrulama testleri |
+| 16 | `oauth2-implementation-flaws-pentester` | OAuth 2.0 / OIDC zafiyet testleri |
+| 17 | `sca-dependency-scanning-with-snyk-specialist` | Snyk ile bağımlılık taraması |
+| 18 | `scanning-containers-with-trivy-in-cicd` | Trivy ile container güvenlik taraması |
+| 19 | `secret-scanner` | Hardcode edilmiş hassas veri taraması |
+| 20 | `secret-scanning-with-gitleaks-specialist` | Gitleaks entegrasyonu ve pre-commit hook |
+| 21 | `secrets-scanning-in-ci-cd-specialist` | CI/CD'de secret tarama otomasyonu |
+
+---
+
+## 🚦 Kalite Kapıları (28)
+
+Kalite kapıları kodun belirli standartları karşılamasını zorunlu kılan sert kurallardır.
+
+| # | Skill | Zorunlu Kıldığı Kural |
+|---|---|---|
+| 1 | `clean-code-reviewer` | SOLID, DRY, YAGNI ve Addy Osmani standartları |
+| 2 | `critical-critique-gate` | Anti-sycophancy — dalkavukluk ve boş övgü yasağı |
+| 3 | `adversarial-code-reviewer` | Teslim öncesi showstopper, memory leak ve bug denetimi |
+| 4 | `dependency-audit-gate` | CVE zafiyet taraması ve supply chain güvenliği |
+| 5 | `design-taste-frontend-gate` | Frontend tasarım zevki ve görsel kalite |
+| 6 | `test-driven-development-gate` | TDD zorunluluğu — test yazmadan kod teslim etme |
+| 7 | `structured-logging-audit-gate` | Yapısal loglama ve audit trail kuralları |
+| 8 | `swagger-and-xml-doc-gate` | API endpoint'leri için Swagger dokümantasyonu |
+| 9 | `no-truncation-gate` | Kod çıktısında kısaltma ve placeholder yasağı |
+| 10 | `socratic-clarification-gate` | Muğlak taleplerde varsayım yerine soru sorma |
+| 11 | `pre-mortem-stress-test-gate` | Mimari kararları canlıda patlarsa analizi |
+| 12 | `pre-flight-security-gate` | Dağıtım öncesi güvenlik kontrol listesi |
+| 13 | `privacy-pii-masking-gate` | PII verilerin maskelenmesi zorunluluğu |
+| 14 | `validation-and-integrity-gate` | Veri doğrulama ve bütünlük kontrolü |
+| 15 | `llm-hallucination-firewall-gate` | LLM halüsinasyon engelleme |
+| 16 | `chaos-adversarial-gate` | Chaos engineering ve adversarial test |
+| 17 | `main-thread-and-performance-gate` | Ana thread bloklanma ve performans kontrolü |
+| 18 | `graceful-degradation-gate` | Zarif bozulma (graceful degradation) kuralları |
+| 19 | `fail-fast-config-gate` | Fail-fast yapılandırma doğrulaması |
+| 20 | `finite-state-machine-gate` | Durum makinesi tasarım kuralları |
+| 21 | `stateless-architecture-gate` | Stateless mimari zorunluluğu |
+| 22 | `ddd-ubiquitous-language-gate` | DDD ubiquitous language tutarlılığı |
+| 23 | `tenant-isolation-gate` | Multi-tenant veri izolasyonu |
+| 24 | `audit-trail-guardian-gate` | Audit trail ve denetim izi kuralları |
+| 25 | `problem-details-gate` | RFC 7807 Problem Details hata formatı |
+| 26 | `timezone-enforcer-gate` | UTC timezone zorunluluğu |
+| 27 | `turkish-language-enforcer-gate` | Türkçe yanıt zorunluluğu |
+| 28 | `recon-specialist` | Keşif ve ön analiz kuralları |
+
+---
+
+## ⚙️ Workflow'lar (3)
+
+| # | Skill | Açıklama |
+|---|---|---|
+| 1 | `api-handoff-workflow` | Backend değişikliklerinde otomatik API devir-teslim dokümanı |
+| 2 | `escalation-workflow` | Agent sınırına ulaştığında escalation kuralları |
+| 3 | `generate-standup-workflow` | Günlük standup raporu oluşturma |
+
+---
+
+## 🛠️ Araç Yetenekleri (15)
+
+| # | Skill | Açıklama |
+|---|---|---|
+| 1 | `graphify` | Kod tabanını bilgi grafına dönüştürme |
+| 2 | `graphify-tool` | Graphify sorgulama ve analiz arayüzü |
+| 3 | `caveman` | Token tasarruflu prompt sıkıştırma |
+| 4 | `caveman-compress` | Caveman sıkıştırma algoritması |
+| 5 | `caveman-commit` | Caveman formatında commit mesajı |
+| 6 | `caveman-review` | Caveman formatında kod review |
+| 7 | `caveman-help` | Caveman kullanım rehberi |
+| 8 | `caveman-stats` | Caveman istatistikleri |
+| 9 | `cavecrew` | Çoklu Caveman agent koordinasyonu |
+| 10 | `humanizer-tool` | AI metinlerini doğal dile dönüştürme |
+| 11 | `image-to-code-tool` | Ekran görüntüsünden kod üretme |
+| 12 | `imagegen-frontend-tool` | AI görsel oluşturma rehberi |
+| 13 | `mcp-builder-tool` | MCP sunucu geliştirme |
+| 14 | `office-documents-tool` | Word, Excel, PDF, PPT oluşturma |
+| 15 | `skill-creator-tool` | Yeni skill oluşturma rehberi |
+
+---
+
+## 🧠 Diğer Uzmanlar (7)
+
+| # | Skill | Açıklama |
+|---|---|---|
+| 1 | `codebase-explorer-tool` | Büyük kod tabanlarında akıllı gezinme |
+| 2 | `learn-codebase-tool` | Bilinmeyen kod tabanlarını hızlıca anlama |
+| 3 | `smart-explore-tool` | Giriş noktaları ve veri akışı izleme |
+| 4 | `focus-budget-tool` | Odak ve zaman yönetimi |
+| 5 | `mentor-mode-tool` | Öğretici mod — adım adım açıklama |
+| 6 | `plan-mode` | Planlama modu — araştırma ve plan oluşturma |
+| 7 | `mcp-integration-guidelines` | MCP entegrasyon kuralları |
+
+---
+
+## Özet
+
+| Kategori | Sayı |
 |---|---|
-| `plan-mode` | 3+ dosya/mimari değişiklikte otomatik plan → onay → uygula döngüsü |
+| Orkestratörler | 11 |
+| Backend & Data Uzmanları | 16 |
+| Frontend & Mobile Uzmanları | 8 |
+| DevOps & Cloud Uzmanları | 12 |
+| Product & BA Uzmanları | 14 |
+| QA & Testing Uzmanları | 4 |
+| Güvenlik & Pentest | 21 |
+| Kalite Kapıları | 28 |
+| Workflow'lar | 3 |
+| Araç Yetenekleri | 15 |
+| Diğer Uzmanlar | 7 |
+| **TOPLAM** | **139** |
