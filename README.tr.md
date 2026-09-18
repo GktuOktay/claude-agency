@@ -140,12 +140,14 @@ flowchart TD
 
 | Belge | İçerik |
 |---|---|
-| [architecture.md](docs/architecture.md) | Sistem diyagramları (Mermaid) |
-| [agents.md](docs/agents.md) | 38 alt ajan referansı |
+| [Dokümantasyon Merkezi](docs/README.md) | Genel içindekiler ve belge kılavuzu |
+| [architecture.md](docs/architecture.md) | Sistem mimarisi ve anti-pattern standartları |
+| [agents.md](docs/agents.md) | 38 alt ajan referansı ve yetkileri |
 | [skill-catalog.md](docs/skill-catalog.md) | 139 becerinin tam kataloğu |
-| [hooks.md](docs/hooks.md) | Kanca (Hook) sistemi referansı |
+| [hooks.md](docs/hooks.md) | Kanca (Hook) kalite kapıları sistemi |
 | [mcp.md](docs/mcp.md) | MCP sunucu yapılandırması |
-| [flow-diagram.md](docs/flow-diagram.md) | Detaylı akış diyagramları |
+| [flow-diagram.md](docs/flow-diagram.md) | Yaşam döngüsü ve detaylı akış diyagramları |
+| [memory-guide.md](docs/memory-guide.md) | Kalıcı proje hafıza sistemi rehberi |
 
 ## 🤝 Katkıda Bulunma
 

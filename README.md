@@ -140,12 +140,14 @@ flowchart TD
 
 | Document | Content |
 |---|---|
-| [architecture.md](docs/architecture.md) | System diagrams (Mermaid) |
-| [agents.md](docs/agents.md) | 38 subagent reference |
+| [Documentation Center](docs/README.md) | Central table of contents & overview |
+| [architecture.md](docs/architecture.md) | System diagrams & anti-pattern standards |
+| [agents.md](docs/agents.md) | 38 subagent reference & specifications |
 | [skill-catalog.md](docs/skill-catalog.md) | 139 skill full catalog |
-| [hooks.md](docs/hooks.md) | Hook system reference |
+| [hooks.md](docs/hooks.md) | Hook quality gate system reference |
 | [mcp.md](docs/mcp.md) | MCP server configuration |
-| [flow-diagram.md](docs/flow-diagram.md) | Detailed flow diagrams |
+| [flow-diagram.md](docs/flow-diagram.md) | Lifecycle and task flow diagrams |
+| [memory-guide.md](docs/memory-guide.md) | Persistent project memory guide |
 
 ## 🤝 Contributing
 
