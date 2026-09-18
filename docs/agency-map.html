@@ -75,8 +75,9 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .search-kbd{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:1px 5px}
 .view-title{font-size:14px;font-weight:600;margin-left:auto;color:var(--muted)}
 
-.content{flex:1;overflow-y:auto;padding:20px}
+.content{flex:1;overflow-y:auto;padding:20px;position:relative}
 .view{display:none}.view.active{display:block}
+#v-graph{position:absolute;inset:0;padding:0!important;overflow:hidden}
 
 /* Section header */
 .sh{display:flex;align-items:center;gap:10px;margin-bottom:16px;margin-top:2px}
@@ -227,6 +228,13 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <span class="nav-dot" style="background:var(--violet)"></span>Skill Kataloğu<span class="nav-count">139</span>
       </a>
     </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Görsel</div>
+      <a class="nav-item" data-view="graph" onclick="go('graph',this)">
+        <span class="nav-dot" style="background:var(--amber)"></span>Node Haritası
+      </a>
+    </div>
   </nav>
 
   <!-- Main -->
@@ -300,6 +308,17 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
       <div class="view" id="v-skills">
         <div class="sh"><span class="sh-icon">⚙️</span><span class="sh-name">Skill Kataloğu</span><span class="sh-meta">139 skill · .claude/skills/</span></div>
         <div id="skills-wrap"></div>
+      </div>
+
+      <!-- GRAPH -->
+      <div class="view" id="v-graph" style="padding:0;height:100%;position:relative">
+        <div id="graph-toolbar" style="position:absolute;top:12px;left:12px;z-index:10;display:flex;gap:6px;align-items:center">
+          <button onclick="graphZoom(1.2)" style="background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:5px 10px;cursor:pointer;font-size:14px">+</button>
+          <button onclick="graphZoom(0.8)" style="background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:5px 10px;cursor:pointer;font-size:14px">−</button>
+          <button onclick="graphReset()" style="background:var(--bg2);border:1px solid var(--border);color:var(--muted);border-radius:5px;padding:5px 10px;cursor:pointer;font-size:12px">Sıfırla</button>
+          <span style="font-size:11px;color:var(--muted);margin-left:4px">Kaydır · Yakınlaştır · Tıkla</span>
+        </div>
+        <canvas id="graph-canvas" style="display:block;width:100%;height:100%;cursor:grab"></canvas>
       </div>
 
     </div><!-- /content -->
@@ -1166,7 +1185,7 @@ const VIEW_TITLES = {
   overview:'Sistem Akışı', hooks:'Hooks', gates:'Quality Gates',
   tech:'Teknik Agentlar', qs:'Kalite & Güvenlik', pd:'Ürün & Tasarım',
   ps:'Proje & Strateji', mk:'Pazarlama & Destek', dc:'Karar Destek',
-  mcp:'MCP Serverlar', skills:'Skill Kataloğu'
+  mcp:'MCP Serverlar', skills:'Skill Kataloğu', graph:'Node Haritası'
 };
 
 function go(id, el) {
@@ -1203,6 +1222,308 @@ function clearSearch() {
     document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
     const v = document.getElementById('v-'+id);
     if (v) v.classList.add('active');
+  }
+}
+
+// ── GRAPH ─────────────────────────────────────────────────────────────────────
+// Resolve CSS variable to hex for canvas use (dark-mode aware)
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+// Build node list from data
+function buildGraphNodes() {
+  const nodes = [];
+  const edges = [];
+  let id = 0;
+
+  // Layer 0 — entry
+  const nUser   = {id:id++, label:'👤 Kullanıcı',    color:'#7d8590', x:0, y:0, r:28, kind:'entry',   data:null};
+  const nClaude = {id:id++, label:'📄 CLAUDE.md',    color:'#7d8590', x:0, y:0, r:28, kind:'entry',   data:null};
+  nodes.push(nUser, nClaude);
+
+  // Layer 1 — hooks
+  const hookNodes = HOOKS.map((h,i) => {
+    const col = h.effect==='BLOK' ? '#f85149' : h.effect==='UYARI' ? '#d29922' : '#79c0ff';
+    return {id:id++, label:h.name.replace('PreToolUse','Pre').replace('PostToolUse','Post'), color:col, x:0,y:0, r:22, kind:'hook', data:h};
+  });
+  hookNodes.forEach(n=>nodes.push(n));
+
+  // Layer 2 — gates (grouped label)
+  const gateNodes = GATES.map((g,i) => ({id:id++, label:g.name, color:'#bc8cff', x:0,y:0, r:18, kind:'gate', data:g}));
+  gateNodes.forEach(n=>nodes.push(n));
+
+  // Layer 3 — agents
+  const agentColorMap = {tech:'#58a6ff',qs:'#f85149',pd:'#ff7b72',ps:'#d29922',mk:'#3fb950',dc:'#79c0ff'};
+  const agentNodes = [];
+  Object.entries(AGENTS).forEach(([cat, agents]) => {
+    agents.forEach(a => {
+      agentNodes.push({id:id++, label:a.name, color:agentColorMap[cat], x:0,y:0, r:20, kind:'agent', cat, data:a});
+    });
+  });
+  agentNodes.forEach(n=>nodes.push(n));
+
+  // Layer 4 — MCP
+  const mcpNodes = MCPS.map(m => ({id:id++, label:m.name, color:'#3fb950', x:0,y:0, r:24, kind:'mcp', data:m}));
+  mcpNodes.forEach(n=>nodes.push(n));
+
+  // Layer 5 — Skill categories
+  const skillNodes = SKILL_CATS.map(c => {
+    const colors = {gate:'#bc8cff',sec:'#f85149',arch:'#58a6ff',ops:'#3fb950',tool:'#d29922',orc:'#79c0ff',dom:'#ff7b72'};
+    return {id:id++, label:`⚙️ ${c.label}`, color:colors[c.id]||'#7d8590', x:0,y:0, r:26, kind:'skill', data:c};
+  });
+  skillNodes.forEach(n=>nodes.push(n));
+
+  // ── Layout: layered columns ──
+  const W = 2400, H = 1600;
+  const cols = [
+    [nUser, nClaude],
+    hookNodes,
+    gateNodes,
+    agentNodes,
+    mcpNodes,
+    skillNodes,
+  ];
+  const colX = [120, 380, 680, 1040, 1440, 1780];
+  cols.forEach((col, ci) => {
+    const totalH = col.length * 56;
+    const startY = H/2 - totalH/2;
+    col.forEach((n, ni) => {
+      n.x = colX[ci];
+      n.y = startY + ni * 56;
+    });
+  });
+
+  // ── Edges ──
+  // user → claude
+  edges.push({from:nUser.id, to:nClaude.id});
+  // claude → hooks
+  hookNodes.forEach(h => edges.push({from:nClaude.id, to:h.id}));
+  // hooks → gates
+  hookNodes.slice(0,2).forEach(h => gateNodes.forEach(g => edges.push({from:h.id, to:g.id, dim:true})));
+  // gates → agents
+  gateNodes.forEach(g => agentNodes.forEach(a => edges.push({from:g.id, to:a.id, dim:true})));
+  // agents → mcp (only where mcp exists)
+  agentNodes.forEach(a => {
+    (a.data.mcp||[]).forEach(mcpRef => {
+      const mcpNode = mcpNodes.find(m => mcpRef.includes(m.label));
+      if (mcpNode) edges.push({from:a.id, to:mcpNode.id, highlight:true});
+    });
+  });
+  // claude → skills
+  skillNodes.forEach(s => edges.push({from:nClaude.id, to:s.id}));
+
+  return {nodes, edges, W, H};
+}
+
+// ── Canvas renderer ──
+let gState = null;
+
+function initGraph() {
+  const canvas = document.getElementById('graph-canvas');
+  if (!canvas) return;
+  const container = document.getElementById('v-graph');
+  canvas.width  = container.clientWidth  || 900;
+  canvas.height = container.clientHeight || 600;
+
+  const {nodes, edges, W, H} = buildGraphNodes();
+  // Start centered
+  const scale = Math.min(canvas.width / W, canvas.height / H) * 0.85;
+  gState = {
+    canvas, nodes, edges, W, H,
+    tx: (canvas.width  - W * scale) / 2,
+    ty: (canvas.height - H * scale) / 2,
+    scale,
+    dragging: false, lastX:0, lastY:0,
+    hovered: null,
+  };
+
+  canvas.addEventListener('wheel', onWheel, {passive:false});
+  canvas.addEventListener('mousedown', onMouseDown);
+  canvas.addEventListener('mousemove', onMouseMove);
+  canvas.addEventListener('mouseup',   onMouseUp);
+  canvas.addEventListener('mouseleave',onMouseUp);
+  canvas.addEventListener('click',     onGraphClick);
+  canvas.addEventListener('touchstart', onTouchStart, {passive:false});
+  canvas.addEventListener('touchmove',  onTouchMove,  {passive:false});
+  canvas.addEventListener('touchend',   onTouchEnd);
+
+  drawGraph();
+}
+
+function drawGraph() {
+  if (!gState) return;
+  const {canvas, nodes, edges, scale, tx, ty, hovered} = gState;
+  const ctx = canvas.getContext('2d');
+  const isDark = !document.documentElement.dataset.theme || document.documentElement.dataset.theme === 'dark'
+    || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && document.documentElement.dataset.theme !== 'light');
+  const bg     = isDark ? '#0d1117' : '#ffffff';
+  const border = isDark ? '#30363d' : '#d0d7de';
+  const text   = isDark ? '#e6edf3' : '#1f2328';
+  const muted  = isDark ? '#7d8590' : '#57606a';
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.save();
+  ctx.translate(tx, ty);
+  ctx.scale(scale, scale);
+
+  // Edges
+  edges.forEach(e => {
+    const from = nodes[e.from];
+    const to   = nodes[e.to];
+    ctx.beginPath();
+    // Bezier curve
+    const mx = (from.x + to.x) / 2;
+    ctx.moveTo(from.x, from.y);
+    ctx.bezierCurveTo(mx, from.y, mx, to.y, to.x, to.y);
+    ctx.strokeStyle = e.highlight ? from.color + 'aa' : e.dim ? border + '55' : border + '88';
+    ctx.lineWidth   = e.highlight ? 2 : e.dim ? 0.4 : 0.8;
+    ctx.stroke();
+  });
+
+  // Nodes
+  nodes.forEach(n => {
+    const isHovered = hovered === n.id;
+    const r = isHovered ? n.r * 1.15 : n.r;
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+    ctx.fillStyle = n.color + (isDark ? '22' : '18');
+    ctx.fill();
+    ctx.strokeStyle = n.color + (isHovered ? 'ff' : 'aa');
+    ctx.lineWidth = isHovered ? 2.5 : 1.5;
+    ctx.stroke();
+
+    // Label
+    const labelSize = n.r < 20 ? 9 : n.r < 24 ? 10 : 11;
+    ctx.font = `${isHovered ? 600 : 400} ${labelSize}px "Inter", system-ui, sans-serif`;
+    ctx.fillStyle = isHovered ? n.color : (n.r < 20 ? muted : text);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    // Wrap long labels
+    const maxW = n.r * 3.5;
+    const words = n.label.split(/[\s\-_]/);
+    if (ctx.measureText(n.label).width <= maxW || words.length === 1) {
+      ctx.fillText(n.label, n.x, n.y);
+    } else {
+      // 2-line wrap
+      let line1 = '', line2 = '';
+      let switched = false;
+      words.forEach(w => {
+        if (!switched && ctx.measureText(line1 + w).width < maxW) line1 += (line1?'-':'')+w;
+        else { switched=true; line2 += (line2?'-':'')+w; }
+      });
+      ctx.fillText(line1, n.x, n.y - labelSize*0.6);
+      ctx.fillText(line2, n.x, n.y + labelSize*0.6);
+    }
+  });
+
+  ctx.restore();
+  requestAnimationFrame(drawGraph);
+}
+
+function worldPos(e) {
+  const r = gState.canvas.getBoundingClientRect();
+  const cx = (e.clientX - r.left - gState.tx) / gState.scale;
+  const cy = (e.clientY - r.top  - gState.ty) / gState.scale;
+  return {cx, cy};
+}
+
+function hitNode(cx, cy) {
+  return gState.nodes.find(n => Math.hypot(n.x-cx, n.y-cy) < n.r * 1.4) || null;
+}
+
+function onWheel(e) {
+  e.preventDefault();
+  const r = gState.canvas.getBoundingClientRect();
+  const mx = e.clientX - r.left, my = e.clientY - r.top;
+  const factor = e.deltaY < 0 ? 1.12 : 0.9;
+  gState.tx = mx - (mx - gState.tx) * factor;
+  gState.ty = my - (my - gState.ty) * factor;
+  gState.scale *= factor;
+}
+
+function onMouseDown(e) {
+  gState.dragging = true;
+  gState.lastX = e.clientX; gState.lastY = e.clientY;
+  gState.canvas.style.cursor = 'grabbing';
+}
+
+function onMouseMove(e) {
+  if (gState.dragging) {
+    gState.tx += e.clientX - gState.lastX;
+    gState.ty += e.clientY - gState.lastY;
+    gState.lastX = e.clientX; gState.lastY = e.clientY;
+  } else {
+    const {cx,cy} = worldPos(e);
+    const hit = hitNode(cx,cy);
+    gState.hovered = hit ? hit.id : null;
+    gState.canvas.style.cursor = hit ? 'pointer' : 'grab';
+  }
+}
+
+function onMouseUp()  { gState.dragging = false; gState.canvas.style.cursor = 'grab'; }
+
+function onGraphClick(e) {
+  const {cx,cy} = worldPos(e);
+  const hit = hitNode(cx,cy);
+  if (!hit || !hit.data) return;
+  let title = hit.label.replace(/^[^\w]/,'').trim();
+  let color = hit.color;
+  let html = '';
+  if (hit.kind==='hook')  { title=hit.data.name;  html=buildHookPanel(hit.data); }
+  if (hit.kind==='gate')  { title=hit.data.name;  html=buildGatePanel(hit.data); }
+  if (hit.kind==='agent') { title=hit.data.name;  html=buildAgentPanel(hit.data); }
+  if (hit.kind==='mcp')   { title=hit.data.name;  html=buildMcpPanel(hit.data); }
+  if (hit.kind==='skill') {
+    title = hit.data.label;
+    html = `<div class="psec"><div class="psec-label">Kategori</div>
+      ${hit.data.items.map(s=>`<div class="prow"><code>${s.n}</code> — ${s.d}</div>`).join('')}
+    </div>`;
+  }
+  openPanel(title, color, html);
+}
+
+// Touch support
+let touchLast = null;
+function onTouchStart(e) { e.preventDefault(); if(e.touches.length===1) { touchLast={x:e.touches[0].clientX,y:e.touches[0].clientY}; gState.dragging=true; } }
+function onTouchMove(e)  { e.preventDefault(); if(e.touches.length===1 && touchLast) { gState.tx+=e.touches[0].clientX-touchLast.x; gState.ty+=e.touches[0].clientY-touchLast.y; touchLast={x:e.touches[0].clientX,y:e.touches[0].clientY}; } }
+function onTouchEnd()    { gState.dragging=false; touchLast=null; }
+
+function graphZoom(factor) {
+  if (!gState) return;
+  const cx = gState.canvas.width/2, cy = gState.canvas.height/2;
+  gState.tx = cx - (cx - gState.tx) * factor;
+  gState.ty = cy - (cy - gState.ty) * factor;
+  gState.scale *= factor;
+}
+
+function graphReset() {
+  if (!gState) return;
+  const {canvas, W, H} = gState;
+  const scale = Math.min(canvas.width/W, canvas.height/H)*0.85;
+  gState.scale = scale;
+  gState.tx = (canvas.width  - W*scale)/2;
+  gState.ty = (canvas.height - H*scale)/2;
+}
+
+// Hook into go() to init graph when tab is first opened
+const _origGo = go;
+function go(id, el) {
+  _origGo(id, el);
+  if (id === 'graph') {
+    requestAnimationFrame(() => {
+      const container = document.getElementById('v-graph');
+      const canvas = document.getElementById('graph-canvas');
+      if (canvas && container) {
+        canvas.width  = container.clientWidth  || 900;
+        canvas.height = container.clientHeight || 600;
+        if (!gState) initGraph();
+        else { canvas.width = container.clientWidth; canvas.height = container.clientHeight; }
+      }
+    });
   }
 }
 </script>
