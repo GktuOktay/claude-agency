@@ -1444,81 +1444,97 @@ function buildGraphNodes() {
   const edges = [];
   let id = 0;
 
-  // Layer 0 — entry
-  const nUser   = {id:id++, label:'👤 Kullanıcı',    color:'#8b94b0', x:0, y:0, r:28, kind:'entry',   data:null};
-  const nClaude = {id:id++, label:'📄 CLAUDE.md',    color:'#81ecec', x:0, y:0, r:28, kind:'entry',   data:null};
+  const W = 1800, H = 900;
+
+  // ── Col 0: Entry ──
+  const nUser   = {id:id++, label:'👤 Kullanıcı', color:'#8b94b0', r:30, kind:'entry', data:null};
+  const nClaude = {id:id++, label:'📄 CLAUDE.md', color:'#81ecec', r:30, kind:'entry', data:null};
   nodes.push(nUser, nClaude);
+  nUser.x   = 130; nUser.y   = H/2 - 50;
+  nClaude.x = 130; nClaude.y = H/2 + 50;
 
-  // Layer 1 — hooks
-  const hookNodes = HOOKS.map((h,i) => {
-    const col = h.effect==='BLOK' ? '#ff6b6b' : h.effect==='UYARI' ? '#ffd166' : '#81ecec';
-    return {id:id++, label:h.name.replace('PreToolUse','Pre').replace('PostToolUse','Post'), color:col, x:0,y:0, r:22, kind:'hook', data:h};
+  // ── Col 1: Hooks (6) ──
+  const hookCol = [
+    {label:'Pre[Bash]\nBLOK',        color:'#ff6b6b', data:HOOKS[0]},
+    {label:'Pre[Write]\nUYARI',      color:'#ffd166', data:HOOKS[1]},
+    {label:'Pre[Grep]\nGUARD',       color:'#81ecec', data:HOOKS[2]},
+    {label:'Pre[Read]\nGUARD',       color:'#81ecec', data:HOOKS[3]},
+    {label:'Post[Write]\nHATIRLAT',  color:'#55efc4', data:HOOKS[4]},
+    {label:'Stop\nBILDIRIM',         color:'#8b94b0', data:HOOKS[5]},
+  ].map(function(h){ return {id:id++, label:h.label, color:h.color, r:24, kind:'hook', data:h.data}; });
+  hookCol.forEach(function(n){ nodes.push(n); });
+  (function(){ var total=hookCol.length*70; var sy=H/2-total/2; hookCol.forEach(function(n,i){ n.x=360; n.y=sy+i*70; }); })();
+
+  // ── Col 2: Quality Gates group ──
+  const nGates = {id:id++, label:'🛡️ Quality Gates\n(20 gate)', color:'#d4a4ff', r:42, kind:'gateGroup', data:null};
+  nodes.push(nGates);
+  nGates.x = 640; nGates.y = H/2;
+
+  // ── Col 3: Agent categories (6 group nodes) ──
+  const agCols = [
+    {cat:'tech', label:'🔧 Teknik\n7 agent',        color:'#74b9ff'},
+    {cat:'qs',   label:'🛡️ Kalite&Güvenlik\n9 agent',color:'#ff6b6b'},
+    {cat:'pd',   label:'🎨 Ürün&Tasarım\n9 agent',  color:'#fd79a8'},
+    {cat:'ps',   label:'📋 Proje&Strateji\n5 agent', color:'#ffd166'},
+    {cat:'mk',   label:'📣 Pazarlama\n6 agent',      color:'#55efc4'},
+    {cat:'dc',   label:'🔎 Karar Destek\n2 agent',   color:'#81ecec'},
+  ].map(function(a){ return {id:id++, label:a.label, color:a.color, r:38, kind:'agentGroup', cat:a.cat, data:AGENTS[a.cat]}; });
+  agCols.forEach(function(n){ nodes.push(n); });
+  (function(){ var total=agCols.length*120; var sy=H/2-total/2+20; agCols.forEach(function(n,i){ n.x=960; n.y=sy+i*120; }); })();
+
+  // ── Col 4: MCP (5) + Skills group ──
+  const mcpNodes = MCPS.map(function(m){
+    return {id:id++, label:m.name, color:'#55efc4', r:26, kind:'mcp', data:m};
   });
-  hookNodes.forEach(n=>nodes.push(n));
+  mcpNodes.forEach(function(n){ nodes.push(n); });
+  (function(){ var total=mcpNodes.length*80; var sy=H/2-total/2; mcpNodes.forEach(function(n,i){ n.x=1300; n.y=sy+i*80; }); })();
 
-  // Layer 2 — gates (grouped label)
-  const gateNodes = GATES.map((g,i) => ({id:id++, label:g.name, color:'#d4a4ff', x:0,y:0, r:18, kind:'gate', data:g}));
-  gateNodes.forEach(n=>nodes.push(n));
+  const nSkills = {id:id++, label:'⚙️ Skills\n(139)', color:'#fd79a8', r:38, kind:'skillGroup', data:null};
+  nodes.push(nSkills);
+  nSkills.x = 1300; nSkills.y = mcpNodes[mcpNodes.length-1].y + 110;
 
-  // Layer 3 — agents
-  const agentColorMap = {tech:'#74b9ff',qs:'#ff6b6b',pd:'#fd79a8',ps:'#ffd166',mk:'#55efc4',dc:'#81ecec'};
-  const agentNodes = [];
-  Object.entries(AGENTS).forEach(([cat, agents]) => {
-    agents.forEach(a => {
-      agentNodes.push({id:id++, label:a.name, color:agentColorMap[cat], x:0,y:0, r:20, kind:'agent', cat, data:a});
+  // ── Edges ── (only meaningful, no all-to-all)
+  // Entry flow
+  edges.push({from:nUser.id,   to:nClaude.id, w:2});
+  // Claude → each hook
+  hookCol.forEach(function(h){ edges.push({from:nClaude.id, to:h.id, w:1.5}); });
+  // Hooks [0,1] → Gates (main control flow)
+  edges.push({from:hookCol[0].id, to:nGates.id, w:2, color:'#ff6b6b'});
+  edges.push({from:hookCol[1].id, to:nGates.id, w:2, color:'#ffd166'});
+  edges.push({from:hookCol[2].id, to:nGates.id, w:1.5, color:'#81ecec'});
+  edges.push({from:hookCol[3].id, to:nGates.id, w:1.5, color:'#81ecec'});
+  // Gates → each agent category
+  agCols.forEach(function(a){ edges.push({from:nGates.id, to:a.id, w:1.5}); });
+  // Agent→MCP (specific relationships only)
+  var techNode = agCols[0], qsNode = agCols[1], testNode = null;
+  AGENTS.tech.forEach(function(a){
+    (a.mcp||[]).forEach(function(ref){
+      mcpNodes.forEach(function(mn){
+        if(ref.toLowerCase().includes(mn.label.toLowerCase().split(' ')[0])){
+          // avoid duplicate edges
+          var exists = edges.some(function(e){ return e.from===techNode.id && e.to===mn.id; });
+          if(!exists) edges.push({from:techNode.id, to:mn.id, w:2, color:'#55efc4'});
+        }
+      });
     });
   });
-  agentNodes.forEach(n=>nodes.push(n));
-
-  // Layer 4 — MCP
-  const mcpNodes = MCPS.map(m => ({id:id++, label:m.name, color:'#55efc4', x:0,y:0, r:24, kind:'mcp', data:m}));
-  mcpNodes.forEach(n=>nodes.push(n));
-
-  // Layer 5 — Skill categories
-  const skillNodes = SKILL_CATS.map(c => {
-    const colors = {gate:'#d4a4ff',sec:'#ff6b6b',arch:'#74b9ff',ops:'#55efc4',tool:'#ffd166',orc:'#81ecec',dom:'#fd79a8'};
-    return {id:id++, label:`⚙️ ${c.label}`, color:colors[c.id]||'#7d8590', x:0,y:0, r:26, kind:'skill', data:c};
-  });
-  skillNodes.forEach(n=>nodes.push(n));
-
-  // ── Layout: layered columns ──
-  const W = 2400, H = 1600;
-  const cols = [
-    [nUser, nClaude],
-    hookNodes,
-    gateNodes,
-    agentNodes,
-    mcpNodes,
-    skillNodes,
-  ];
-  const colX = [120, 380, 680, 1040, 1440, 1780];
-  cols.forEach((col, ci) => {
-    const totalH = col.length * 56;
-    const startY = H/2 - totalH/2;
-    col.forEach((n, ni) => {
-      n.x = colX[ci];
-      n.y = startY + ni * 56;
+  AGENTS.qs.forEach(function(a){
+    (a.mcp||[]).forEach(function(ref){
+      mcpNodes.forEach(function(mn){
+        if(ref.toLowerCase().includes(mn.label.toLowerCase().split(' ')[0])){
+          var exists = edges.some(function(e){ return e.from===qsNode.id && e.to===mn.id; });
+          if(!exists) edges.push({from:qsNode.id, to:mn.id, w:2, color:'#ff6b6b'});
+        }
+      });
     });
   });
-
-  // ── Edges ──
-  // user → claude
-  edges.push({from:nUser.id, to:nClaude.id});
-  // claude → hooks
-  hookNodes.forEach(h => edges.push({from:nClaude.id, to:h.id}));
-  // hooks → gates
-  hookNodes.slice(0,2).forEach(h => gateNodes.forEach(g => edges.push({from:h.id, to:g.id, dim:true})));
-  // gates → agents
-  gateNodes.forEach(g => agentNodes.forEach(a => edges.push({from:g.id, to:a.id, dim:true})));
-  // agents → mcp (only where mcp exists)
-  agentNodes.forEach(a => {
-    (a.data.mcp||[]).forEach(mcpRef => {
-      const mcpNode = mcpNodes.find(m => mcpRef.includes(m.label));
-      if (mcpNode) edges.push({from:a.id, to:mcpNode.id, highlight:true});
-    });
-  });
-  // claude → skills
-  skillNodes.forEach(s => edges.push({from:nClaude.id, to:s.id}));
+  // Test agents (under qs) → playwright
+  var playwrightNode = mcpNodes.find(function(m){ return m.label==='playwright'; });
+  if(playwrightNode) edges.push({from:agCols[1].id, to:playwrightNode.id, w:1.5, color:'#ffd166'});
+  // Claude → Skills (dashed)
+  edges.push({from:nClaude.id, to:nSkills.id, w:1.5, dash:true});
+  // Agents use skills
+  agCols.forEach(function(a){ edges.push({from:a.id, to:nSkills.id, w:1, dash:true}); });
 
   return {nodes, edges, W, H};
 }
@@ -1573,58 +1589,106 @@ function drawGraph() {
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+  // Layer header labels (fixed, outside world transform)
+  const layers = [
+    {x:130,  label:'GİRİŞ',        color:'#8b94b0'},
+    {x:360,  label:'HOOKS',         color:'#ff6b6b'},
+    {x:640,  label:'QUALITY GATES', color:'#d4a4ff'},
+    {x:960,  label:'AGENTLAR',      color:'#74b9ff'},
+    {x:1300, label:'MCP / SKILLS',  color:'#55efc4'},
+  ];
+  layers.forEach(function(l){
+    const sx = l.x * scale + tx;
+    ctx.font = '700 10px "Inter",system-ui,sans-serif';
+    ctx.fillStyle = l.color + 'bb';
+    ctx.textAlign = 'center';
+    ctx.letterSpacing = '0.1em';
+    ctx.fillText(l.label, sx, 16);
+    ctx.beginPath();
+    ctx.moveTo(sx, 22); ctx.lineTo(sx, 30);
+    ctx.strokeStyle = l.color + '44'; ctx.lineWidth = 1; ctx.stroke();
+  });
+  ctx.letterSpacing = '0';
+
   ctx.save();
   ctx.translate(tx, ty);
   ctx.scale(scale, scale);
 
   // Edges
-  edges.forEach(e => {
+  edges.forEach(function(e){
     const from = nodes[e.from];
     const to   = nodes[e.to];
     ctx.beginPath();
-    // Bezier curve
     const mx = (from.x + to.x) / 2;
     ctx.moveTo(from.x, from.y);
     ctx.bezierCurveTo(mx, from.y, mx, to.y, to.x, to.y);
-    ctx.strokeStyle = e.highlight ? from.color + 'aa' : e.dim ? border + '55' : border + '88';
-    ctx.lineWidth   = e.highlight ? 2 : e.dim ? 0.4 : 0.8;
+    if (e.dash) ctx.setLineDash([6, 4]);
+    else ctx.setLineDash([]);
+    ctx.strokeStyle = e.color ? e.color + '99' : border + 'aa';
+    ctx.lineWidth   = (e.w || 1);
     ctx.stroke();
+    ctx.setLineDash([]);
+    // Arrowhead
+    if (!e.dash) {
+      const ang = Math.atan2(to.y - from.y, to.x - from.x);
+      const ax = to.x - Math.cos(ang) * (to.r + 2);
+      const ay = to.y - Math.sin(ang) * (to.r + 2);
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(ax - 8*Math.cos(ang-0.4), ay - 8*Math.sin(ang-0.4));
+      ctx.lineTo(ax - 8*Math.cos(ang+0.4), ay - 8*Math.sin(ang+0.4));
+      ctx.closePath();
+      ctx.fillStyle = e.color ? e.color + '99' : border + 'aa';
+      ctx.fill();
+    }
   });
 
   // Nodes
-  nodes.forEach(n => {
+  nodes.forEach(function(n){
     const isHovered = hovered === n.id;
-    const r = isHovered ? n.r * 1.15 : n.r;
-    ctx.beginPath();
-    ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-    ctx.fillStyle = n.color + (isDark ? '30' : '22');
-    ctx.fill();
-    ctx.strokeStyle = n.color + (isHovered ? 'ff' : 'cc');
-    ctx.lineWidth = isHovered ? 3 : 2;
-    ctx.stroke();
+    const r = isHovered ? n.r * 1.12 : n.r;
+    // Group nodes: rounded rect; others: circle
+    const isGroup = n.kind === 'gateGroup' || n.kind === 'agentGroup' || n.kind === 'skillGroup';
+    if (isGroup) {
+      const w = r * 2.4, h = r * 1.6, rr = 10;
+      ctx.beginPath();
+      ctx.roundRect(n.x - w/2, n.y - h/2, w, h, rr);
+      ctx.fillStyle = n.color + (isDark ? '28' : '1a');
+      ctx.fill();
+      ctx.strokeStyle = n.color + (isHovered ? 'ff' : 'cc');
+      ctx.lineWidth = isHovered ? 3 : 2;
+      ctx.stroke();
+    } else {
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = n.color + (isDark ? '28' : '1a');
+      ctx.fill();
+      ctx.strokeStyle = n.color + (isHovered ? 'ff' : 'cc');
+      ctx.lineWidth = isHovered ? 3 : 2;
+      ctx.stroke();
+    }
 
-    // Label
-    const labelSize = n.r < 20 ? 10 : n.r < 24 ? 11 : 12;
-    ctx.font = (isHovered ? '700' : '600') + ' ' + labelSize + 'px "Inter", system-ui, sans-serif';
-    ctx.fillStyle = isHovered ? n.color : (n.r < 20 ? n.color + 'dd' : text);
+    // Label (handles \n)
+    const lines = n.label.split('\n');
+    const sz = n.r < 26 ? 11 : 12;
+    const lh = sz * 1.35;
+    ctx.font = (isHovered ? '700' : '600') + ' ' + sz + 'px "Inter",system-ui,sans-serif';
+    ctx.fillStyle = isHovered ? n.color : text;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    // Wrap long labels
-    const maxW = n.r * 3.5;
-    const words = n.label.split(/[\s\-_]/);
-    if (ctx.measureText(n.label).width <= maxW || words.length === 1) {
-      ctx.fillText(n.label, n.x, n.y);
-    } else {
-      // 2-line wrap
-      let line1 = '', line2 = '';
-      let switched = false;
-      words.forEach(w => {
-        if (!switched && ctx.measureText(line1 + w).width < maxW) line1 += (line1?'-':'')+w;
-        else { switched=true; line2 += (line2?'-':'')+w; }
-      });
-      ctx.fillText(line1, n.x, n.y - labelSize*0.6);
-      ctx.fillText(line2, n.x, n.y + labelSize*0.6);
-    }
+    const totalH = (lines.length - 1) * lh;
+    lines.forEach(function(line, li){
+      const ly = n.y - totalH/2 + li * lh;
+      if (li === lines.length - 1 && lines.length > 1) {
+        // second line: smaller, muted
+        ctx.font = '500 ' + (sz - 1) + 'px "Inter",system-ui,sans-serif';
+        ctx.fillStyle = n.color + 'cc';
+      }
+      ctx.fillText(line, n.x, ly);
+    });
+    // reset
+    ctx.font = '600 ' + sz + 'px "Inter",system-ui,sans-serif';
+    ctx.fillStyle = isHovered ? n.color : text;
   });
 
   ctx.restore();
@@ -1676,21 +1740,68 @@ function onMouseUp()  { gState.dragging = false; gState.canvas.style.cursor = 'g
 function onGraphClick(e) {
   const {cx,cy} = worldPos(e);
   const hit = hitNode(cx,cy);
-  if (!hit || !hit.data) return;
-  let title = hit.label.replace(/^[^\w]/,'').trim();
+  if (!hit) return;
+  let title = hit.label.replace(/\n.*/,'').replace(/^[^\wÀ-ɏ]/,'').trim();
   let color = hit.color;
   let html = '';
-  if (hit.kind==='hook')  { title=hit.data.name;  html=buildHookPanel(hit.data); }
-  if (hit.kind==='gate')  { title=hit.data.name;  html=buildGatePanel(hit.data); }
-  if (hit.kind==='agent') { title=hit.data.name;  html=buildAgentPanel(hit.data); }
-  if (hit.kind==='mcp')   { title=hit.data.name;  html=buildMcpPanel(hit.data); }
-  if (hit.kind==='skill') {
+
+  if (hit.kind==='hook' && hit.data)  { title=hit.data.name;  html=buildHookPanel(hit.data); }
+  if (hit.kind==='gate' && hit.data)  { title=hit.data.name;  html=buildGatePanel(hit.data); }
+  if (hit.kind==='agent' && hit.data) { title=hit.data.name;  html=buildAgentPanel(hit.data); }
+  if (hit.kind==='mcp'  && hit.data)  { title=hit.data.name;  html=buildMcpPanel(hit.data); }
+  if (hit.kind==='skill' && hit.data) {
     title = hit.data.label;
-    html = `<div class="psec"><div class="psec-label">Kategori</div>
-      ${hit.data.items.map(s=>`<div class="prow"><code>${s.n}</code> — ${s.d}</div>`).join('')}
-    </div>`;
+    html = '<div class="psec"><div class="psec-label">Kategori</div>' +
+      hit.data.items.map(function(s){ return '<div class="prow"><code>'+s.n+'</code> — '+s.d+'</div>'; }).join('') +
+      '</div>';
   }
-  openPanel(title, color, html);
+
+  if (hit.kind==='entry') {
+    title = hit.label.replace(/^[^\wÀ-ɏ]/,'').trim();
+    html = '<div class="psec"><div class="prow">Bu node sistemin giriş noktasını temsil eder. Kullanıcı → Claude konuşmasından tüm sistem tetiklenir.</div></div>';
+  }
+
+  if (hit.kind==='gateGroup') {
+    title = 'Quality Gates (20 adet)';
+    html = '<div class="psec"><div class="psec-label">Tüm Kalite Kapıları</div>' +
+      '<div class="prow" style="margin-bottom:8px;color:var(--muted)">alwaysApply:true olan bu skill\'ler her etkileşimde otomatik devreye girer.</div>' +
+      GATES.map(function(g){
+        return '<div class="prow" style="display:flex;gap:8px;align-items:flex-start;padding:6px 0">' +
+          '<span class="tag-inline pill-violet" style="flex-shrink:0">'+g.name+'</span>' +
+          '<span style="color:var(--muted);font-size:12px">'+g.desc+'</span></div>';
+      }).join('') + '</div>';
+  }
+
+  if (hit.kind==='agentGroup') {
+    var catLabels = {tech:'Teknik',qs:'Kalite & Güvenlik',pd:'Ürün & Tasarım',ps:'Proje & Strateji',ms:'Pazarlama & Destek',ds:'Karar Destek'};
+    title = (catLabels[hit.cat]||hit.cat) + ' Agentları';
+    var agentList = hit.data || [];
+    html = '<div class="psec"><div class="psec-label">' + agentList.length + ' Agent</div>' +
+      agentList.map(function(a){
+        var safeName = a.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+        return '<div class="prow agent-row" style="cursor:pointer;padding:8px;border-radius:6px;background:var(--bg3);margin-bottom:6px" ' +
+          'onclick="showAgentFromGraph(\'' + safeName + '\')">' +
+          '<strong style="color:'+hit.color+'">'+a.name+'</strong>' +
+          '<div style="font-size:12px;color:var(--muted);margin-top:2px">'+a.role+'</div>' +
+          '</div>';
+      }).join('') + '</div>';
+  }
+
+  if (hit.kind==='skillGroup') {
+    title = 'Skills (139 adet)';
+    html = '<div class="psec"><div class="psec-label">Skill Kategorileri</div>' +
+      SKILL_CATS.map(function(cat){
+        return '<div class="prow" style="padding:8px;border-radius:6px;background:var(--bg3);margin-bottom:6px">' +
+          '<strong style="color:#fd79a8">'+cat.label+'</strong>' +
+          '<span style="font-size:12px;color:var(--muted);margin-left:8px">'+cat.items.length+' skill</span>' +
+          '<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:4px">' +
+          cat.items.slice(0,6).map(function(s){ return '<span class="tag-inline pill-pink" style="font-size:11px">'+s.n+'</span>'; }).join('') +
+          (cat.items.length>6 ? '<span style="font-size:11px;color:var(--muted)">+' + (cat.items.length-6) + ' daha</span>' : '') +
+          '</div></div>';
+      }).join('') + '</div>';
+  }
+
+  if (html) openPanel(title, color, html);
 }
 
 // Touch support
@@ -1705,6 +1816,18 @@ function graphZoom(factor) {
   gState.tx = cx - (cx - gState.tx) * factor;
   gState.ty = cy - (cy - gState.ty) * factor;
   gState.scale *= factor;
+}
+
+function showAgentFromGraph(name) {
+  var found = null;
+  for (var cat in AGENTS) {
+    var arr = AGENTS[cat];
+    for (var i=0; i<arr.length; i++) {
+      if (arr[i].name === name) { found = arr[i]; break; }
+    }
+    if (found) break;
+  }
+  if (found) openPanel(found.name, found.color||'var(--blue)', buildAgentPanel(found));
 }
 
 function graphReset() {
