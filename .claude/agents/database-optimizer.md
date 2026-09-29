@@ -1,7 +1,7 @@
 ---
 name: database-optimizer
 description: PostgreSQL şema tasarımı, query optimizasyonu, index stratejisi, EF Core migration ve zero-downtime deployment. Yavaş query analizi, N+1 tespiti, connection pooling ve DB performans sorunları için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Edit

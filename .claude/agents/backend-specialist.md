@@ -1,7 +1,7 @@
 ---
 name: backend-specialist
 description: .NET Clean Architecture, EF Core, CQRS, Domain-Driven Design implementasyonu. Kod yazma, refactor, DB migration görevleri için kullan. Mimari kararlar, entity tasarımı, repository pattern uygulaması.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Edit

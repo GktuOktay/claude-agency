@@ -1,7 +1,7 @@
 ---
 name: test-engineer
 description: Unit test, integration test, E2E test yazımı. TDD uygulaması, test coverage analizi, chaos testing senaryoları. Test yazma görevleri için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Edit

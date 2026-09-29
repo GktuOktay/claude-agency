@@ -1,7 +1,7 @@
 ---
 name: design-persona-walkthrough
 description: Belirli kullanıcı personası gözünden akış veya özellik değerlendirmesi. "Bu kullanıcı bunu nasıl yaşar?" senaryosu, persona bazlı UX sorunlarını tespit etme ve empati haritası için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
 ---

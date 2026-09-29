@@ -1,7 +1,7 @@
 ---
 name: support-technical-support
 description: Kullanıcı teknik sorunlarını çözme, hata ayıklama adımları oluşturma, FAQ ve destek dokümanı yazımı. App Store destek yanıtları, kullanıcı sorun raporları ve "bu kullanıcıya nasıl yardım ederim?" soruları için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

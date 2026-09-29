@@ -1,7 +1,7 @@
 ---
 name: testing-qa-engineer
 description: Test case yazımı, edge case tespiti, otomatik test implementasyonu ve coverage analizi. Yeni özellik test planı, regresyon testi ve "bu özellik gerçekten çalışıyor mu?" soruları için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

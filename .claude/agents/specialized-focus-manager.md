@@ -1,7 +1,7 @@
 ---
 name: specialized-focus-manager
 description: Çok proje ortamında önceliklendirme, dikkat dağınıklığı yönetimi ve odak koruma. "Neye odaklanmalıyım?", haftalık önceliklendirme ve proje geçişlerindeki bağlam kaybını azaltma için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

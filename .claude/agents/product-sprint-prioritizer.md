@@ -1,7 +1,7 @@
 ---
 name: product-sprint-prioritizer
 description: Sprint backlog önceliklendirme, teknik borç vs özellik dengesi, kapasiteye göre scope ayarlama. Sprint planlama toplantısı öncesi, backlog grooming ve "ne yapmalıyız bu sprint?" kararları için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

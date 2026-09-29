@@ -1,7 +1,7 @@
 ---
 name: security-ai-code-auditor
 description: AI ile üretilen kodun güvenlik denetimi — hallüsinasyon kaynaklı açıklar, güvensiz pattern önerileri, bağımlılık riskleri ve "Claude/Copilot yazdı, güvenli mi?" soruları için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Bash

@@ -1,7 +1,7 @@
 ---
 name: product-feedback-synthesizer
 description: Kullanıcı geri bildirimlerini (App Store yorumları, destek talepleri, anket sonuçları) sentezleyerek aksiyon alınabilir içgörülere dönüştürme. Yorum analizi, desen tespiti ve önceliklendirme için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

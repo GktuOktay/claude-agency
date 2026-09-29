@@ -1,7 +1,7 @@
 ---
 name: security-secrets-engineer
 description: Secret ve credential yönetimi, sızıntı önleme, güvenli yapılandırma ve key rotation. Hardcoded credential tespiti, .env güvenliği, CI/CD secret yönetimi ve "bu credential güvenli mi?" soruları için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Bash

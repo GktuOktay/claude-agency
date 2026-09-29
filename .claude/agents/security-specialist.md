@@ -1,7 +1,7 @@
 ---
 name: security-specialist
 description: Güvenlik analizi için tek otorite — kod güvenlik review'u (OWASP Top 10, injection, XSS), güvenlik mimarisi (STRIDE tehdit modelleme, secure by design), API/JWT/OAuth2 güvenliği ve AI üretimi kod denetimi. Pentest, mimari güvenlik kararları, kod review veya "bu güvenli mi?" soruları için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Bash

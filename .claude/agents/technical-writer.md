@@ -1,7 +1,7 @@
 ---
 name: technical-writer
 description: API dokümantasyonu, mimari belgeler, README, developer guide ve teknik içerik yazımı. Karmaşık teknik konuları hedef kitleye göre açıklama ve "bunu nasıl belgelerim?" soruları için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

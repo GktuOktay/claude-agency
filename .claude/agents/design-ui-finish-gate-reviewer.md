@@ -1,7 +1,7 @@
 ---
 name: design-ui-finish-gate-reviewer
 description: Ekranın yayına çıkmadan önce son kalite kontrolü. Pixel-perfect uyum, boşluk tutarlılığı, durum kapsamı, erişilebilirlik ve platform uyumu denetimi. "Bu ekran production'a hazır mı?" sorusu için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
 ---

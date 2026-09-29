@@ -1,7 +1,7 @@
 ---
 name: strategy-business-strategist
 description: Büyüme stratejisi, monetizasyon modeli, rekabet analizi ve stratejik karar çerçeveleri. Pivot kararları, fiyatlandırma modeli, yeni pazar girişi ve "nereye gidiyoruz?" soruları için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write

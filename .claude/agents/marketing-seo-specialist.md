@@ -1,7 +1,7 @@
 ---
 name: marketing-seo-specialist
 description: App Store Optimization (ASO), web SEO, anahtar kelime araştırması ve metadata optimizasyonu. App Store'da keşfedilebilirlik artırma, web sitesi arama sıralaması ve "nasıl daha çok bulunurum?" soruları için kullan.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 tools:
   - Read
   - Write
