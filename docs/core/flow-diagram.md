@@ -104,7 +104,7 @@ flowchart TD
 
     subgraph SKILLS["⚙️ Skill Katmanları — 29 skill · 99 referans"]
         SK1["Otomatik (14)\nmaster · code · security · design · test\ngit · docs · deployment · marketing · ba\ngraphify · caveman · caveman-commit · caveman-review"]
-        SK2["Manuel / slash (15)\ncaveman-compress/stats/help · cavecrew\nskill-creator · mcp-builder · humanizer\nmake-plan · plan-mode · learn-codebase ..."]
+        SK2["Manuel / slash (16)\ncaveman-compress/stats/help · cavecrew\nskill-creator · mcp-builder · humanizer\nmake-plan · plan-mode · learn-codebase ..."]
         SK3["Orkestratör referansları (99)\nOrkestratör SKILL.md tablosundan Read ile yüklenir\nsecurity: 21 pentest + 50 ek kaynak dosyası"]
     end
 

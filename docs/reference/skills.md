@@ -5,7 +5,7 @@
 | Katman | Adet | Yüklenme |
 |---|---|---|
 | Otomatik skill (model çağırabilir) | 14 | Sadece `name + description` her oturumda; gövde çağrılınca |
-| Manuel skill (`disable-model-invocation`) | 15 | Hiç listelenmez; sadece `/<ad>` ile çalışır |
+| Manuel skill (`disable-model-invocation`) | 16 | Hiç listelenmez; sadece `/<ad>` ile çalışır |
 | Orkestratör referansı (`references/`) | 91 | Orkestratör ilgili dosyayı `Read` ile okuduğunda |
 | Kurallar (`.claude/rules/`) | 2 | İlgili dosya tipi açıldığında (`*.cs`, `*.ts/tsx/js/dart`...) |
 
@@ -33,6 +33,7 @@
 | Skill | Açıklama |
 |---|---|
 | `/cavecrew` | Decision guide for delegating to caveman-style subagents. Tells the main thread WHEN to spawn `cavecrew-investigator` (locate code), `cavecrew-builder |
+| `/caveman-optimizer` | Caveman özelliklerini tek noktada toplayan optimizasyon aracı (manuel). |
 | `/caveman-compress` | Compress natural language memory files (CLAUDE.md, todos, preferences) into caveman format to save input tokens. Preserves all technical substance, co |
 | `/caveman-help` | Quick-reference card for all caveman modes, skills, and commands. One-shot display, not a persistent mode. Trigger: /caveman-help, "caveman help", "wh |
 | `/caveman-stats` | Show real token usage and estimated savings for the current session. Reads directly from the Claude Code session log — no AI estimation. Triggers on / |

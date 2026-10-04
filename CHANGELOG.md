@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- Always-loaded context cut ~64% (est. 11.9k -> 4.3k tokens/session): 14 model-invocable skills, 99 on-demand orchestrator references, 15 manual (slash-only) skills
+- Always-loaded context cut ~64% (est. 11.9k -> 4.3k tokens/session): 14 model-invocable skills, 99 on-demand orchestrator references, 16 manual (slash-only) skills
 - 18 quality-gate skills moved to path-scoped `.claude/rules/` (`dotnet-backend.md`, `frontend.md`)
 - Agent descriptions shortened to one line
 - Changelog rule aligned with `update-changelog-workflow`: release-time only

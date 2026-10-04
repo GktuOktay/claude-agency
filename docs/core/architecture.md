@@ -45,7 +45,7 @@ graph TB
         M5["brave-search\nCVE + web arama"]
     end
 
-    subgraph SKILLS["⚙️ Skill Kataloğu (29 skill · 99 referans)"]
+    subgraph SKILLS["⚙️ Skill Kataloğu (30 skill · 99 referans)"]
         S1["10x Orkestratör: referansları Read ile yükler"]
         S2["graphify + caveman ailesi (4 otomatik, 4 manuel)"]
         S3["15x Manuel araç (slash): skill-creator, mcp-builder, humanizer..."]
