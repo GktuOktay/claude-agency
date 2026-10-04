@@ -312,3 +312,8 @@ NEW FINDINGS (blocking):
 QUALITY GATE: FAILED (3 new findings)
 Action: Rotate exposed credentials immediately.
 ```
+
+
+## Ek kaynaklar
+
+`.claude/skills/security-orchestrator/references/_resources/secret-scanning-with-gitleaks-specialist/` altında: assets/, references/, scripts/

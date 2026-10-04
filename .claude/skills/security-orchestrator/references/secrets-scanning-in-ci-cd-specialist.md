@@ -67,3 +67,8 @@ The agent script produces a JSON report containing:
   "findings": [...]
 }
 ```
+
+
+## Ek kaynaklar
+
+`.claude/skills/security-orchestrator/references/_resources/secrets-scanning-in-ci-cd-specialist/` altında: references/, scripts/

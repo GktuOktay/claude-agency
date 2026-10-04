@@ -193,6 +193,10 @@ Skill tool ile çağrılmaz; orkestratör `SKILL.md` içindeki tablodan ilgili d
 | `references/test-driven-development-gate.md` | Kod üretildikten sonra AI'ın ilgili birim testlerini (Unit Test) yazıp terminalde çalıştırmasını zorunlu kılan kapı. |
 | `references/unit-test-architect.md` | Kapsamlı birim (unit) testleri, mock/stub kullanımları ve edge-case (uç durum) senaryoları yazma becerisi. |
 
+## Ek Kaynaklar
+
+17 pentest referansının betik/şablon dosyaları (`scripts/`, `references/`, `assets/`) `security-orchestrator/references/_resources/<skill>/` altında durur. Orkestratör yalnızca ilgili test için okur; token maliyeti yoktur.
+
 ## Kalite Kapıları → Kurallar
 
 Eski 20 gate skill'i artık `.claude/rules/` altında, ilgili dosya açılınca yüklenen kurallardır:

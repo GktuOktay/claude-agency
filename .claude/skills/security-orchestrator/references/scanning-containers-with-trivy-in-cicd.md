@@ -297,3 +297,8 @@ MISCONFIGURATION:
 
 QUALITY GATE: FAILED (2 Critical, 5 High findings)
 ```
+
+
+## Ek kaynaklar
+
+`.claude/skills/security-orchestrator/references/_resources/scanning-containers-with-trivy-in-cicd/` altında: assets/, references/, scripts/

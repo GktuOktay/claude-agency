@@ -235,3 +235,8 @@ LICENSE ISSUES:
 
 QUALITY GATE: FAILED (1 Critical with fix available)
 ```
+
+
+## Ek kaynaklar
+
+`.claude/skills/security-orchestrator/references/_resources/sca-dependency-scanning-with-snyk-specialist/` altında: assets/, references/, scripts/

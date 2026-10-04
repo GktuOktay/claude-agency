@@ -337,3 +337,8 @@ A settings page changes state via GET request (`/settings?disable_2fa=true`). Si
 4. Require re-authentication for sensitive operations (password change, fund transfer)
 5. Use custom request headers (X-Requested-With) for AJAX endpoints
 ```
+
+
+## Ek kaynaklar
+
+`.claude/skills/security-orchestrator/references/_resources/csrf-attack-simulation-specialist/` altında: references/, scripts/
