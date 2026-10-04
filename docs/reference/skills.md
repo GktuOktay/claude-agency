@@ -197,6 +197,8 @@ Skill tool ile çağrılmaz; orkestratör `SKILL.md` içindeki tablodan ilgili d
 
 17 pentest referansının betik/şablon dosyaları (`scripts/`, `references/`, `assets/`) `security-orchestrator/references/_resources/<skill>/` altında durur. Orkestratör yalnızca ilgili test için okur; token maliyeti yoktur.
 
+`skill-creator-tool` (`agents/`, `assets/`, `eval-viewer/`, `references/`, `scripts/`) ve `mcp-builder-tool` (`reference/`, `scripts/`) kendi yardımcı dosyalarını kendi klasörlerinde taşır; `SKILL.md` içindeki göreli yollar bu sayede çalışır.
+
 ## Kalite Kapıları → Kurallar
 
 Eski 20 gate skill'i artık `.claude/rules/` altında, ilgili dosya açılınca yüklenen kurallardır:
