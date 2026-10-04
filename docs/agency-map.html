@@ -199,8 +199,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <div class="sidebar-header">
       <div class="sidebar-logo">Claude Agency</div>
       <div class="sidebar-badges">
-        <span class="badge">38 agent</span>
-        <span class="badge">139 skill</span>
+        <span class="badge">36 agent</span>
+        <span class="badge">29 skill + 99 referans</span>
         <span class="badge">5 MCP</span>
         <span class="badge">20 gate</span>
       </div>
@@ -254,7 +254,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <span class="nav-dot" style="background:var(--emerald)"></span>MCP Serverlar<span class="nav-count">5</span>
       </a>
       <a class="nav-item" data-view="skills" onclick="go('skills',this)">
-        <span class="nav-dot" style="background:var(--violet)"></span>Skill Kataloğu<span class="nav-count">139</span>
+        <span class="nav-dot" style="background:var(--violet)"></span>Skill Kataloğu<span class="nav-count">30</span>
       </a>
     </div>
 
@@ -286,7 +286,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <!-- Intro banner -->
         <div style="background:var(--bg2);border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin-bottom:18px;font-size:13px;line-height:1.7">
           <strong style="color:var(--blue);font-size:13px">Claude Agency nedir?</strong><br>
-          Claude Code'un native çoklu-agent sistemi. Her kullanıcı mesajı; <strong>Hook</strong> güvenlik kontrol katmanından, <strong>Quality Gate</strong> kod kalite kurallarından geçer. Karmaşık görevler otomatik olarak doğru <strong>Subagent</strong>'a delege edilir. Agentlar <strong>MCP server</strong>'lar aracılığıyla .NET dokümantasyonu, veritabanı, tarayıcı ve web aramasına erişir. <strong>139 Skill</strong> ile tekrarlayan işlemler tek komuta indirgenir.<br><br>
+          Claude Code'un native çoklu-agent sistemi. Her kullanıcı mesajı; <strong>Hook</strong> güvenlik kontrol katmanından, <strong>Quality Gate</strong> kod kalite kurallarından geçer. Karmaşık görevler otomatik olarak doğru <strong>Subagent</strong>'a delege edilir. Agentlar <strong>MCP server</strong>'lar aracılığıyla .NET dokümantasyonu, veritabanı, tarayıcı ve web aramasına erişir. <strong>29 Skill</strong> ile tekrarlayan işlemler tek komuta indirgenir.<br><br>
           <span style="color:var(--muted)">Sol menüden detaylı kategorilere git · Hiyerarşi sekmesi tam top-down akışı gösterir · Her karta/chip'e tıklayarak kılavuz açabilirsin</span>
         </div>
 
@@ -302,15 +302,15 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <div class="flow-row">
           <div class="fn" style="--fc:var(--amber)"><div class="fn-icon">⚖️</div><div class="fn-label">Delegasyon?</div><div class="fn-sub">3+ dosya / domain</div></div>
           <div class="fa">→</div>
-          <div class="fn" style="--fc:var(--blue)" onclick="go('tech',null)"><div class="fn-icon">🤖</div><div class="fn-label">38 Agent</div><div class="fn-sub">Sonnet 4.6</div></div>
+          <div class="fn" style="--fc:var(--blue)" onclick="go('tech',null)"><div class="fn-icon">🤖</div><div class="fn-label">36 Agent</div><div class="fn-sub">Sonnet 4.6</div></div>
           <div class="fa">→</div>
           <div class="fn" style="--fc:var(--emerald)" onclick="go('mcp',null)"><div class="fn-icon">🔌</div><div class="fn-label">MCP</div><div class="fn-sub">5 server</div></div>
           <div class="fa">+</div>
-          <div class="fn" style="--fc:var(--violet)" onclick="go('skills',null)"><div class="fn-icon">⚙️</div><div class="fn-label">139 Skill</div><div class="fn-sub">.claude/skills</div></div>
+          <div class="fn" style="--fc:var(--violet)" onclick="go('skills',null)"><div class="fn-icon">⚙️</div><div class="fn-label">29 Skill</div><div class="fn-sub">.claude/skills</div></div>
         </div>
 
         <div class="divider"></div>
-        <div class="sh"><span class="sh-icon">🤖</span><span class="sh-name">38 Agent — Hızlı Erişim</span></div>
+        <div class="sh"><span class="sh-icon">🤖</span><span class="sh-name">36 Agent — Hızlı Erişim</span></div>
         <div class="mini-grid" id="ov-agents"></div>
       </div>
 
@@ -366,7 +366,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
               <div class="hier-head">
                 <span class="hier-head-icon">🛡️</span>
                 <span class="hier-head-name">Quality Gates</span>
-                <span class="hier-head-desc">alwaysApply: true · her yanıtta aktif</span>
+                <span class="hier-head-desc">path-scoped kurallar · .claude/rules</span>
                 <span class="hier-head-badge">20 gate</span>
               </div>
               <div class="hier-items" id="hier-gates"></div>
@@ -395,7 +395,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
                 <span class="hier-head-icon">🤖</span>
                 <span class="hier-head-name">Subagentlar</span>
                 <span class="hier-head-desc">claude-sonnet-4-6 · 6 kategori</span>
-                <span class="hier-head-badge">38 agent</span>
+                <span class="hier-head-badge">36 agent</span>
               </div>
               <div class="hier-items" id="hier-agents"></div>
             </div>
@@ -417,7 +417,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
               <div class="hier-head">
                 <span class="hier-head-icon">⚙️</span>
                 <span class="hier-head-name">Skill Kataloğu</span>
-                <span class="hier-head-badge">139 skill</span>
+                <span class="hier-head-badge">29 skill + 99 referans</span>
               </div>
               <div class="hier-items" id="hier-skills"></div>
             </div>
@@ -434,7 +434,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
       <!-- GATES -->
       <div class="view" id="v-gates">
-        <div class="sh"><span class="sh-icon">🛡️</span><span class="sh-name">Quality Gates</span><span class="sh-meta">20 gate · alwaysApply: true</span></div>
+        <div class="sh"><span class="sh-icon">🛡️</span><span class="sh-name">Quality Gates</span><span class="sh-meta">kurallar · .claude/rules + CLAUDE.md</span></div>
         <div class="grid g2" id="g-gates"></div>
       </div>
 
@@ -454,7 +454,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
       <!-- SKILLS -->
       <div class="view" id="v-skills">
-        <div class="sh"><span class="sh-icon">⚙️</span><span class="sh-name">Skill Kataloğu</span><span class="sh-meta">139 skill · .claude/skills/</span></div>
+        <div class="sh"><span class="sh-icon">⚙️</span><span class="sh-name">Skill Kataloğu</span><span class="sh-meta">29 skill + 99 referans · .claude/skills/</span></div>
         <div id="skills-wrap"></div>
       </div>
 
@@ -728,14 +728,6 @@ const AGENTS = {
       triggers:['Unit ve integration test yazımı','TDD ile geliştirme','E2E test senaryoları','Load test (k6)'],
       rules:['Mock DB yasak — TestContainers zorunlu','Test coverage hedefi branch+line','Flaky test kabul edilmez'],
       stack:['xUnit · NUnit · TestContainers · Playwright · k6 · FluentAssertions']},
-    {name:'testing-qa-engineer',color:'var(--red)',
-      desc:'Test senaryosu tasarımı, edge case tespiti, acceptance criteria uzmanı.',
-      role:'QA Engineer. Test planından acceptance criteria\'ya.',
-      tools:['Read','Write','Edit','Bash'],
-      mcp:[],
-      triggers:['Test planı yazımı','Regresyon test listesi oluşturma','"Bu özelliği nasıl test ederiz?" sorusu'],
-      rules:['Edge case\'ler happy path\'ten önce listelenir','Acceptance criteria Given/When/Then formatında'],
-      stack:['Gherkin · BDD · Test Design Techniques']},
     {name:'testing-test-strategist',color:'var(--red)',
       desc:'Test piramidi tasarımı, araç seçimi, CI/CD test entegrasyonu uzmanı.',
       role:'Test Strategy Architect. Hangi testleri ne kadar yazacağız kararı.',
@@ -769,14 +761,6 @@ const AGENTS = {
       triggers:['App Store privacy review öncesi','GDPR uyumluluk denetimi','Veri envanteri çıkarma'],
       rules:['PrivacyInfo.xcprivacy eksiksiz doldurulmalı','Veri saklama süresi belgelenmeli'],
       stack:['GDPR · KVKK · Apple PrivacyInfo.xcprivacy · CCPA']},
-    {name:'security-ai-code-auditor',color:'var(--red)',
-      desc:'Claude, Copilot, Cursor üretimli kodda özel güvenlik riski tespiti. Hallüsinasyon kaynaklı paket doğrulama.',
-      role:'AI Code Security Auditor.',
-      tools:['Read','Bash'],
-      mcp:[],
-      triggers:['AI ile yazılan PR\'ın güvenlik review\'u','Hallüsinasyon kaynaklı paket adı doğrulama'],
-      rules:['Tüm AI üretimi paket adları npm/nuget\'te doğrulanır','Dependency confusion saldırısı kontrolü zorunlu'],
-      stack:['npm audit · dotnet list package --vulnerable · Snyk']},
     {name:'incident-response',color:'var(--red)',
       desc:'SEV sınıflandırması, 5 Whys kök neden analizi, blameless postmortem uzmanı.',
       role:'Incident Commander. Prodüksiyon olayı yönetimi ve analizi.',
@@ -995,164 +979,168 @@ const MCPS = [
 ];
 
 const SKILL_CATS = [
-  {id:'gate',label:'Quality Gates',count:20,color:'var(--violet)',
+  {id:"auto",label:"Otomatik skill'ler",count:14,color:'var(--violet)',
     items:[
-      {n:'audit-trail-guardian-gate',d:'DB tablolarında CreatedBy/ModifiedAt zorunlu'},
-      {n:'timezone-enforcer-gate',d:'DateTimeOffset.UtcNow zorunlu'},
-      {n:'privacy-pii-masking-gate',d:'PII loglama yasak'},
-      {n:'tenant-isolation-gate',d:'Multi-tenant TenantId filtresi zorunlu'},
-      {n:'pre-flight-security-gate',d:'Kod öncesi güvenlik blueprint'},
-      {n:'fail-fast-config-gate',d:'App başlangıcında config doğrulama'},
-      {n:'validation-and-integrity-gate',d:'3-tier: DB→FluentValidation→Client'},
-      {n:'stateless-architecture-gate',d:'Session yasak · JWT zorunlu'},
-      {n:'problem-details-gate',d:'RFC 7807 hata formatı'},
-      {n:'finite-state-machine-gate',d:'Kritik durum geçişleri → FSM'},
-      {n:'outbox-pattern-enforcer',d:'Event yayınlama → outbox'},
-      {n:'ddd-ubiquitous-language-gate',d:'Domain dili tutarlılığı'},
-      {n:'structured-logging-audit-gate',d:'Async log · immutable audit'},
-      {n:'chaos-adversarial-gate',d:'Timeout/503/null senaryoları zorunlu'},
-      {n:'graceful-degradation-gate',d:'Servis düşerse fallback zorunlu'},
-      {n:'llm-hallucination-firewall-gate',d:'LLM çıktısı doğrulanmadan parse edilemez'},
-      {n:'main-thread-and-performance-gate',d:'UI thread blocking yasak'},
-      {n:'critical-critique-gate',d:'Her çözümde alternatif + risk'},
-      {n:'update-changelog-workflow',d:'Her değişiklikte CHANGELOG'},
-      {n:'escalation-workflow',d:'Kritik karar → kullanıcı onayı'},
+      {"n": "ba-orchestrator", "d": "İş analizi ve teknik sistem tasarımı ana yönlendiricisi. Karmaşık iş isteklerini EARS gereksinimlerine, Mermai"},
+      {"n": "caveman", "d": "Ultra-compressed communication mode. Cuts output tokens 65% (measured) by speaking like caveman while keeping"},
+      {"n": "caveman-commit", "d": "Ultra-compressed commit message generator. Cuts noise from commit messages while preserving intent and reasoni"},
+      {"n": "caveman-review", "d": "Ultra-compressed code review comments. Cuts noise from PR feedback while preserving the actionable signal. Eac"},
+      {"n": "code-orchestrator", "d": "Kod yazma, güvenlik, eleştirel denetim, test ve mimari süreçlerini yöneten ana orkestratör."},
+      {"n": "deployment-orchestrator", "d": "Deployment, CI/CD, altyapı yönetimi (IaC) ve bulut süreçlerini yöneten ana orkestratör. Gerektiğinde alt skill"},
+      {"n": "design-orchestrator", "d": "UI/UX tasarım, animasyon, görsel üretim ve frontend estetik süreçlerini yöneten orkestratör."},
+      {"n": "docs-orchestrator", "d": "Doküman ve dosya üretim süreçlerini yöneten orkestratör. PDF, Word, Excel, PowerPoint ve teknik analiz doküman"},
+      {"n": "git-orchestrator", "d": "Git süreçlerini, commit standartlarını, issue ve PR yönetimini, repo kurallarını yöneten ana orkestratör."},
+      {"n": "graphify", "d": "Use for any question about a codebase, its architecture, file relationships, or project content — especially w"},
+      {"n": "marketing-orchestrator", "d": "Ürün ve pazarlama metinleri, UI metinleri ve App Store lansman süreçlerini yöneten ana orkestratör. Gerektiğin"},
+      {"n": "master-orchestrator", "d": "Tüm alt orkestratörleri (Code, Design, Security, Test, Git, Docs) ve eleştirel denetim kapılarını tek noktadan"},
+      {"n": "security-orchestrator", "d": "Siber güvenlik, sızma testleri, API güvenliği ve kod zafiyet taramalarını yöneten ana orkestratör."},
+      {"n": "test-orchestrator", "d": "Kapsamlı test stratejileri, birim testleri (unit), uçtan uca testler (E2E), performans ve yük testlerini yönet"}
     ]},
-  {id:'sec',label:'Pentest & Güvenlik',count:12,color:'var(--red)',
+  {id:"manual",label:"Manuel (slash) skill'ler",count:16,color:'var(--amber)',
     items:[
-      {n:'master-pentester',d:'Kapsamlı penetrasyon testi'},
-      {n:'api-pentest',d:'API güvenlik testi'},
-      {n:'jwt-token-security-pentester',d:'JWT zafiyet analizi'},
-      {n:'cors-misconfiguration-pentester',d:'CORS yanlış yapılandırma'},
-      {n:'csrf-attack-simulation-specialist',d:'CSRF saldırı simülasyonu'},
-      {n:'for-xss-vulnerabilities-pentester',d:'XSS zafiyet testi'},
-      {n:'oauth2-implementation-flaws-pentester',d:'OAuth2 implementasyon hataları'},
-      {n:'for-broken-access-control-pentester',d:'Kırık erişim kontrolü testi'},
-      {n:'api-for-broken-object-level-authorization-pentester',d:'BOLA/IDOR testi'},
-      {n:'api-for-mass-assignment-vulnerability-pentester',d:'Mass assignment zafiyeti'},
-      {n:'mobile-api-authentication-pentester',d:'Mobil API auth testi'},
-      {n:'graphql-security-assessment-specialist',d:'GraphQL güvenlik değerlendirmesi'},
+      {"n": "cavecrew", "d": "Decision guide for delegating to caveman-style subagents. Tells the main thread WHEN to spawn `cavecrew-invest"},
+      {"n": "caveman-compress", "d": "Compress natural language memory files (CLAUDE.md, todos, preferences) into caveman format to save input token"},
+      {"n": "caveman-help", "d": "Quick-reference card for all caveman modes, skills, and commands. One-shot display, not a persistent mode. Tri"},
+      {"n": "caveman-optimizer", "d": "Sistemdeki tüm Caveman (Ultra-Kısa Yanıt, Kod İnceleme, Commit) özelliklerini tek noktada toplayan optimizasyo"},
+      {"n": "caveman-stats", "d": "Show real token usage and estimated savings for the current session. Reads directly from the Claude Code sessi"},
+      {"n": "codebase-explorer-tool", "d": "Büyük ve karmaşık kod tabanlarında akıllı gezinme, giriş noktalarını bulma ve yapıyı anlama taktikleri."},
+      {"n": "focus-budget-tool", "d": "LLM bağlamı şiştiğinde, alakasız dosyaları bellekten temizleme kapasitesi."},
+      {"n": "humanizer-tool", "d": "Rewrite AI-sounding text so it reads naturally without changing what it says. Use when editing or reviewing pr"},
+      {"n": "learn-codebase-tool", "d": "Bilinmeyen veya büyük kod tabanlarını hızlıca anlama, analiz etme ve gezinme yeteneği."},
+      {"n": "make-plan", "d": "Yazılım geliştirme projeleri için detaylı planlama ve görev dağılımı (breakdown) yeteneği."},
+      {"n": "mcp-builder-tool", "d": "MCP (Model Context Protocol) sunucuları geliştirmek ve bağlamak için yetenek."},
+      {"n": "mentor-mode-tool", "d": "teach-me tetikleyicisi geldiğinde alınan mimari kararın açıklamasını yapan eğitim aracı."},
+      {"n": "plan-mode", "d": "3+ dosya veya mimari değişiklik içeren görevlerde önce plan üretir, onay alır, sonra kod yazar. Büyük görevler"},
+      {"n": "project-bootstrap-orchestrator", "d": "Yeni projelere başlarken CLI araçlarını kullanarak klasör mimarisini, Docker ve temel ayarları otomatik kuran"},
+      {"n": "skill-creator-tool", "d": "Yeni yetenekler (Skill) ve entegrasyonlar geliştirmek için yetenek."},
+      {"n": "smart-explore-tool", "d": "Büyük ve karmaşık kod tabanlarında akıllı gezinme, giriş noktalarını bulma ve kod yapısını anlama taktikleri."}
     ]},
-  {id:'arch',label:'Mimari & Tasarım',count:15,color:'var(--blue)',
+  {id:"ref-security",label:"Referans: Güvenlik & Pentest",count:22,color:'var(--red)',
     items:[
-      {n:'dotnet-enterprise-architect',d:'.NET kurumsal mimari kararları'},
-      {n:'clean-code-reviewer',d:'Clean code prensipleri review'},
-      {n:'api-versioning-architect',d:'API versiyon stratejisi'},
-      {n:'cache-invalidation-architect',d:'Cache geçersizleştirme stratejisi'},
-      {n:'circuit-breaker-specialist',d:'Circuit breaker pattern implementasyonu'},
-      {n:'distributed-saga-manager',d:'Dağıtık saga pattern'},
-      {n:'edge-and-gateway-architect',d:'API gateway ve edge mimari'},
-      {n:'iac-architect',d:'Infrastructure as Code stratejisi'},
-      {n:'ba-orchestrator',d:'Business Analysis orkestrasyon'},
-      {n:'ba-architect',d:'BA mimari kararları'},
-      {n:'ba-elicitor',d:'Gereksinim toplama teknikleri'},
-      {n:'schema',d:'Veritabanı schema tasarımı'},
-      {n:'blast-radius-specialist',d:'Değişiklik etki analizi'},
-      {n:'db-architect-security',d:'DB güvenlik mimarisi'},
-      {n:'correlation-id-specialist',d:'Dağıtık izleme correlation ID'},
+      {"n": "api-authentication-weaknesses-pentester", "d": "API kimlik doğrulama mekanizmalarını; kırık kimlik doğrulama, güvensiz token yönetimi ve brute-force gibi zafi"},
+      {"n": "api-for-broken-object-level-authorization-pentester", "d": "REST ve GraphQL API'lerde Kırık Nesne Seviyesi Yetkilendirme (BOLA/IDOR, OWASP API1:2023) zafiyetlerini test e"},
+      {"n": "api-for-mass-assignment-vulnerability-pentester", "d": "API'lerde toplu atama (mass assignment) zafiyetlerini test eder. (OWASP API3:2023). Kayıt, profil veya nesne o"},
+      {"n": "api-pentest", "d": "Endpoint güvenliği, rate limiting, SQL/NoSQL injection koruması, JWT ve yetkilendirme (authorization) zafiyet"},
+      {"n": "api-security-with-owasp-top-10-pentester", "d": "REST, GraphQL ve gRPC API uç noktalarını OWASP API Security Top 10 (2023) standartlarına göre sistemli olarak"},
+      {"n": "client-security", "d": "Frontend güvenliği; XSS, CSRF, Content Security Policy (CSP) header'ları ve DOM tabanlı zafiyetlerin engellenm"},
+      {"n": "cors-misconfiguration-pentester", "d": "Güvenlik testleri sırasında, yetkisiz alanlar arası (cross-domain) veri erişimine ve kimlik bilgisi hırsızlığı"},
+      {"n": "csrf-attack-simulation-specialist", "d": "Yetkili güvenlik değerlendirmeleri sırasında onaylanmış kullanıcı oturumlarını istismar eden sahte istekler ol"},
+      {"n": "dependency-audit-gate", "d": "Proje bağımlılıklarındaki (npm, pip vb.) CVE zafiyetlerinin taranması, supply chain güvenliği ve versiyon günc"},
+      {"n": "for-broken-access-control-pentester", "d": "Web uygulamaları ve API'leri Kırık Erişim Kontrolü (OWASP A01:2021) açısından test eder. Yetki yükseltme, eksi"},
+      {"n": "for-json-web-token-vulnerabilities-pentester", "d": "JWT uygulamalarında algoritma karmaşası, 'none' algoritması atlatması, kid/jku parametre enjeksiyonu ve zayıf"},
+      {"n": "for-xss-vulnerabilities-pentester", "d": "Web uygulamalarında Reflected, Stored ve DOM tabanlı XSS (Cross-Site Scripting) zafiyetlerini test eder. Burp"},
+      {"n": "graphql-security-assessment-specialist", "d": "GraphQL API uç noktalarını introspection (içe bakış) sızıntıları, enjeksiyon saldırıları, yetkilendirme hatala"},
+      {"n": "jwt-token-security-pentester", "d": "JSON Web Token (JWT) uygulamalarını kriptografik zayıflıklar, algoritma karmaşası ve yetkilendirme atlama zafi"},
+      {"n": "master-pentester", "d": "Test stratejileri, birim testleri (unit test) ve e2e testler yazmak için yetenek."},
+      {"n": "mobile-api-authentication-pentester", "d": "Mobil uygulama API'lerindeki kimlik doğrulama ve yetkilendirme mekanizmalarını test ederek kırık kimlik doğrul"},
+      {"n": "oauth2-implementation-flaws-pentester", "d": "OAuth 2.0 ve OpenID Connect uygulamalarını yetkilendirme kodu yakalama, yönlendirme (redirect URI) manipülasyo"},
+      {"n": "sca-dependency-scanning-with-snyk-specialist", "d": "CI/CD süreçlerinde zafiyetli açık kaynaklı bağımlılıkları tespit etmek için Snyk ile Yazılım Bileşimi Analizi"},
+      {"n": "scanning-containers-with-trivy-in-cicd", "d": "CI/CD süreçlerine Aqua Security Trivy tarayıcısını entegre ederek işletim sistemi paketlerindeki, bağımlılıkla"},
+      {"n": "secret-scanner", "d": "Kod tabanında unutulmuş API key, şifre, sertifika gibi hassas verilerin taranması ve .env yönetimi."},
+      {"n": "secret-scanning-with-gitleaks-specialist", "d": "Git repolarında hardcode edilmiş (gömülü) hassas verileri ve şifreleri bulup engellemek için Gitleaks'i entegr"},
+      {"n": "secrets-scanning-in-ci-cd-specialist", "d": "Dağıtım öncesinde sızdırılmış şifreleri, anahtarları ve hassas verileri tespit etmek için gitleaks ve truffleh"}
     ]},
-  {id:'ops',label:'DevOps & Operasyon',count:10,color:'var(--emerald)',
+  {id:"ref-code",label:"Referans: Kod & Mimari",count:23,color:'var(--blue)',
     items:[
-      {n:'ci-cd-engineer',d:'CI/CD pipeline tasarımı'},
-      {n:'container-master',d:'Docker ve container optimizasyonu'},
-      {n:'cloud-deployer',d:'Cloud deployment stratejisi'},
-      {n:'gitops-manager',d:'GitOps workflow yönetimi'},
-      {n:'deployment-orchestrator',d:'Deployment orkestrasyon'},
-      {n:'observability-setup',d:'Gözlemlenebilirlik altyapısı kurulumu'},
-      {n:'zero-downtime-deployment-strategist',d:'Sıfır kesintili deployment'},
-      {n:'scanning-containers-with-trivy-in-cicd',d:'CI/CD\'de Trivy container tarama'},
-      {n:'performance-tester',d:'Performans ve yük testi'},
-      {n:'e2e-tester',d:'E2E test otomasyonu'},
+      {"n": "a11y-and-i18n-engineer", "d": "Ürünlerin en baştan çoklu dil (i18n) destekli ve ekran okuyuculara (WCAG) uygun erişilebilir olmasını sağlayan"},
+      {"n": "api-versioning-architect", "d": "Eski istemcileri (client) bozacak Breaking Change değişikliklerini yasaklayan ajan."},
+      {"n": "blast-radius-specialist", "d": "Core dosyalara dokunulmadan önce projede nerelerin patlayacağını hesaplayacak ajan."},
+      {"n": "cache-invalidation-architect", "d": "Önbellek güncellendiğinde mutlaka tahliye (Invalidation) yapılmasını zorunlu kılan ajan."},
+      {"n": "circuit-breaker-specialist", "d": "Dış API çağrılarına zorla Polly ve Fallback mekanizması ekleten ajan."},
+      {"n": "clean-code-reviewer", "d": "SOLID, DRY, YAGNI ve Addy Osmani üretim seviyesi mühendislik ilkeleri ile kod kalitesini denetleyen yetenek."},
+      {"n": "concurrency-and-memory-profiler", "d": "Asenkron kilitlenmeleri (Deadlock), bellek kaçaklarını (Memory Leak) ve thread yarışlarını (Race Condition) de"},
+      {"n": "corporate-memory-specialist", "d": "Proje mimari kararlarını docs/ADR altına yazacak kalıcı hafıza uzmanı."},
+      {"n": "correlation-id-specialist", "d": "İsteklere X-Correlation-ID ekletip tüm loglarda izlenebilirliği sağlayan uzman."},
+      {"n": "db-architect-security", "d": "Veritabanı mimarisi, güvenlik standartları, ORM yapılandırmaları ve veritabanı tasarımı için yetenek."},
+      {"n": "distributed-saga-manager", "d": "Distributed işlemlerde klasik transaction yerine Saga/Kompansasyon dayatan ajan."},
+      {"n": "dotnet-enterprise-architect", "d": "Kurumsal düzeyde .NET Core, C# mimarisi ve Entity Framework optimizasyonları için teknik rehber."},
+      {"n": "edge-and-gateway-architect", "d": "API Gateway, Load Balancing, Rate Limiting ve dış dünyaya açılan kapıların (Edge) güvenliğini tasarlayan mimar"},
+      {"n": "finops-architect", "d": "LLM'in pahalı bulut çözümlerini engelleyip, en ucuz mimariyi dayatan ajan."},
+      {"n": "forensic-detective", "d": "Hata logu geldiğinde 3 hipotez üreterek kök neden analizi yapacak uzman."},
+      {"n": "legacy-code-migrator-specialist", "d": "Farklı programlama dilleri (Örn: Django'dan .NET'e) arası kod dönüşümü, mimari eşleştirme ve refactoring uzman"},
+      {"n": "mcp-integration-guidelines", "d": "Veritabanı, GitHub, Jira gibi MCP bağlantılarını otonom sisteme dahil eden kural seti."},
+      {"n": "mobile-flutter-swift-architect", "d": "iOS (Swift/SwiftUI) ve Flutter uygulamaları için performans, state management ve native köprü mimarisi uzmanı."},
+      {"n": "recon-specialist", "d": "Kod yazılmadan önce grep ile projeyi tarayıp DRY prensibini uygulayacak ajan."},
+      {"n": "schema", "d": "İlişkisel veri tabanları, NoSQL ve API'ler için ölçeklenebilir ve güvenli şema tasarım kalıpları."},
+      {"n": "swagger-and-xml-doc-gate", "d": "Backend kodunda (özellikle .NET) yazılan her endpoint için XML Doc, Summary ve profesyonel Swagger yapılandırm"},
+      {"n": "swift-architecture-auditor", "d": "Swift & iOS/macOS mimari inceleme, SwiftUI/UIKit katman analizi, MVVM/VIPER/TCA kontrolü, Concurrency ve Memor"},
+      {"n": "tech-debt-collector", "d": "Kullanılmayan kodları (dead code) silmekle görevli uzman."}
     ]},
-  {id:'tool',label:'Araçlar',count:20,color:'var(--amber)',
+  {id:"ref-design",label:"Referans: Tasarım",count:11,color:'var(--pink)',
     items:[
-      {n:'graphify-tool',d:'Codebase knowledge graph oluşturma'},
-      {n:'caveman',d:'Caveman debug tekniği'},
-      {n:'caveman-commit',d:'Commit mesajı yardımcısı'},
-      {n:'caveman-compress',d:'Context sıkıştırma'},
-      {n:'caveman-stats',d:'Codebase istatistikleri'},
-      {n:'caveman-review',d:'Hızlı kod review'},
-      {n:'cavecrew',d:'Caveman tool koleksiyonu'},
-      {n:'focus-budget-tool',d:'Odak bütçesi yönetimi'},
-      {n:'corporate-memory-specialist',d:'Kurumsal hafıza yönetimi'},
-      {n:'image-to-code-tool',d:'Görsel → kod dönüşümü'},
-      {n:'office-documents-tool',d:'Office belge işleme'},
-      {n:'humanizer-tool',d:'Teknik metni sadeleştirme'},
-      {n:'mentor-mode-tool',d:'Öğretici açıklama modu'},
-      {n:'make-plan',d:'Uygulama planı hazırlama'},
-      {n:'skill-creator-tool',d:'Yeni skill oluşturma'},
-      {n:'mcp-builder-tool',d:'MCP server geliştirme'},
-      {n:'prototype',d:'Hızlı prototip oluşturma'},
-      {n:'forensic-detective',d:'Kod forensik analizi'},
-      {n:'recon-specialist',d:'Keşif ve bilgi toplama'},
-      {n:'imagegen-frontend-tool',d:'Görsel oluşturma ön yüz'},
+      {"n": "apple-design", "d": "iOS, macOS ve visionOS için Apple Human Interface Guidelines (İnsan Arayüzü Yönergeleri) tabanlı uygulama tasa"},
+      {"n": "brandkit", "d": "Marka tutarlılığını sağlamak için marka kimliği, logo kullanımı, tipografi, renk paletleri ve görsel kuralları"},
+      {"n": "design-taste-frontend-gate", "d": "Frontend tasarım zevki rehberi: modern web ve mobil arayüzler için tipografi, renk, boşluk, düzen kalıpları ve"},
+      {"n": "high-end-visual-design", "d": "Üst düzey, lüks ve premium kullanıcı arayüzü (UI) tasarımı prensipleri. Glassmorphism, optik hizalama, premium"},
+      {"n": "image-to-code-tool", "d": "Ekran görüntüleri, mockup'lar veya tasarım dosyalarını (Figma vb.) analiz ederek piksel mükemmelliğinde, duyar"},
+      {"n": "imagegen-frontend-tool", "d": "Frontend projeleri için yapay zeka görsel oluşturma rehberi: web hero görselleri, mobil varlıklar, ikonlar ve"},
+      {"n": "onboarding", "d": "Web ve mobil uygulamalar için ilk kullanım deneyimi (FTUE), aşamalı bilgilendirme ve kullanıcı karşılama süreç"},
+      {"n": "pick-ui-library", "d": "Projeler için doğru UI bileşen kütüphanesini seçme rehberi; performans, erişilebilirlik ve bakım kriterlerini"},
+      {"n": "product-designer", "d": "Ürün tasarımı, UX deneyimi ve wireframe planlaması için kullanılan yetenek."},
+      {"n": "prototype", "d": "Hızlı prototipleme, MVP geliştirme ve farklı tasarım aslına uygunluk seviyelerinde doğru aracı seçme stratejil"},
+      {"n": "ui-animation", "d": "Uçtan uca kullanıcı arayüzü (UI) animasyon yeteneği: web ve mobil animasyonlar için terminoloji, optimizasyon"}
     ]},
-  {id:'orc',label:'Orchestrator',count:12,color:'var(--cyan)',
+  {id:"ref-test",label:"Referans: Test",count:5,color:'var(--emerald)',
     items:[
-      {n:'master-orchestrator',d:'Ana orkestrasyon kontrolü'},
-      {n:'code-orchestrator',d:'Kod geliştirme orkestrasyon'},
-      {n:'test-orchestrator',d:'Test süreçleri orkestrasyon'},
-      {n:'design-orchestrator',d:'Tasarım süreçleri orkestrasyon'},
-      {n:'docs-orchestrator',d:'Dokümantasyon orkestrasyon'},
-      {n:'marketing-orchestrator',d:'Pazarlama aktiviteleri orkestrasyon'},
-      {n:'security-orchestrator',d:'Güvenlik değerlendirme orkestrasyon'},
-      {n:'project-bootstrap-orchestrator',d:'Yeni proje kurulum orkestrasyon'},
-      {n:'api-handoff-workflow',d:'API teslim workflow\'u'},
-      {n:'generate-standup-workflow',d:'Günlük standup raporu'},
-      {n:'git-orchestrator',d:'Git workflow orkestrasyon'},
-      {n:'git-pr-reviewer',d:'PR review süreci'},
+      {"n": "e2e-tester", "d": "Cypress, Playwright veya Appium ile uçtan uca (E2E) kullanıcı senaryoları ve entegrasyon testleri yazma yetene"},
+      {"n": "performance-tester", "d": "Yük (load) testi, memory leak (bellek kaçağı) tespiti, benchmark analizleri ve performans optimizasyonu."},
+      {"n": "smoke-monkey-tester", "d": "Sistemin temel fonksiyonlarını kontrol eden smoke testler ve rastgele girdilerle sistemi çökertmeyi hedefleyen"},
+      {"n": "test-driven-development-gate", "d": "Kod üretildikten sonra AI'ın ilgili birim testlerini (Unit Test) yazıp terminalde çalıştırmasını zorunlu kılan"},
+      {"n": "unit-test-architect", "d": "Kapsamlı birim (unit) testleri, mock/stub kullanımları ve edge-case (uç durum) senaryoları yazma becerisi."}
     ]},
-  {id:'dom',label:'Domain Uzmanlığı',count:'50+',color:'var(--pink)',
+  {id:"ref-git",label:"Referans: Git",count:7,color:'var(--cyan)',
     items:[
-      {n:'swift-architecture-auditor',d:'Swift mimari denetimi'},
-      {n:'mobile-flutter-swift-architect',d:'Flutter/Swift mobil mimari'},
-      {n:'apple-design',d:'Apple tasarım prensipleri'},
-      {n:'ui-animation',d:'UI animasyon tasarımı'},
-      {n:'copywriting',d:'Metin yazarlığı'},
-      {n:'brandkit',d:'Marka kimliği oluşturma'},
-      {n:'technical-seo-architect',d:'Teknik SEO mimarisi'},
-      {n:'pick-ui-library',d:'UI kütüphane seçimi'},
-      {n:'product-designer',d:'Ürün tasarımı'},
-      {n:'product-marketer',d:'Ürün pazarlama'},
-      {n:'tech-business-analyst',d:'Teknik iş analizi'},
-      {n:'feature-ideator',d:'Özellik fikirlendirme'},
-      {n:'a11y-and-i18n-engineer',d:'Erişilebilirlik ve çoklu dil'},
-      {n:'finops-architect',d:'Cloud maliyet optimizasyonu'},
-      {n:'high-end-visual-design',d:'Üst düzey görsel tasarım'},
-      {n:'legacy-code-migrator-specialist',d:'Legacy kod göçü'},
-      {n:'concurrency-and-memory-profiler',d:'Eşzamanlılık ve bellek profili'},
-      {n:'secret-scanner',d:'Secret tarama'},
-      {n:'dependency-audit-gate',d:'Bağımlılık güvenlik denetimi'},
-      {n:'sca-dependency-scanning-with-snyk-specialist',d:'Snyk ile SCA tarama'},
-      {n:'adversarial-code-reviewer',d:'Saldırgan perspektifli review'},
-      {n:'client-security',d:'İstemci tarafı güvenlik'},
-      {n:'socratic-clarification-gate',d:'Sokratik soru tekniği'},
-      {n:'no-truncation-gate',d:'Yanıt kesme yasak kuralı'},
-      {n:'swagger-and-xml-doc-gate',d:'Swagger + XML dokümantasyon'},
-      {n:'turkish-language-enforcer-gate',d:'Türkçe dil zorunluluğu'},
-      {n:'git-conventional-commits-workflow',d:'Conventional commit standartları'},
-      {n:'git-issue-manager',d:'Git issue yönetimi'},
-      {n:'git-repo-setup-workflow',d:'Repo kurulum workflow\'u'},
-      {n:'unit-test-architect',d:'Unit test mimarisi'},
-      {n:'test-driven-development-gate',d:'TDD kuralları ve kısıtlamaları'},
-      {n:'design-taste-frontend-gate',d:'Frontend estetik kalite kapısı'},
-      {n:'api-documentation-architect',d:'API dokümantasyon mimarisi'},
-      {n:'api-security-with-owasp-top-10-pentester',d:'OWASP Top 10 API güvenliği'},
-      {n:'api-authentication-weaknesses-pentester',d:'API kimlik doğrulama zafiyetleri'},
-      {n:'secrets-scanning-in-ci-cd-specialist',d:'CI/CD\'de secret tarama'},
-      {n:'onboarding',d:'Yeni kullanıcı karşılama'},
-      {n:'init',d:'Proje başlatma'},
-      {n:'run',d:'Uygulama başlatma'},
-      {n:'security-review',d:'Güvenlik review'},
-      {n:'simplify',d:'Kod sadeleştirme'},
-      {n:'code-review',d:'Kapsamlı kod review'},
-      {n:'loop',d:'Yinelemeli görev döngüsü'},
-      {n:'schedule',d:'Zamanlanmış görev oluşturma'},
-      {n:'claude-api',d:'Claude API referansı'},
-      {n:'dataviz',d:'Veri görselleştirme'},
-      {n:'artifact-design',d:'Artifact tasarım kılavuzu'},
-      {n:'artifact-capabilities',d:'Artifact runtime yetenekleri'},
+      {"n": "api-handoff-workflow", "d": "Backend'de bir değişiklik yapıldığında otomatik Changelog çıkaran ve Frontend takımı için eski/yeni API karşıl"},
+      {"n": "generate-standup-workflow", "d": "Günlük standup (geliştirme) raporlarını kısa, öz ve yapılandırılmış bir şekilde oluşturma kuralları."},
+      {"n": "git-conventional-commits-workflow", "d": "Git commit mesajları ve branch isimlendirme standartlarını belirler. Conventional Commits kurallarını uygular."},
+      {"n": "git-issue-manager", "d": "GitHub/GitLab issue yönetimi için en iyi uygulamalar. Etkili hata raporları, özellik istekleri yazma ve etiket"},
+      {"n": "git-pr-reviewer", "d": "Pull Request (PR) oluşturma ve kod inceleme (code review) süreçleri için standartlar ve yapıcı geri bildirim."},
+      {"n": "git-repo-setup-workflow", "d": "GitHub repo kurulumu ve topluluk standartları için en iyi uygulamalar (README, CONTRIBUTING, kurallar)."},
+      {"n": "update-changelog-workflow", "d": "Release & Changelog Manager: Manages version bumps (x.x.x SemVer) and CHANGELOG.md generation ONLY during the"}
     ]},
+  {id:"ref-docs",label:"Referans: Dokümanlar",count:3,color:'var(--amber)',
+    items:[
+      {"n": "api-documentation-architect", "d": "API Documentation & Tech Writer: Builds Stripe/Vercel-quality public-facing developer documentation sites (Doc"},
+      {"n": "document-and-asset-manager", "d": "Document & Asset Manager: Optimizes, compresses, and manages document pipelines (PDFs, images, CSVs, file size"},
+      {"n": "office-documents-tool", "d": "Word, Excel, PowerPoint ve PDF dosyalarını okuma, yazma ve dönüştürme işlemlerini tek noktadan yöneten araç."}
+    ]},
+  {id:"ref-deployment",label:"Referans: DevOps",count:7,color:'var(--emerald)',
+    items:[
+      {"n": "ci-cd-engineer", "d": "Sürekli entegrasyon ve dağıtım (CI/CD) pipeline'ları kurma uzmanı. GitHub Actions, GitLab CI ve Jenkins için y"},
+      {"n": "cloud-deployer", "d": "Vercel, Netlify, Cloudflare, Serverless Framework gibi platformlara hızlı ve zero-config dağıtım süreçlerini y"},
+      {"n": "container-master", "d": "Konteynerleştirme ve orkestrasyon uzmanı. Dockerfile yazımı, optimizasyonu ve Kubernetes (K8s) / Helm yapıland"},
+      {"n": "gitops-manager", "d": "ArgoCD ve Flux ile Kubernetes üzerinde GitOps tabanlı sürekli dağıtım (CD) süreçlerini yönetir."},
+      {"n": "iac-architect", "d": "Altyapının kod olarak yönetimi (IaC). Terraform, Pulumi ve Ansible kullanarak bulut ve sunucu altyapısını tasa"},
+      {"n": "observability-setup", "d": "Sistem izleme, loglama ve metrik toplama (Prometheus, Grafana, ELK, Datadog) altyapılarını kurar."},
+      {"n": "zero-downtime-deployment-strategist", "d": "Güncellemelerde Expand & Contract desenini dayatan kesintisiz deployment uzmanı."}
+    ]},
+  {id:"ref-marketing",label:"Referans: Pazarlama",count:3,color:'var(--pink)',
+    items:[
+      {"n": "copywriting", "d": "Açık ve anlaşılır eyleme çağrı (CTA), hata mesajları ve kullanıcı arayüzü metinleri yazma kuralları."},
+      {"n": "product-marketer", "d": "App Store açıklamaları, sürüm notları, pazarlama metinleri ve SEO uyumlu içerikler oluşturan ürün pazarlama uz"},
+      {"n": "technical-seo-architect", "d": "Technical SEO & Core Web Vitals Architect: Ensures maximum search engine visibility via Semantic HTML, JSON-LD"}
+    ]},
+  {id:"ref-ba",label:"Referans: İş Analizi",count:4,color:'var(--cyan)',
+    items:[
+      {"n": "ba-architect", "d": "Netleşmiş iş gereksinimlerinden Mermaid akış diyagramları, Gherkin kabul kriterleri ve DB/API teknik şemaları"},
+      {"n": "ba-elicitor", "d": "Muğlak iş fikirlerini ve taleplerini yapılandırılmış EARS (Easy Approach to Requirements Syntax) formatına çev"},
+      {"n": "feature-ideator", "d": "Yeni ürün özellikleri, fikir geliştirme ve feature backlog oluşturmak için yetenek."},
+      {"n": "tech-business-analyst", "d": "Teknik iş analizi ve gereksinim dokümanı yazmak için kullanılan yetenek."}
+    ]},
+  {id:"ref-master",label:"Referans: Master",count:6,color:'var(--violet)',
+    items:[
+      {"n": "adversarial-code-reviewer", "d": "Yazılan kodu teslim etmeden önce 'Şeytanın Avukatı' gözüyle gizli bug, showstopper, bellek kaçağı ve mimari aç"},
+      {"n": "critical-critique-gate", "d": "Yapay zekanın kullanıcı fikirlerini ve hatalı kod yönlendirmelerini körü körüne onaylamasını engeller. Yapıcı"},
+      {"n": "no-truncation-gate", "d": "Yapay zeka asistanının kod üretimi ve açıklamalarında hiçbir zaman kısaltma, atlama veya eksik bilgi vermemesi"},
+      {"n": "pre-mortem-stress-test-gate", "d": "Mimari ve sistem kararlarında 'Bu sistem canlıda patlarsa nereden patlar?' analizi yapan stres testi skill'i."},
+      {"n": "socratic-clarification-gate", "d": "Eksik veya varsayımlı taleplerde doğrudan kod yazmak yerine Sokratik sorularla gereksinimleri netleştiren güve"},
+      {"n": "turkish-language-enforcer-gate", "d": "Yapay zekanın İngilizce talimat alsa bile kullanıcıya her zaman Türkçe yanıt vermesini zorunlu kılan güvenlik"}
+    ]},
+  {id:"rules",label:"Kurallar (.claude/rules)",count:2,color:'var(--violet)',
+    items:[
+      {"n": "dotnet-backend", "d": "*.cs açılınca yüklenir: audit, tenant, UTC, FSM, outbox, doğrulama, loglama"},
+      {"n": "frontend", "d": "ts/tsx/js/dart açılınca yüklenir: client doğrulama, fallback UI, 60fps, bundle"}
+    ]}
 ];
 
 // ── RENDER FUNCTIONS ──────────────────────────────────────────────────────────
@@ -1178,7 +1166,7 @@ function renderGate(g) {
   return `<div class="card" style="--ca:${g.color}" onclick='openPanel(${JSON.stringify(g.name)},${JSON.stringify(g.color)},buildGatePanel(GATES.find(x=>x.name===${JSON.stringify(g.name)})))'>
     <div class="cn">${g.name}</div>
     <div class="cd">${g.desc}</div>
-    <div class="ct"><span class="tag al">alwaysApply</span><span class="tag">${g.cat}</span></div>
+    <div class="ct"><span class="tag al">kural</span><span class="tag">${g.cat}</span></div>
   </div>`;
 }
 
@@ -1489,7 +1477,7 @@ function buildGraphNodes() {
   mcpNodes.forEach(function(n){ nodes.push(n); });
   (function(){ var total=mcpNodes.length*80; var sy=H/2-total/2; mcpNodes.forEach(function(n,i){ n.x=1300; n.y=sy+i*80; }); })();
 
-  const nSkills = {id:id++, label:'⚙️ Skills\n(139)', color:'#fd79a8', r:38, kind:'skillGroup', data:null};
+  const nSkills = {id:id++, label:'⚙️ Skills\n(30)', color:'#fd79a8', r:38, kind:'skillGroup', data:null};
   nodes.push(nSkills);
   nSkills.x = 1300; nSkills.y = mcpNodes[mcpNodes.length-1].y + 110;
 
@@ -1762,9 +1750,9 @@ function onGraphClick(e) {
   }
 
   if (hit.kind==='gateGroup') {
-    title = 'Quality Gates (20 adet)';
+    title = 'Kalite Kapıları (kural olarak)';
     html = '<div class="psec"><div class="psec-label">Tüm Kalite Kapıları</div>' +
-      '<div class="prow" style="margin-bottom:8px;color:var(--muted)">alwaysApply:true olan bu skill\'ler her etkileşimde otomatik devreye girer.</div>' +
+      '<div class="prow" style="margin-bottom:8px;color:var(--muted)">Bu kapılar artık .claude/rules altında; ilgili dosya tipi açılınca yüklenir.</div>' +
       GATES.map(function(g){
         return '<div class="prow" style="display:flex;gap:8px;align-items:flex-start;padding:6px 0">' +
           '<span class="tag-inline pill-violet" style="flex-shrink:0">'+g.name+'</span>' +
@@ -1788,7 +1776,7 @@ function onGraphClick(e) {
   }
 
   if (hit.kind==='skillGroup') {
-    title = 'Skills (139 adet)';
+    title = 'Skills (30 adet + 99 referans)';
     html = '<div class="psec"><div class="psec-label">Skill Kategorileri</div>' +
       SKILL_CATS.map(function(cat){
         return '<div class="prow" style="padding:8px;border-radius:6px;background:var(--bg3);margin-bottom:6px">' +

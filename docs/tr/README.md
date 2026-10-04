@@ -6,7 +6,7 @@
 > **139 uzman becerisi**, 38 alt ajan, kancalara (hook) dayalı kalite geçitleri ve MCP entegrasyonu.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/Skills-29-green.svg)](docs/skill-catalog.md)
+[![Skills](https://img.shields.io/badge/Skills-30-green.svg)](docs/skill-catalog.md)
 [![Agents](https://img.shields.io/badge/Agents-36-orange.svg)](docs/agents.md)
 
 ## Bu Nedir?
@@ -80,7 +80,7 @@ flowchart TD
 
 ## 📦 İçinde Neler Var?
 
-### Beceriler (29 + 99 referans)
+### Beceriler (30 + 99 referans)
 
 | Kategori | Sayı | Örnekler |
 |---|---|---|

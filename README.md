@@ -6,7 +6,7 @@
 > **139 expert skills**, 38 subagents, hook-based quality gates, and MCP integration.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/Skills-29-green.svg)](docs/skill-catalog.md)
+[![Skills](https://img.shields.io/badge/Skills-30-green.svg)](docs/skill-catalog.md)
 [![Agents](https://img.shields.io/badge/Agents-36-orange.svg)](docs/agents.md)
 
 ## What Is This?
@@ -80,7 +80,7 @@ flowchart TD
 
 ## 📦 What's Inside?
 
-### Skills (29 + 99 references)
+### Skills (30 + 99 references)
 
 | Category | Count | Examples |
 |---|---|---|
