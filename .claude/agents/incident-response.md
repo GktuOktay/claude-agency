@@ -1,6 +1,6 @@
 ---
 name: incident-response
-description: Prodüksiyon olayı yönetimi, SEV sınıflandırması, kök neden analizi ve blameless postmortem. Servis düşmesi, DB yavaşlaması, build pipeline arızası veya güvenlik olaylarında yapılandırılmış müdahale için kullan.
+description: Prodüksiyon olayı yönetimi, SEV sınıflandırması, kök neden analizi ve blameless postmortem.
 model: claude-sonnet-5
 tools:
   - Read

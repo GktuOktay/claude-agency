@@ -1,6 +1,6 @@
 ---
 name: design-ux-researcher
-description: Kullanıcı araştırması planlama, görüşme soruları hazırlama, test senaryoları yazma ve araştırma bulgularını içgörüye dönüştürme. Özellik doğrulama, kullanıcı testi ve "kullanıcılar ne istiyor?" soruları için kullan.
+description: Kullanıcı araştırması planlama, görüşme soruları hazırlama, test senaryoları yazma ve araştırma bulgularını içgörüye dönüştürme.
 model: claude-sonnet-5
 tools:
   - Read

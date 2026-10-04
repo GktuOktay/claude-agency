@@ -1,6 +1,7 @@
 ---
 name: Learn Unfamiliar Codebase
 description: "Bilinmeyen veya büyük kod tabanlarını hızlıca anlama, analiz etme ve gezinme yeteneği."
+disable-model-invocation: true
 ---
 
 # Learn Unfamiliar Codebase Skill

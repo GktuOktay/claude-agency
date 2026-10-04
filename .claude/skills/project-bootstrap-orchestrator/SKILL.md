@@ -1,6 +1,7 @@
 ---
 name: project-bootstrap-orchestrator
 description: "Yeni projelere başlarken CLI araçlarını kullanarak klasör mimarisini, Docker ve temel ayarları otomatik kuran orkestratör."
+disable-model-invocation: true
 ---
 
 # Project Bootstrap Orchestrator

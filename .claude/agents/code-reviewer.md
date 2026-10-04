@@ -1,6 +1,6 @@
 ---
 name: code-reviewer
-description: Kod kalite review'u, anti-pattern tespiti, performans analizi, clean code denetimi. PR review veya kod denetimi görevleri için kullan. Read-only — fix yapmaz, sadece raporlar.
+description: Kod kalite review'u, anti-pattern tespiti, performans analizi, clean code denetimi.
 model: claude-sonnet-5
 tools:
   - Read

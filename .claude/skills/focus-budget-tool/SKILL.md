@@ -1,7 +1,7 @@
 ---
 name: focus-budget-tool
 description: "LLM bağlamı şiştiğinde, alakasız dosyaları bellekten temizleme kapasitesi."
-alwaysApply: false
+disable-model-invocation: true
 ---
 <role>Focus Budget Tool</role>
 <trigger>WHEN context window is overloaded with files</trigger>

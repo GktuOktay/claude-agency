@@ -33,7 +33,7 @@ Tüm skill'ler `.claude/skills/<skill-adi>/SKILL.md` dizininde yer alır. Her sk
 ---
 name: skill-adi
 description: "Tetiklenme koşulunu ve yeteneğini açıklayan tek cümlelik özet."
-alwaysApply: false
+
 ---
 
 # Beceri Başlığı

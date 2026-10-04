@@ -1,6 +1,6 @@
 ---
 name: gis-web-developer
-description: İnteraktif harita uygulamaları, gerçek zamanlı konum takibi, güzergah planlama ve coğrafi veri görselleştirme. MapLibre GL JS, Leaflet, WebSocket tabanlı canlı takip ve "harita özelliği nasıl yaparım?" soruları için kullan.
+description: İnteraktif harita uygulamaları, gerçek zamanlı konum takibi, güzergah planlama ve coğrafi veri görselleştirme.
 model: claude-sonnet-5
 tools:
   - Read

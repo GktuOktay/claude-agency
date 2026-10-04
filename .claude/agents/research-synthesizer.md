@@ -1,6 +1,6 @@
 ---
 name: research-synthesizer
-description: Birden fazla kaynaktan (makaleler, belgeler, raporlar, yorumlar) bilgi derleyip aksiyon alınabilir özet üretme. Rakip analizi, teknoloji araştırması, pazar araştırması ve "bu konuda ne biliyoruz?" soruları için kullan.
+description: Birden fazla kaynaktan (makaleler, belgeler, raporlar, yorumlar) bilgi derleyip aksiyon alınabilir özet üretme.
 model: claude-sonnet-5
 tools:
   - Read

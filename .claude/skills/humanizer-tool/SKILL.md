@@ -8,6 +8,7 @@ description: |
 license: MIT
 metadata:
   version: "2.11.2"
+disable-model-invocation: true
 ---
 
 # Humanizer: remove AI writing patterns

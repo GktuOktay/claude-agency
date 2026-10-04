@@ -33,7 +33,6 @@ All skills reside in `.claude/skills/<skill-name>/SKILL.md`. Each skill MUST sta
 ---
 name: my-skill-name
 description: "Brief one-sentence description explaining triggers and capabilities."
-alwaysApply: false
 ---
 
 # Skill Title

@@ -1,6 +1,7 @@
 ---
 name: skill-creator
 description: "Yeni yetenekler (Skill) ve entegrasyonlar geliştirmek için yetenek."
+disable-model-invocation: true
 ---
 
 # Skill Creator

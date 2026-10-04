@@ -6,8 +6,8 @@
 > **139 uzman becerisi**, 38 alt ajan, kancalara (hook) dayalı kalite geçitleri ve MCP entegrasyonu.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/Skills-139-green.svg)](docs/skill-catalog.md)
-[![Agents](https://img.shields.io/badge/Agents-38-orange.svg)](docs/agents.md)
+[![Skills](https://img.shields.io/badge/Skills-29-green.svg)](docs/skill-catalog.md)
+[![Agents](https://img.shields.io/badge/Agents-36-orange.svg)](docs/agents.md)
 
 ## Bu Nedir?
 
@@ -53,7 +53,7 @@ flowchart TD
     
     OrchestratorLayer --> SpecialistLayer
     
-    subgraph SpecialistLayer [Uzman Katmanı (38 Uzman)]
+    subgraph SpecialistLayer [Uzman Katmanı (36 Uzman)]
         Backend[Backend Uzmanları]
         Frontend[Frontend Uzmanları]
         Mobile[Mobil Uzmanlar]
@@ -80,7 +80,7 @@ flowchart TD
 
 ## 📦 İçinde Neler Var?
 
-### Beceriler (139)
+### Beceriler (29 + 99 referans)
 
 | Kategori | Sayı | Örnekler |
 |---|---|---|
@@ -92,12 +92,12 @@ flowchart TD
 
 → [Tam katalog: docs/skill-catalog.md](docs/skill-catalog.md)
 
-### Alt Ajanlar (38)
+### Alt Ajanlar (36)
 
 | Alan | Ajanlar |
 |---|---|
 | Teknik | backend-specialist, frontend-developer, mobile-ios-swift, database-optimizer, devops-engineer, gis-web-developer, integrations-webhook-specialist |
-| Kalite & Güvenlik | code-reviewer, test-engineer, testing-qa-engineer, testing-test-strategist, security-specialist, security-secrets-engineer, security-compliance-auditor, security-ai-code-auditor, incident-response |
+| Kalite & Güvenlik | code-reviewer, test-engineer, testing-test-strategist, security-specialist, security-secrets-engineer, security-compliance-auditor, incident-response |
 | Ürün & Tasarım | product-manager, product-sprint-prioritizer, product-feedback-synthesizer, design-ui-designer, design-ux-architect, design-ux-researcher, design-ui-finish-gate-reviewer, design-brand-guardian, design-persona-walkthrough |
 | Strateji & Destek | project-manager-senior, meeting-notes-specialist, strategy-business-strategist, strategy-okr-coach, research-synthesizer, marketing-content-strategist, marketing-seo-specialist, marketing-copywriter, support-technical-support, support-customer-support, technical-writer, specialized-focus-manager, specialized-reality-checker |
 
@@ -142,8 +142,8 @@ flowchart TD
 |---|---|
 | [Dokümantasyon Merkezi](docs/README.md) | Genel içindekiler ve belge kılavuzu |
 | [architecture.md](docs/architecture.md) | Sistem mimarisi ve anti-pattern standartları |
-| [agents.md](docs/agents.md) | 38 alt ajan referansı ve yetkileri |
-| [skill-catalog.md](docs/skill-catalog.md) | 139 becerinin tam kataloğu |
+| [agents.md](docs/agents.md) | 36 alt ajan referansı ve yetkileri |
+| [skill-catalog.md](docs/skill-catalog.md) | 29 skill + 99 referansın kataloğu |
 | [hooks.md](docs/hooks.md) | Kanca (Hook) kalite kapıları sistemi |
 | [mcp.md](docs/mcp.md) | MCP sunucu yapılandırması |
 | [flow-diagram.md](docs/flow-diagram.md) | Yaşam döngüsü ve detaylı akış diyagramları |

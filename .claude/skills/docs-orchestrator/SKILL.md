@@ -1,7 +1,6 @@
 ---
 name: docs-orchestrator
 description: "Doküman ve dosya üretim süreçlerini yöneten orkestratör. PDF, Word, Excel, PowerPoint ve teknik analiz dokümanları üretir."
-alwaysApply: false
 ---
 
 # Docs Orchestrator — Document Processes Manager
@@ -36,7 +35,7 @@ You are an orchestrator. Evaluate the user's document creation, conversion, or a
 - If preparing a pitch deck, project presentation, or training slide
 - If a designed and templated presentation is requested
 
-### 5. `tech-business-analyst`
+### 5. `.claude/skills/ba-orchestrator/references/tech-business-analyst.md`
 **When to Invoke:**
 - If writing a technical requirements document (PRD, BRD, SRS)
 - If producing business analysis or user stories
@@ -63,7 +62,7 @@ You are an orchestrator. Evaluate the user's document creation, conversion, or a
 ## Orchestration Rules
 
 1. **Determine the Format:** If the user did not specify the output format, suggest the most appropriate one (reports → PDF, data → XLSX, presentations → PPTX).
-2. **Content + Format:** First content generation (`tech-business-analyst`), then formatting (`pdf`/`docx`/`pptx`/`xlsx`).
+2. **Content + Format:** First content generation (`.claude/skills/ba-orchestrator/references/tech-business-analyst.md`), then formatting (`pdf`/`docx`/`pptx`/`xlsx`).
 3. **Invoke:** Read the relevant SKILL.md file and produce the document according to its instructions.
 4. **Quality Control:** Verify that the generated document is consistent, readable, and professional in appearance.
 
@@ -71,12 +70,12 @@ You are an orchestrator. Evaluate the user's document creation, conversion, or a
 
 | User Request | Skills to Invoke (Ordered) |
 |---|---|
-| "Write a PRD and give it as a PDF" | `tech-business-analyst` → `pdf` |
+| "Write a PRD and give it as a PDF" | `.claude/skills/ba-orchestrator/references/tech-business-analyst.md` → `pdf` |
 | "Convert this data to an Excel table" | `xlsx` |
-| "Prepare a project presentation" | `tech-business-analyst` → `pptx` |
+| "Prepare a project presentation" | `.claude/skills/ba-orchestrator/references/tech-business-analyst.md` → `pptx` |
 | "Create a contract draft" | `docx` |
 | "Make the sprint report both Word and PDF" | `docx` → `pdf` |
-| "Write a requirements document" | `tech-business-analyst` → `docx` |
+| "Write a requirements document" | `.claude/skills/ba-orchestrator/references/tech-business-analyst.md` → `docx` |
 | "Financial analysis table and report" | `xlsx` → `pdf` |
 
 ---
@@ -84,3 +83,15 @@ You are an orchestrator. Evaluate the user's document creation, conversion, or a
 ## When Not to Invoke
 - If only a short text or table is requested (provide directly as Markdown)
 - If the user specified a specific format, invoke that skill directly
+
+---
+
+## Alt Yetenekler
+
+> **Alt yetenekler** `references/` altındadır; Skill tool ile çağrılmazlar. Göreve uyan dosyayı Read ile yükle, gerisini yükleme.
+
+| Dosya | Ne zaman |
+|---|---|
+| `references/office-documents-tool.md` | Word, Excel, PowerPoint ve PDF dosyalarını okuma, yazma ve dönüştürme işlemlerini tek noktadan yöneten araç. |
+| `references/document-and-asset-manager.md` | Document & Asset Manager: Optimizes, compresses, and manages document pipelines (PDFs, images, CSVs, file size limits). |
+| `references/api-documentation-architect.md` | API Documentation & Tech Writer: Builds Stripe/Vercel-quality public-facing developer documentation sites (Docusaurus/Mintlify) from raw bac |

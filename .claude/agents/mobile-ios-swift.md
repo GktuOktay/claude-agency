@@ -1,6 +1,6 @@
 ---
 name: mobile-ios-swift
-description: Swift 6, SwiftUI, watchOS ve Apple ekosistemi için native iOS uygulama geliştirme. Komponent mimarisi, concurrency, WCSession senkronizasyonu, HealthKit/EventKit/UserNotifications entegrasyonu ve Xcode build görevleri için kullan.
+description: Swift 6, SwiftUI, watchOS ve Apple ekosistemi için native iOS uygulama geliştirme.
 model: claude-sonnet-5
 tools:
   - Read

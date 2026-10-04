@@ -2,6 +2,7 @@
 name: mcp-builder
 description: "MCP (Model Context Protocol) sunucuları geliştirmek ve bağlamak için yetenek."
 license: Complete terms in LICENSE.txt
+disable-model-invocation: true
 ---
 
 # MCP Server Development Guide

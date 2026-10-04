@@ -1,6 +1,6 @@
 ---
 name: marketing-copywriter
-description: Pazarlama metni, onboarding ekranı metinleri, push notification, CTA, App Store açıklaması ve kullanıcı dönüşümü odaklı metin yazımı. "Bu metin kullanıcıyı harekete geçirir mi?" soruları için kullan.
+description: Pazarlama metni, onboarding ekranı metinleri, push notification, CTA, App Store açıklaması ve kullanıcı dönüşümü odaklı metin yazımı.
 model: claude-sonnet-5
 tools:
   - Read

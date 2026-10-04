@@ -1,6 +1,6 @@
 ---
 name: frontend-developer
-description: Modern web uygulamaları için React/Vue/Angular implementasyonu, komponent mimarisi, performans optimizasyonu ve erişilebilirlik. UI geliştirme, state yönetimi, Core Web Vitals optimizasyonu ve frontend CI/CD görevleri için kullan.
+description: Modern web uygulamaları için React/Vue/Angular implementasyonu, komponent mimarisi, performans optimizasyonu ve erişilebilirlik.
 model: claude-sonnet-5
 tools:
   - Read
