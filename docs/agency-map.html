@@ -199,8 +199,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
     <div class="sidebar-header">
       <div class="sidebar-logo">Claude Agency</div>
       <div class="sidebar-badges">
-        <span class="badge">38 agent</span>
-        <span class="badge">139 skill</span>
+        <span class="badge">36 agent</span>
+        <span class="badge">29 skill + 99 referans</span>
         <span class="badge">5 MCP</span>
         <span class="badge">20 gate</span>
       </div>
@@ -254,7 +254,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <span class="nav-dot" style="background:var(--emerald)"></span>MCP Serverlar<span class="nav-count">5</span>
       </a>
       <a class="nav-item" data-view="skills" onclick="go('skills',this)">
-        <span class="nav-dot" style="background:var(--violet)"></span>Skill Kataloğu<span class="nav-count">139</span>
+        <span class="nav-dot" style="background:var(--violet)"></span>Skill Kataloğu<span class="nav-count">29</span>
       </a>
     </div>
 
@@ -286,7 +286,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <!-- Intro banner -->
         <div style="background:var(--bg2);border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin-bottom:18px;font-size:13px;line-height:1.7">
           <strong style="color:var(--blue);font-size:13px">Claude Agency nedir?</strong><br>
-          Claude Code'un native çoklu-agent sistemi. Her kullanıcı mesajı; <strong>Hook</strong> güvenlik kontrol katmanından, <strong>Quality Gate</strong> kod kalite kurallarından geçer. Karmaşık görevler otomatik olarak doğru <strong>Subagent</strong>'a delege edilir. Agentlar <strong>MCP server</strong>'lar aracılığıyla .NET dokümantasyonu, veritabanı, tarayıcı ve web aramasına erişir. <strong>139 Skill</strong> ile tekrarlayan işlemler tek komuta indirgenir.<br><br>
+          Claude Code'un native çoklu-agent sistemi. Her kullanıcı mesajı; <strong>Hook</strong> güvenlik kontrol katmanından, <strong>Quality Gate</strong> kod kalite kurallarından geçer. Karmaşık görevler otomatik olarak doğru <strong>Subagent</strong>'a delege edilir. Agentlar <strong>MCP server</strong>'lar aracılığıyla .NET dokümantasyonu, veritabanı, tarayıcı ve web aramasına erişir. <strong>29 Skill</strong> ile tekrarlayan işlemler tek komuta indirgenir.<br><br>
           <span style="color:var(--muted)">Sol menüden detaylı kategorilere git · Hiyerarşi sekmesi tam top-down akışı gösterir · Her karta/chip'e tıklayarak kılavuz açabilirsin</span>
         </div>
 
@@ -302,15 +302,15 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
         <div class="flow-row">
           <div class="fn" style="--fc:var(--amber)"><div class="fn-icon">⚖️</div><div class="fn-label">Delegasyon?</div><div class="fn-sub">3+ dosya / domain</div></div>
           <div class="fa">→</div>
-          <div class="fn" style="--fc:var(--blue)" onclick="go('tech',null)"><div class="fn-icon">🤖</div><div class="fn-label">38 Agent</div><div class="fn-sub">Sonnet 4.6</div></div>
+          <div class="fn" style="--fc:var(--blue)" onclick="go('tech',null)"><div class="fn-icon">🤖</div><div class="fn-label">36 Agent</div><div class="fn-sub">Sonnet 4.6</div></div>
           <div class="fa">→</div>
           <div class="fn" style="--fc:var(--emerald)" onclick="go('mcp',null)"><div class="fn-icon">🔌</div><div class="fn-label">MCP</div><div class="fn-sub">5 server</div></div>
           <div class="fa">+</div>
-          <div class="fn" style="--fc:var(--violet)" onclick="go('skills',null)"><div class="fn-icon">⚙️</div><div class="fn-label">139 Skill</div><div class="fn-sub">.claude/skills</div></div>
+          <div class="fn" style="--fc:var(--violet)" onclick="go('skills',null)"><div class="fn-icon">⚙️</div><div class="fn-label">29 Skill</div><div class="fn-sub">.claude/skills</div></div>
         </div>
 
         <div class="divider"></div>
-        <div class="sh"><span class="sh-icon">🤖</span><span class="sh-name">38 Agent — Hızlı Erişim</span></div>
+        <div class="sh"><span class="sh-icon">🤖</span><span class="sh-name">36 Agent — Hızlı Erişim</span></div>
         <div class="mini-grid" id="ov-agents"></div>
       </div>
 
@@ -366,7 +366,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
               <div class="hier-head">
                 <span class="hier-head-icon">🛡️</span>
                 <span class="hier-head-name">Quality Gates</span>
-                <span class="hier-head-desc">alwaysApply: true · her yanıtta aktif</span>
+                <span class="hier-head-desc">path-scoped kurallar · .claude/rules</span>
                 <span class="hier-head-badge">20 gate</span>
               </div>
               <div class="hier-items" id="hier-gates"></div>
@@ -395,7 +395,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
                 <span class="hier-head-icon">🤖</span>
                 <span class="hier-head-name">Subagentlar</span>
                 <span class="hier-head-desc">claude-sonnet-4-6 · 6 kategori</span>
-                <span class="hier-head-badge">38 agent</span>
+                <span class="hier-head-badge">36 agent</span>
               </div>
               <div class="hier-items" id="hier-agents"></div>
             </div>
@@ -417,7 +417,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
               <div class="hier-head">
                 <span class="hier-head-icon">⚙️</span>
                 <span class="hier-head-name">Skill Kataloğu</span>
-                <span class="hier-head-badge">139 skill</span>
+                <span class="hier-head-badge">29 skill + 99 referans</span>
               </div>
               <div class="hier-items" id="hier-skills"></div>
             </div>
@@ -434,7 +434,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
       <!-- GATES -->
       <div class="view" id="v-gates">
-        <div class="sh"><span class="sh-icon">🛡️</span><span class="sh-name">Quality Gates</span><span class="sh-meta">20 gate · alwaysApply: true</span></div>
+        <div class="sh"><span class="sh-icon">🛡️</span><span class="sh-name">Quality Gates</span><span class="sh-meta">kurallar · .claude/rules + CLAUDE.md</span></div>
         <div class="grid g2" id="g-gates"></div>
       </div>
 
@@ -454,7 +454,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 
       <!-- SKILLS -->
       <div class="view" id="v-skills">
-        <div class="sh"><span class="sh-icon">⚙️</span><span class="sh-name">Skill Kataloğu</span><span class="sh-meta">139 skill · .claude/skills/</span></div>
+        <div class="sh"><span class="sh-icon">⚙️</span><span class="sh-name">Skill Kataloğu</span><span class="sh-meta">29 skill + 99 referans · .claude/skills/</span></div>
         <div id="skills-wrap"></div>
       </div>
 
@@ -728,14 +728,6 @@ const AGENTS = {
       triggers:['Unit ve integration test yazımı','TDD ile geliştirme','E2E test senaryoları','Load test (k6)'],
       rules:['Mock DB yasak — TestContainers zorunlu','Test coverage hedefi branch+line','Flaky test kabul edilmez'],
       stack:['xUnit · NUnit · TestContainers · Playwright · k6 · FluentAssertions']},
-    {name:'testing-qa-engineer',color:'var(--red)',
-      desc:'Test senaryosu tasarımı, edge case tespiti, acceptance criteria uzmanı.',
-      role:'QA Engineer. Test planından acceptance criteria\'ya.',
-      tools:['Read','Write','Edit','Bash'],
-      mcp:[],
-      triggers:['Test planı yazımı','Regresyon test listesi oluşturma','"Bu özelliği nasıl test ederiz?" sorusu'],
-      rules:['Edge case\'ler happy path\'ten önce listelenir','Acceptance criteria Given/When/Then formatında'],
-      stack:['Gherkin · BDD · Test Design Techniques']},
     {name:'testing-test-strategist',color:'var(--red)',
       desc:'Test piramidi tasarımı, araç seçimi, CI/CD test entegrasyonu uzmanı.',
       role:'Test Strategy Architect. Hangi testleri ne kadar yazacağız kararı.',
@@ -769,14 +761,6 @@ const AGENTS = {
       triggers:['App Store privacy review öncesi','GDPR uyumluluk denetimi','Veri envanteri çıkarma'],
       rules:['PrivacyInfo.xcprivacy eksiksiz doldurulmalı','Veri saklama süresi belgelenmeli'],
       stack:['GDPR · KVKK · Apple PrivacyInfo.xcprivacy · CCPA']},
-    {name:'security-ai-code-auditor',color:'var(--red)',
-      desc:'Claude, Copilot, Cursor üretimli kodda özel güvenlik riski tespiti. Hallüsinasyon kaynaklı paket doğrulama.',
-      role:'AI Code Security Auditor.',
-      tools:['Read','Bash'],
-      mcp:[],
-      triggers:['AI ile yazılan PR\'ın güvenlik review\'u','Hallüsinasyon kaynaklı paket adı doğrulama'],
-      rules:['Tüm AI üretimi paket adları npm/nuget\'te doğrulanır','Dependency confusion saldırısı kontrolü zorunlu'],
-      stack:['npm audit · dotnet list package --vulnerable · Snyk']},
     {name:'incident-response',color:'var(--red)',
       desc:'SEV sınıflandırması, 5 Whys kök neden analizi, blameless postmortem uzmanı.',
       role:'Incident Commander. Prodüksiyon olayı yönetimi ve analizi.',
@@ -1066,7 +1050,7 @@ const SKILL_CATS = [
     ]},
   {id:'tool',label:'Araçlar',count:20,color:'var(--amber)',
     items:[
-      {n:'graphify-tool',d:'Codebase knowledge graph oluşturma'},
+      {n:'graphify',d:'Codebase knowledge graph oluşturma'},
       {n:'caveman',d:'Caveman debug tekniği'},
       {n:'caveman-commit',d:'Commit mesajı yardımcısı'},
       {n:'caveman-compress',d:'Context sıkıştırma'},
@@ -1178,7 +1162,7 @@ function renderGate(g) {
   return `<div class="card" style="--ca:${g.color}" onclick='openPanel(${JSON.stringify(g.name)},${JSON.stringify(g.color)},buildGatePanel(GATES.find(x=>x.name===${JSON.stringify(g.name)})))'>
     <div class="cn">${g.name}</div>
     <div class="cd">${g.desc}</div>
-    <div class="ct"><span class="tag al">alwaysApply</span><span class="tag">${g.cat}</span></div>
+    <div class="ct"><span class="tag al">kural</span><span class="tag">${g.cat}</span></div>
   </div>`;
 }
 
@@ -1489,7 +1473,7 @@ function buildGraphNodes() {
   mcpNodes.forEach(function(n){ nodes.push(n); });
   (function(){ var total=mcpNodes.length*80; var sy=H/2-total/2; mcpNodes.forEach(function(n,i){ n.x=1300; n.y=sy+i*80; }); })();
 
-  const nSkills = {id:id++, label:'⚙️ Skills\n(139)', color:'#fd79a8', r:38, kind:'skillGroup', data:null};
+  const nSkills = {id:id++, label:'⚙️ Skills\n(29)', color:'#fd79a8', r:38, kind:'skillGroup', data:null};
   nodes.push(nSkills);
   nSkills.x = 1300; nSkills.y = mcpNodes[mcpNodes.length-1].y + 110;
 
@@ -1762,9 +1746,9 @@ function onGraphClick(e) {
   }
 
   if (hit.kind==='gateGroup') {
-    title = 'Quality Gates (20 adet)';
+    title = 'Kalite Kapıları (kural olarak)';
     html = '<div class="psec"><div class="psec-label">Tüm Kalite Kapıları</div>' +
-      '<div class="prow" style="margin-bottom:8px;color:var(--muted)">alwaysApply:true olan bu skill\'ler her etkileşimde otomatik devreye girer.</div>' +
+      '<div class="prow" style="margin-bottom:8px;color:var(--muted)">Bu kapılar artık .claude/rules altında; ilgili dosya tipi açılınca yüklenir.</div>' +
       GATES.map(function(g){
         return '<div class="prow" style="display:flex;gap:8px;align-items:flex-start;padding:6px 0">' +
           '<span class="tag-inline pill-violet" style="flex-shrink:0">'+g.name+'</span>' +
@@ -1788,7 +1772,7 @@ function onGraphClick(e) {
   }
 
   if (hit.kind==='skillGroup') {
-    title = 'Skills (139 adet)';
+    title = 'Skills (29 adet + 99 referans)';
     html = '<div class="psec"><div class="psec-label">Skill Kategorileri</div>' +
       SKILL_CATS.map(function(cat){
         return '<div class="prow" style="padding:8px;border-radius:6px;background:var(--bg3);margin-bottom:6px">' +

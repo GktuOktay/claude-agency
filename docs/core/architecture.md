@@ -1,6 +1,6 @@
 # Claude Agency — Mimari ve Sistem Diyagramı
 
-> Son güncelleme: 2026-09-18 — 139 Skill, 38 Subagent, 28 Kalite Kapısı, Graphify, Playwright MCP ve Hook kuralları entegre edildi.
+> Son güncelleme: 2026-10-04 — 29 Skill (99 referans), 36 Subagent, 2 kural dosyası, Graphify, Playwright MCP ve Hook kuralları entegre edildi.
 
 ---
 
@@ -23,17 +23,15 @@ graph TB
         H5["Stop\nOturum kapandı bildirimi"]
     end
 
-    subgraph GATES["🛡️ Kalite Kapıları (28x Gate)"]
-        G1["TDD · Clean Code · Anti-Sycophancy · Adversarial Review"]
-        G2["PII Masking · Structured Logging · Hallucination Firewall"]
-        G3["Dependency Audit · Secret Scan · Pre-Flight Security"]
-        G4["Tenant Isolation · Stateless Arch · Problem Details"]
-        G5["Graceful Degradation · Socratic Gate · Fail-Fast"]
+    subgraph GATES["🛡️ Kalite Kapıları (.claude/rules, path-scoped)"]
+        G1["dotnet-backend.md · *.cs: Audit · Tenant · UTC · FSM · Outbox · ProblemDetails · PII log"]
+        G2["frontend.md · ts/tsx/js/dart: Client doğrulama · Graceful degradation · 60fps · Bundle"]
+        G3["CLAUDE.md: Pre-flight · Kritik itiraz · Eskalasyon · Changelog (release)"]
     end
 
-    subgraph AGENTS["🤖 Subagentlar (38 Uzman Ajan)"]
+    subgraph AGENTS["🤖 Subagentlar (36 Uzman Ajan)"]
         A1["Teknik (7): backend, frontend, mobile, db-optimizer, devops, gis, webhook"]
-        A2["Kalite & Güvenlik (9): code-reviewer, test-eng, qa-eng, security, incident..."]
+        A2["Kalite & Güvenlik (9): code-reviewer, test-eng, security, incident..."]
         A3["Ürün & Tasarım (9): pm, sprint, feedback, ui, ux, brand, persona..."]
         A4["Strateji & Destek (8): strategy, okr, research, marketing, support..."]
         A5["Özel (5): focus-manager, reality-checker, tech-writer..."]
@@ -47,11 +45,11 @@ graph TB
         M5["brave-search\nCVE + web arama"]
     end
 
-    subgraph SKILLS["⚙️ Skill Kataloğu (139)"]
-        S1["11x Orkestratör (master, code, security, test, design...)"]
-        S2["62x Uzmanlık (dotnet, swift, clean-code, pentest...)"]
-        S3["28x Sert Kalite Kapısı"]
-        S4["38x Araç & Meta (graphify, caveman, docs, office...)"]
+    subgraph SKILLS["⚙️ Skill Kataloğu (29 skill · 99 referans)"]
+        S1["10x Orkestratör: referansları Read ile yükler"]
+        S2["graphify + caveman ailesi (4 otomatik, 4 manuel)"]
+        S3["15x Manuel araç (slash): skill-creator, mcp-builder, humanizer..."]
+        S4["99x Referans: pentest, mimari, DevOps, tasarım, git, docs..."]
     end
 
     User --> CC

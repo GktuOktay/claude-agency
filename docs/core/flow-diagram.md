@@ -1,6 +1,6 @@
 # Claude Agency — Tam Sistem Akış Diyagramı
 
-> Son güncelleme: 2026-09-18 — 38 agent, 139 skill, 5 MCP server, 4 hook katmanı
+> Son güncelleme: 2026-10-04 — 36 agent, 29 skill (99 referans), 2 kural dosyası, 5 MCP server, 4 hook katmanı
 
 ## Ana Sistem Akışı
 
@@ -24,38 +24,11 @@ flowchart TD
         HSTOP["Stop Hook\nOturum kapandı\nbildirim"]
     end
 
-    subgraph GATES["🛡️ Quality Gates — 20 Gate, alwaysApply: true"]
+    subgraph GATES["🛡️ Kalite Kapıları — .claude/rules (path-scoped) + CLAUDE.md"]
         direction LR
-        subgraph GATES_DB["Veri & Zaman"]
-            G1["audit-trail-guardian\nCreatedBy + ModifiedAt zorunlu"]
-            G2["timezone-enforcer\nDateTimeOffset.UtcNow zorunlu"]
-            G3["privacy-pii-masking\nŞifre/TCKN/CC log yasak"]
-        end
-        subgraph GATES_ARCH["Mimari"]
-            G4["tenant-isolation\nTenantId filtresi zorunlu"]
-            G5["stateless-architecture\nSession yasak · JWT zorunlu"]
-            G6["finite-state-machine\nKritik durum → FSM"]
-            G7["outbox-pattern-enforcer\nEvent → outbox zorunlu"]
-            G8["ddd-ubiquitous-language\nDomain dili tutarlılığı"]
-        end
-        subgraph GATES_SEC["Güvenlik & Kalite"]
-            G9["pre-flight-security\nKod öncesi blueprint"]
-            G10["fail-fast-config\nApp başlangıcı config doğrulama"]
-            G11["validation-and-integrity\n3-tier: DB→FluentValidation→Client"]
-            G12["problem-details\nRFC 7807 hata formatı"]
-            G13["llm-hallucination-firewall\nLLM çıktısı → doğrula"]
-        end
-        subgraph GATES_OPS["Operasyon"]
-            G14["structured-logging-audit\nAsync exception · audit trail"]
-            G15["chaos-adversarial\nTimeout/503/null senaryoları"]
-            G16["graceful-degradation\nServis düşerse fallback zorunlu"]
-            G17["main-thread-and-performance\nUI thread blocking yasak"]
-        end
-        subgraph GATES_PROC["Süreç"]
-            G18["critical-critique\nHer çözümde alternatif + risk"]
-            G19["update-changelog\nHer değişiklikte CHANGELOG"]
-            G20["escalation-workflow\nKritik karar → eskalasyon"]
-        end
+        GR_CS["dotnet-backend.md · *.cs\nAudit · Tenant · UTC · FSM · Outbox\n3-tier doğrulama · IOptions · ProblemDetails\nStateless · PII log · Dayanıklılık"]
+        GR_FE["frontend.md · ts/tsx/js/dart\nClient doğrulama · Graceful degradation\n60fps main thread · Bundle · LLM çıktı"]
+        GR_GL["CLAUDE.md · her zaman\nPre-flight · Kritik itiraz\nEskalasyon · Changelog (release)"]
     end
 
     subgraph DECISION["⚖️ Delegasyon Kararı"]
@@ -80,12 +53,10 @@ flowchart TD
     subgraph AGENTS_QS["🛡️ Kalite & Güvenlik Agentları"]
         AQ1["code-reviewer\nSatır numaralı bulgular\nRead-only · CRITICAL/WARN/INFO\nTools: Read Bash"]
         AQ2["test-engineer\nxUnit · NUnit · TestContainers\nPlaywright · k6\nTools: Read Edit Write Bash"]
-        AQ3["testing-qa-engineer\nTest senaryosu · Edge case\nAcceptance criteria\nTools: Read Write Edit Bash"]
         AQ4["testing-test-strategist\nTest piramidi · Araç seçimi\nCI/CD test entegrasyonu\nTools: Read Write"]
         AQ5["security-specialist\nOWASP Top 10 · STRIDE\nJWT/OAuth2 · AI kod denetimi\nTools: Read Bash WebSearch WebFetch"]
         AQ6["security-secrets-engineer\nCredential yönetimi · Secret tespiti\nKey rotation · .env güvenliği\nTools: Read Bash"]
         AQ7["security-compliance-auditor\nGDPR · App Store PrivacyInfo\nVeri saklama politikası\nTools: Read Write"]
-        AQ8["security-ai-code-auditor\nClaude/Copilot/Cursor kod denetimi\nHallüsinasyon kaynaklı paket doğrulama\nTools: Read Bash"]
         AQ9["incident-response\nSEV sınıflandırması · 5 Whys RCA\nBlameless postmortem · Runbook\nTools: Read Bash"]
     end
 
@@ -131,14 +102,10 @@ flowchart TD
         MC5["brave-search\n@modelcontextprotocol/server-brave-search\nCVE araştırma · Web arama\n[BRAVE_API_KEY]"]
     end
 
-    subgraph SKILLS["⚙️ Skill Kataloğu — 139 Skill"]
-        SK1["Quality Gates (20)\naudit-trail · timezone · privacy\ntenant · security · config\nvalidation · stateless · fsm\noutbox · ddd · logging\nchaos · degradation · hallucination\nperformance · critique · changelog\nescalation · problem-details"]
-        SK2["Pentest & Güvenlik (12)\napi-pentest · master-pentester\napi-authentication · bola\nmass-assignment · xss · csrf\njwt · cors · oauth2\nmobile-auth · graphql-security"]
-        SK3["Mimari & Tasarım (15)\ndotnet-enterprise-architect\nclean-code-reviewer\napi-versioning · cache-invalidation\ncircuit-breaker · distributed-saga\nedge-gateway · iac-architect\nfinite-state-machine · outbox\nsaga · schema · ba-orchestrator\nba-architect · ba-elicitor"]
-        SK4["DevOps & Ops (10)\nci-cd-engineer · container-master\ncloud-deployer · gitops-manager\ndeployment-orchestrator\nobservability-setup\nzero-downtime-deployment\nscanning-containers\nperformance-tester · e2e-tester"]
-        SK5["Araçlar (20)\ngraphify · caveman ailesi\nfocus-budget · corporate-memory\nimage-to-code · office-documents\nhumanizer · mentor-mode\nmake-plan · skill-creator\nmcp-builder · prototype\nblast-radius · forensic-detective\nrecon-specialist · imagegen-frontend"]
-        SK6["Orchestrator (12)\nmaster-orchestrator\ncode-orchestrator · test-orchestrator\ndesign-orchestrator · docs-orchestrator\nmarketing-orchestrator\nsecurity-orchestrator\nproject-bootstrap\napi-handoff · generate-standup\ngit-pr-reviewer · git-orchestrator"]
-        SK7["Domain (50+)\nswift-architecture · mobile-flutter\napple-design · ui-animation\ncopywriting · brandkit\ntechnical-seo · pick-ui-library\nproduct-designer · product-marketer\ntech-business-analyst · feature-ideator\nlegacy-code-migrator\nconcurrency-memory-profiler\ndb-architect-security + diğerleri"]
+    subgraph SKILLS["⚙️ Skill Katmanları — 29 skill · 99 referans"]
+        SK1["Otomatik (14)\nmaster · code · security · design · test\ngit · docs · deployment · marketing · ba\ngraphify · caveman · caveman-commit · caveman-review"]
+        SK2["Manuel / slash (15)\ncaveman-compress/stats/help · cavecrew\nskill-creator · mcp-builder · humanizer\nmake-plan · plan-mode · learn-codebase ..."]
+        SK3["Orkestratör referansları (99)\nOrkestratör SKILL.md tablosundan Read ile yüklenir\nsecurity: 21 pentest + 50 ek kaynak dosyası"]
     end
 
     subgraph GRAPHIFY["🗺️ Graphify — Codebase Knowledge Graph"]
@@ -196,15 +163,15 @@ flowchart TD
     classDef decisionStyle fill:#374151,color:#fff,stroke:#1f2937
 
     class HB,HWE,HGQ,HRD,HPW,HSTOP hookStyle
-    class G1,G2,G3,G4,G5,G6,G7,G8,G9,G10,G11,G12,G13,G14,G15,G16,G17,G18,G19,G20 gateStyle
+    class GR_CS,GR_FE,GR_GL gateStyle
     class AT1,AT2,AT3,AT4,AT5,AT6,AT7 agentStyle
-    class AQ1,AQ2,AQ3,AQ4,AQ5,AQ6,AQ7,AQ8,AQ9 agentStyle
+    class AQ1,AQ2,AQ4,AQ5,AQ6,AQ7,AQ9 agentStyle
     class AP1,AP2,AP3,AD1,AD2,AD3,AD4,AD5,AD6 agentStyle
     class AS1,AS2,AS3,AS4,AS5 agentStyle
     class AM1,AM2,AM3,AM4,AM5,AM6 agentStyle
     class ADC1,ADC2 agentStyle
     class MC1,MC2,MC3,MC4,MC5 mcpStyle
-    class SK1,SK2,SK3,SK4,SK5,SK6,SK7 skillStyle
+    class SK1,SK2,SK3 skillStyle
     class GR1,GR2,GR3,GR4,GR5,GRO graphStyle
     class D1,D2,D3,D4,DIRECT,DELEGATE decisionStyle
 ```
@@ -230,7 +197,6 @@ graph LR
         AQ2[test-engineer]
         AQ5[security-specialist]
         AQ6[security-secrets-engineer]
-        AQ8[security-ai-code-auditor]
     end
 
     subgraph MCP2["MCP Serverlar"]
@@ -283,118 +249,141 @@ flowchart TD
 
 ```mermaid
 mindmap
-  root((Claude Agency\n139 Skill))
-    Quality Gates 20
-      audit-trail-guardian
-      timezone-enforcer
-      privacy-pii-masking
-      tenant-isolation
-      pre-flight-security
-      fail-fast-config
-      validation-and-integrity
-      stateless-architecture
-      problem-details
-      finite-state-machine
-      outbox-pattern-enforcer
-      ddd-ubiquitous-language
-      structured-logging-audit
-      chaos-adversarial
-      graceful-degradation
-      llm-hallucination-firewall
-      main-thread-and-performance
-      critical-critique
-      update-changelog
-      escalation-workflow
-    Pentest ve Güvenlik 12
-      master-pentester
-      api-pentest
-      jwt-token-security
-      cors-misconfiguration
-      csrf-attack-simulation
-      xss-vulnerabilities
-      oauth2-implementation-flaws
-      broken-access-control
-      bola-pentester
-      mass-assignment
-      mobile-api-authentication
-      graphql-security
-    Mimari ve Tasarım 15
-      dotnet-enterprise-architect
-      clean-code-reviewer
-      api-versioning-architect
-      cache-invalidation-architect
-      circuit-breaker-specialist
-      distributed-saga-manager
-      edge-and-gateway-architect
-      iac-architect
-      ba-orchestrator
-      ba-architect
-      ba-elicitor
-      schema
-      blast-radius-specialist
-      db-architect-security
-      correlation-id-specialist
-    DevOps ve Operasyon 10
-      ci-cd-engineer
-      container-master
-      cloud-deployer
-      gitops-manager
-      deployment-orchestrator
-      observability-setup
-      zero-downtime-deployment
-      scanning-containers-trivy
-      performance-tester
-      e2e-tester
-    Araçlar 20
-      graphify
-      caveman ailesi
-      focus-budget
-      corporate-memory
-      image-to-code
-      office-documents
-      humanizer
-      mentor-mode
-      make-plan
-      skill-creator
-      mcp-builder
-      prototype
-      forensic-detective
-      recon-specialist
-      imagegen-frontend
-      legacy-code-migrator
-      concurrency-memory-profiler
-      secret-scanner
-      dependency-audit
-      sca-dependency-scanning
-    Orchestrator 12
+  root((Claude Agency\n29 Skill · 99 Referans))
+    Otomatik
       master-orchestrator
       code-orchestrator
-      test-orchestrator
-      design-orchestrator
-      docs-orchestrator
-      marketing-orchestrator
       security-orchestrator
-      project-bootstrap
-      api-handoff
-      generate-standup
+      design-orchestrator
+      test-orchestrator
       git-orchestrator
-      git-pr-reviewer
-    Domain Uzmanlığı 50+
-      swift-architecture-auditor
+      docs-orchestrator
+      deployment-orchestrator
+      marketing-orchestrator
+      ba-orchestrator
+      graphify
+      caveman · commit · review
+    Manuel (slash)
+      cavecrew
+      caveman-compress
+      caveman-help
+      caveman-optimizer
+      caveman-stats
+      codebase-explorer-tool
+      focus-budget-tool
+      humanizer-tool
+      learn-codebase-tool
+      make-plan
+      mcp-builder-tool
+      mentor-mode-tool
+      plan-mode
+      project-bootstrap-orchestrator
+      skill-creator-tool
+      smart-explore-tool
+    master referansları 6
+      adversarial-code-reviewer
+      critical-critique-gate
+      no-truncation-gate
+      pre-mortem-stress-test-gate
+      socratic-clarification-gate
+      turkish-language-enforcer-gate
+    code referansları 23
+      a11y-and-i18n-engineer
+      api-versioning-architect
+      blast-radius-specialist
+      cache-invalidation-architect
+      circuit-breaker-specialist
+      clean-code-reviewer
+      concurrency-and-memory-profiler
+      corporate-memory-specialist
+      correlation-id-specialist
+      db-architect-security
+      distributed-saga-manager
+      dotnet-enterprise-architect
+      edge-and-gateway-architect
+      finops-architect
+      forensic-detective
+      legacy-code-migrator-specialist
+      mcp-integration-guidelines
       mobile-flutter-swift-architect
+      recon-specialist
+      schema
+      swagger-and-xml-doc-gate
+      swift-architecture-auditor
+      tech-debt-collector
+    security referansları 22
+      api-authentication-weaknesses-pentester
+      api-for-broken-object-level-authorization-pentester
+      api-for-mass-assignment-vulnerability-pentester
+      api-pentest
+      api-security-with-owasp-top-10-pentester
+      client-security
+      cors-misconfiguration-pentester
+      csrf-attack-simulation-specialist
+      dependency-audit-gate
+      for-broken-access-control-pentester
+      for-json-web-token-vulnerabilities-pentester
+      for-xss-vulnerabilities-pentester
+      graphql-security-assessment-specialist
+      jwt-token-security-pentester
+      master-pentester
+      mobile-api-authentication-pentester
+      oauth2-implementation-flaws-pentester
+      sca-dependency-scanning-with-snyk-specialist
+      scanning-containers-with-trivy-in-cicd
+      secret-scanner
+      secret-scanning-with-gitleaks-specialist
+      secrets-scanning-in-ci-cd-specialist
+    design referansları 11
       apple-design
-      ui-animation
-      copywriting
       brandkit
-      technical-seo-architect
+      design-taste-frontend-gate
+      high-end-visual-design
+      image-to-code-tool
+      imagegen-frontend-tool
+      onboarding
       pick-ui-library
       product-designer
+      prototype
+      ui-animation
+    test referansları 5
+      e2e-tester
+      performance-tester
+      smoke-monkey-tester
+      test-driven-development-gate
+      unit-test-architect
+    git referansları 7
+      api-handoff-workflow
+      generate-standup-workflow
+      git-conventional-commits-workflow
+      git-issue-manager
+      git-pr-reviewer
+      git-repo-setup-workflow
+      update-changelog-workflow
+    docs referansları 3
+      api-documentation-architect
+      document-and-asset-manager
+      office-documents-tool
+    deployment referansları 7
+      ci-cd-engineer
+      cloud-deployer
+      container-master
+      gitops-manager
+      iac-architect
+      observability-setup
+      zero-downtime-deployment-strategist
+    marketing referansları 3
+      copywriting
       product-marketer
-      tech-business-analyst
+      technical-seo-architect
+    ba referansları 4
+      ba-architect
+      ba-elicitor
       feature-ideator
-      a11y-and-i18n-engineer
-      finops-architect
-      high-end-visual-design
+      tech-business-analyst
+    Kurallar
+      dotnet-backend
+      frontend
 ```
 
 ---
@@ -422,12 +411,10 @@ graph TD
 
     CAT_Q --> Q1["PR Review · Kod kalitesi\n→ code-reviewer"]
     CAT_Q --> Q2["Unit/Integration/E2E Test\n→ test-engineer"]
-    CAT_Q --> Q3["Test senaryosu · Edge case\n→ testing-qa-engineer"]
     CAT_Q --> Q4["Test stratejisi · Piramit\n→ testing-test-strategist"]
     CAT_Q --> Q5["OWASP · JWT · STRIDE · AI kod\n→ security-specialist"]
     CAT_Q --> Q6["Secret · Credential · .env\n→ security-secrets-engineer"]
     CAT_Q --> Q7["GDPR · App Store gizlilik\n→ security-compliance-auditor"]
-    CAT_Q --> Q8["AI üretimi kod denetimi\n→ security-ai-code-auditor"]
     CAT_Q --> Q9["Production olayı · Postmortem\n→ incident-response"]
 
     CAT_P --> P1["PRD · Roadmap · Özellik kararı\n→ product-manager"]
