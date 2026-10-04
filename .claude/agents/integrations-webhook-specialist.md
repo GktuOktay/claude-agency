@@ -1,6 +1,6 @@
 ---
 name: integrations-webhook-specialist
-description: Webhook tasarımı, event-driven entegrasyon, üçüncü parti servis bağlantıları ve API entegrasyonu. Servis-servis iletişim tasarımı, webhook güvenliği ve "bu servisleri nasıl bağlarım?" soruları için kullan.
+description: Webhook tasarımı, event-driven entegrasyon, üçüncü parti servis bağlantıları ve API entegrasyonu.
 model: claude-sonnet-5
 tools:
   - Read

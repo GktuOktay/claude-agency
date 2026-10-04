@@ -1,6 +1,6 @@
 ---
 name: devops-engineer
-description: CI/CD pipeline, Docker, Kubernetes, IaC (Terraform/Bicep), zero-downtime deployment, GitOps. Altyapı ve deployment görevleri için kullan.
+description: CI/CD pipeline, Docker, Kubernetes, IaC (Terraform/Bicep), zero-downtime deployment, GitOps.
 model: claude-sonnet-5
 tools:
   - Read

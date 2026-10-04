@@ -1,6 +1,6 @@
 ---
 name: design-ui-designer
-description: Kullanıcı arayüzü tasarımı, komponent hiyerarşisi, görsel tutarlılık ve platform tasarım dili uyumu. SwiftUI ekran tasarımı, web UI, design system kararları ve "bu ekran iyi görünüyor mu?" soruları için kullan.
+description: Kullanıcı arayüzü tasarımı, komponent hiyerarşisi, görsel tutarlılık ve platform tasarım dili uyumu.
 model: claude-sonnet-5
 tools:
   - Read

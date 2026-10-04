@@ -1,7 +1,7 @@
 ---
 name: codebase-explorer-tool
 description: "Büyük ve karmaşık kod tabanlarında akıllı gezinme, giriş noktalarını bulma ve yapıyı anlama taktikleri."
-alwaysApply: false
+disable-model-invocation: true
 ---
 <role>Codebase Explorer Tool</role>
 <trigger>WHEN exploring a new or unknown codebase</trigger>

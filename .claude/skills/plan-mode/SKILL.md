@@ -1,7 +1,7 @@
 ---
 name: plan-mode
 description: "3+ dosya veya mimari değişiklik içeren görevlerde önce plan üretir, onay alır, sonra kod yazar. Büyük görevlerde otomatik tetiklenir."
-alwaysApply: false
+disable-model-invocation: true
 ---
 
 <role>Plan Mode Activator</role>

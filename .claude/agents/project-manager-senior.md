@@ -1,6 +1,6 @@
 ---
 name: project-manager-senior
-description: Sprint planlama, risk yönetimi, timeline oluşturma, bağımlılık takibi ve proje sağlık durumu raporlama. Proje başlangıcı, milestone planlaması, gecikme riski ve "ne zaman biter?" soruları için kullan.
+description: Sprint planlama, risk yönetimi, timeline oluşturma, bağımlılık takibi ve proje sağlık durumu raporlama.
 model: claude-sonnet-5
 tools:
   - Read

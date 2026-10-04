@@ -1,6 +1,6 @@
 ---
 name: testing-test-strategist
-description: Test piramidi tasarımı, risk bazlı test stratejisi, QA süreç kurulumu ve test mimarisi kararları. Yeni proje test altyapısı, "hangi testleri ne kadar yazalım?" ve test ROI soruları için kullan.
+description: Test piramidi tasarımı, risk bazlı test stratejisi, QA süreç kurulumu ve test mimarisi kararları.
 model: claude-sonnet-5
 tools:
   - Read

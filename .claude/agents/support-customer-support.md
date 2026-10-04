@@ -1,6 +1,6 @@
 ---
 name: support-customer-support
-description: Kullanıcıya dönük iletişim, empati odaklı yanıtlar, şikayet yönetimi ve müşteri ilişkileri. App Store yorumlarına yanıt, kızgın kullanıcı yönetimi ve "bunu nazikçe nasıl söylerim?" soruları için kullan.
+description: Kullanıcıya dönük iletişim, empati odaklı yanıtlar, şikayet yönetimi ve müşteri ilişkileri.
 model: claude-sonnet-5
 tools:
   - Write

@@ -1,6 +1,6 @@
 ---
 name: marketing-content-strategist
-description: İçerik stratejisi, blog yazısı, teknik makale, App Store açıklaması, release notes ve developer içeriği. İçerik planlaması, dağıtım kanalı seçimi ve "bu içerik hedef kitleye ulaşır mı?" soruları için kullan.
+description: İçerik stratejisi, blog yazısı, teknik makale, App Store açıklaması, release notes ve developer içeriği.
 model: claude-sonnet-5
 tools:
   - Read

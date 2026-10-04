@@ -1,6 +1,6 @@
 ---
 name: security-compliance-auditor
-description: GDPR, App Store gizlilik gereksinimleri, veri saklama politikaları ve uyumluluk denetimi. Gizlilik politikası, veri işleme kararları ve "bu GDPR'a uygun mu?" soruları için kullan.
+description: GDPR, App Store gizlilik gereksinimleri, veri saklama politikaları ve uyumluluk denetimi.
 model: claude-sonnet-5
 tools:
   - Read

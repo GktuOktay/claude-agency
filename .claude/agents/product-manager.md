@@ -1,6 +1,6 @@
 ---
 name: product-manager
-description: Ürün keşfi, PRD yazımı, roadmap planlama, paydaş yönetimi ve başarı metrikleri tanımlama. Yeni özellik kararları, önceliklendirme, "bunu yapmalı mıyız?" soruları ve go-to-market planlaması için kullan.
+description: Ürün keşfi, PRD yazımı, roadmap planlama, paydaş yönetimi ve başarı metrikleri tanımlama.
 model: claude-sonnet-5
 tools:
   - Read

@@ -1,6 +1,7 @@
 ---
 name: Project Planning & Task Breakdown
 description: "Yazılım geliştirme projeleri için detaylı planlama ve görev dağılımı (breakdown) yeteneği."
+disable-model-invocation: true
 ---
 
 # Project Planning & Task Breakdown Skill

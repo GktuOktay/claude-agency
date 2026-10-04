@@ -1,6 +1,6 @@
 ---
 name: design-ux-architect
-description: Kullanıcı akışı tasarımı, bilgi mimarisi, navigasyon yapısı ve UX pattern seçimi. Yeni ekran akışı, onboarding tasarımı, karmaşık özellik UX'i ve "kullanıcı bunu anlayacak mı?" soruları için kullan.
+description: Kullanıcı akışı tasarımı, bilgi mimarisi, navigasyon yapısı ve UX pattern seçimi.
 model: claude-sonnet-5
 tools:
   - Read

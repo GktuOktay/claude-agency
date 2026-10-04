@@ -1,6 +1,6 @@
 ---
 name: strategy-okr-coach
-description: OKR yazımı, hedef hiyerarşisi, quarter planlaması ve çok proje arasında odak koruma. OKR oluşturma, mevcut OKR kalite değerlendirmesi ve "neye odaklanmalıyım?" soruları için kullan.
+description: OKR yazımı, hedef hiyerarşisi, quarter planlaması ve çok proje arasında odak koruma.
 model: claude-sonnet-5
 tools:
   - Read

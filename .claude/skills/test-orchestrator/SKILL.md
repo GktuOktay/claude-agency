@@ -1,7 +1,6 @@
 ---
 name: test-orchestrator
 description: "Kapsamlı test stratejileri, birim testleri (unit), uçtan uca testler (E2E), performans ve yük testlerini yöneten ana orkestratör."
-alwaysApply: false
 ---
 
 # Test Orchestrator — QA & Testing Manager
@@ -12,24 +11,24 @@ You are an orchestrator dedicated to Quality Assurance (QA) and comprehensive te
 
 ## Sub-Skills You Manage
 
-### 1. `unit-test-architect`
+### 1. `.claude/skills/test-orchestrator/references/unit-test-architect.md`
 **When to Invoke:**
 - When deep, comprehensive unit testing of a complex module is required.
 - When the user asks for mock/stub strategies or edge-case coverage.
 - When reviewing test quality, mutation testing, or dealing with side-effects in tests.
 
-### 2. `e2e-tester`
+### 2. `.claude/skills/test-orchestrator/references/e2e-tester.md`
 **When to Invoke:**
 - When testing full user journeys using Cypress, Playwright, or Appium.
 - When integration tests across multiple services/UI components are needed.
 - When addressing test flakiness or DOM querying strategies.
 
-### 3. `smoke-monkey-tester`
+### 3. `.claude/skills/test-orchestrator/references/smoke-monkey-tester.md`
 **When to Invoke:**
 - When basic critical path verification (smoke testing) is needed post-deployment.
 - When the user wants to test system resilience with random inputs (monkey testing, chaos engineering, fuzzing).
 
-### 4. `performance-tester`
+### 4. `.claude/skills/test-orchestrator/references/performance-tester.md`
 **When to Invoke:**
 - When load testing or stress testing (e.g., k6, JMeter) is requested.
 - When measuring Web Vitals, algorithmic profiling, or benchmarking.
@@ -48,11 +47,25 @@ You are an orchestrator dedicated to Quality Assurance (QA) and comprehensive te
 
 | User Request | Skills to Invoke (Ordered) |
 |---|---|
-| "Write comprehensive tests for this new payment module" | `unit-test-architect` → `e2e-tester` |
-| "Can this app handle 1000 users and random clicks?" | `performance-tester` → `smoke-monkey-tester` |
-| "Setup Playwright and write a test for login" | `e2e-tester` |
+| "Write comprehensive tests for this new payment module" | `.claude/skills/test-orchestrator/references/unit-test-architect.md` → `.claude/skills/test-orchestrator/references/e2e-tester.md` |
+| "Can this app handle 1000 users and random clicks?" | `.claude/skills/test-orchestrator/references/performance-tester.md` → `.claude/skills/test-orchestrator/references/smoke-monkey-tester.md` |
+| "Setup Playwright and write a test for login" | `.claude/skills/test-orchestrator/references/e2e-tester.md` |
 
 ---
 
 ## When Not to Invoke
 - For very basic, inline TDD during active development, the `code-orchestrator` and its `testing-master` can be used instead to save context switching.
+
+---
+
+## Alt Yetenekler
+
+> **Alt yetenekler** `references/` altındadır; Skill tool ile çağrılmazlar. Göreve uyan dosyayı Read ile yükle, gerisini yükleme.
+
+| Dosya | Ne zaman |
+|---|---|
+| `references/e2e-tester.md` | Cypress, Playwright veya Appium ile uçtan uca (E2E) kullanıcı senaryoları ve entegrasyon testleri yazma yeteneği. |
+| `references/unit-test-architect.md` | Kapsamlı birim (unit) testleri, mock/stub kullanımları ve edge-case (uç durum) senaryoları yazma becerisi. |
+| `references/performance-tester.md` | Yük (load) testi, memory leak (bellek kaçağı) tespiti, benchmark analizleri ve performans optimizasyonu. |
+| `references/smoke-monkey-tester.md` | Sistemin temel fonksiyonlarını kontrol eden smoke testler ve rastgele girdilerle sistemi çökertmeyi hedefleyen monkey/chaos testleri. |
+| `references/test-driven-development-gate.md` | Kod üretildikten sonra AI'ın ilgili birim testlerini (Unit Test) yazıp terminalde çalıştırmasını zorunlu kılan kapı. |

@@ -44,7 +44,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'filepath=$(echo \"$CLAUDE_TOOL_INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get(\\\"file_path\\\",\\\"\\\"))\" 2>/dev/null); if echo \"$filepath\" | grep -qE \"\\.cs$\"; then echo \"[Hook] C# dosyas\u0131 yaz\u0131ld\u0131: $filepath \u2014 build do\u011frulamas\u0131 i\u00e7in: dotnet build\" >&2; fi'"
+            "command": "bash -c 'filepath=$(echo \"$CLAUDE_TOOL_INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get(\\\"file_path\\\",\\\"\\\"))\" 2>/dev/null); if echo \"$filepath\" | grep -qE \"\\.cs$\"; then echo \"[Hook] C# dosyası yazıldı: $filepath — build doğrulaması için: dotnet build\" >&2; fi'"
           }
         ]
       }
@@ -54,7 +54,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '[Autonomous Agency] Claude oturumu tamamland\u0131.' >&2"
+            "command": "echo '[Autonomous Agency] Claude oturumu tamamlandı.' >&2"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Caveman mode: full. Aktif her yanıt. Dil: kullanıcının dili (Türkçe), kod/terim İngilizce. Kapat: \"stop caveman\".'"
           }
         ]
       }
@@ -76,7 +86,7 @@
     "microsoft-learn": {
       "type": "url",
       "url": "https://learn.microsoft.com/api/mcp",
-      "note": "Resmi Microsoft dok\u00fcmantasyonu \u2014 .NET 10, ASP.NET Core, EF Core, Azure"
+      "note": "Resmi Microsoft dokümantasyonu — .NET 10, ASP.NET Core, EF Core, Azure"
     },
     "postgres": {
       "command": "npx",
@@ -85,7 +95,7 @@
         "@modelcontextprotocol/server-postgres",
         "${POSTGRES_CONNECTION_STRING}"
       ],
-      "note": "DB schema okuma, query, migration kontrol\u00fc. POSTGRES_CONNECTION_STRING env'de tan\u0131mla."
+      "note": "DB schema okuma, query, migration kontrolü. POSTGRES_CONNECTION_STRING env'de tanımla."
     },
     "filesystem": {
       "command": "npx",
@@ -94,7 +104,7 @@
         "@modelcontextprotocol/server-filesystem",
         "${PROJECT_ROOT}"
       ],
-      "note": "Proje d\u0131\u015f\u0131 dizin eri\u015fimi. PROJECT_ROOT env'de tan\u0131mla."
+      "note": "Proje dışı dizin erişimi. PROJECT_ROOT env'de tanımla."
     },
     "brave-search": {
       "command": "npx",
@@ -105,14 +115,14 @@
       "env": {
         "BRAVE_API_KEY": "${BRAVE_API_KEY}"
       },
-      "note": "Web arama \u2014 resmi dok\u00fcmantasyon d\u0131\u015f\u0131 kaynak ara\u015ft\u0131rmas\u0131 i\u00e7in. brave.com/search/api adresinden \u00fccretsiz API key al."
+      "note": "Web arama — resmi dokümantasyon dışı kaynak araştırması için. brave.com/search/api adresinden ücretsiz API key al."
     },
     "playwright": {
       "command": "npx",
       "args": [
         "@playwright/mcp"
       ],
-      "note": "E2E test otomasyonu, web scraping, UI do\u011frulama. Browser kontrol\u00fc i\u00e7in."
+      "note": "E2E test otomasyonu, web scraping, UI doğrulama. Browser kontrolü için."
     }
   }
 }

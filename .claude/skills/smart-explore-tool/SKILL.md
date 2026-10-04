@@ -1,6 +1,7 @@
 ---
 name: Smart Codebase Exploration
 description: "Büyük ve karmaşık kod tabanlarında akıllı gezinme, giriş noktalarını bulma ve kod yapısını anlama taktikleri."
+disable-model-invocation: true
 ---
 
 # Intelligent Codebase Exploration and Navigation

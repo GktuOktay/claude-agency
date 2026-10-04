@@ -1,6 +1,6 @@
 ---
 name: specialized-reality-checker
-description: Fikir ve planların varsayımlarını sorgulama, kör noktaları görünür kılma ve optimizm dengeleme. "Bu plan gerçekçi mi?", "Neyi atlıyoruz?" ve önemli karar öncesi ikinci görüş için kullan.
+description: Fikir ve planların varsayımlarını sorgulama, kör noktaları görünür kılma ve optimizm dengeleme.
 model: claude-sonnet-5
 tools:
   - Read

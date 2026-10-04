@@ -1,6 +1,6 @@
 ---
 name: design-brand-guardian
-description: Marka tutarlılığı denetimi, görsel kimlik standardı, ton ve ses tutarlılığı. Farklı ekranlar, materyaller ve iletişimler arasında marka bütünlüğünü koruma ve "bu bizim markamıza uyuyor mu?" soruları için kullan.
+description: Marka tutarlılığı denetimi, görsel kimlik standardı, ton ve ses tutarlılığı.
 model: claude-sonnet-5
 tools:
   - Read

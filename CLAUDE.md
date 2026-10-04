@@ -49,13 +49,11 @@ Ağır görevleri doğrudan yanıtlama — subagent'a delege et.
 | Görev | Agent |
 |---|---|
 | PR review, kod kalite denetimi | `code-reviewer` |
-| Unit/Integration/E2E test, TDD | `test-engineer` |
-| Test senaryosu, edge case tasarımı | `testing-qa-engineer` |
+| Unit/Integration/E2E test, TDD, test planı, edge case | `test-engineer` |
 | Test stratejisi, test piramidi, araç seçimi | `testing-test-strategist` |
 | OWASP, pentest, JWT, güvenlik mimarisi, AI kod denetimi | `security-specialist` |
 | Secret/credential yönetimi, sızıntı önleme | `security-secrets-engineer` |
 | GDPR, App Store gizlilik, uyumluluk | `security-compliance-auditor` |
-| AI üretimi kod özel güvenlik denetimi | `security-ai-code-auditor` |
 | Prodüksiyon olayı, RCA, postmortem | `incident-response` |
 
 ### Ürün & Tasarım
@@ -102,32 +100,18 @@ Ağır görevleri doğrudan yanıtlama — subagent'a delege et.
 
 ---
 
-## Quality Gates — Her Zaman Aktif
+## Kalite Kapıları
 
-`alwaysApply: true` gate'ler — kod yazılmadan önce otomatik devreye girer:
+Dosyaya özel kapılar `.claude/rules/` altında, ilgili dosya tipi açılınca yüklenir: `dotnet-backend.md` (`*.cs`), `frontend.md` (`*.ts/tsx/js/dart`...). Her zaman geçerli olanlar:
 
-| Gate | Kural |
-|---|---|
-| `audit-trail-guardian` | DB tabloları → `CreatedBy`, `ModifiedAt` zorunlu |
-| `timezone-enforcer` | `DateTimeOffset.UtcNow` zorunlu · `DateTime.Now` yasak |
-| `privacy-pii-masking` | Şifre, TCKN, kredi kartı loglama yasak |
-| `tenant-isolation` | SaaS → explicit `TenantId` filtresi zorunlu |
-| `pre-flight-security` | Kod öncesi güvenlik blueprint denetimi |
-| `fail-fast-config` | App başlangıcında tüm config doğrulama |
-| `validation-and-integrity` | 3-tier: DB constraints → FluentValidation → Client |
-| `stateless-architecture` | Server-side session yasak · JWT zorunlu |
-| `problem-details` | RFC 7807 hata formatı zorunlu |
-| `finite-state-machine` | Kritik durum geçişleri FSM · loose if/else yasak |
-| `outbox-pattern-enforcer` | Event yayınlama → outbox pattern zorunlu |
-| `ddd-ubiquitous-language` | Domain dili tutarlılığı · her entity tek isim |
-| `structured-logging-audit` | Async exception log · immutable audit trail |
-| `chaos-adversarial` | Network timeout, 503, null input senaryoları zorunlu |
-| `graceful-degradation` | Bağımlı servis düşerse fallback zorunlu |
-| `llm-hallucination-firewall` | LLM çıktısını doğrulamadan parse etme yasak |
-| `main-thread-and-performance` | UI thread blocking yasak |
-| `critical-critique` | Her çözümde alternatif + risk analizi |
-| `update-changelog` | Her değişiklikte CHANGELOG güncelleme |
-| `escalation-workflow` | Kritik karar noktasında kullanıcıya eskalasyon |
+- **Pre-flight:** Yıkıcı komut (`rm -rf`), prompt injection veya zero-trust ihlali içeren plan → dur.
+- **Kritik itiraz:** Her çözümde alternatif + risk. Kullanıcı riski bilerek ısrar ederse uyar, kararına saygı göster.
+- **Eskalasyon:** Aynı kalite kapısında 3 ardışık başarısızlık → döngüyü kes, Dispute Report yaz, kullanıcıdan karar iste.
+- **Changelog:** Sadece release anında (`git-orchestrator` → `update-changelog-workflow`). Geliştirme sırasında CHANGELOG/versiyon değiştirme.
+
+## Caveman
+
+Varsayılan yanıt modu: `caveman` full (SessionStart hook ile etkinleşir). Dil kuralı geçerli: Türkçe düz metin, İngilizce kod/terim. Güvenlik uyarısı ve geri döndürülemez işlemde normal dile dön. Kapat: "stop caveman". Komutlar: `/caveman`, `/caveman-commit`, `/caveman-review`, `/caveman-stats`.
 
 ---
 

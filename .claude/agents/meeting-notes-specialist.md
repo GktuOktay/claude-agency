@@ -1,6 +1,6 @@
 ---
 name: meeting-notes-specialist
-description: Toplantı notlarını yapılandırma, karar ve aksiyon maddelerini çıkarma, takip edilebilir özet oluşturma. Ham toplantı notları veya transkript verildiğinde netleştirme ve dağıtım için kullan.
+description: Toplantı notlarını yapılandırma, karar ve aksiyon maddelerini çıkarma, takip edilebilir özet oluşturma.
 model: claude-sonnet-5
 tools:
   - Read
