@@ -6,8 +6,8 @@
 > **139 expert skills**, 38 subagents, hook-based quality gates, and MCP integration.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/Skills-139-green.svg)](docs/skill-catalog.md)
-[![Agents](https://img.shields.io/badge/Agents-38-orange.svg)](docs/agents.md)
+[![Skills](https://img.shields.io/badge/Skills-29-green.svg)](docs/skill-catalog.md)
+[![Agents](https://img.shields.io/badge/Agents-36-orange.svg)](docs/agents.md)
 
 ## What Is This?
 
@@ -53,7 +53,7 @@ flowchart TD
     
     OrchestratorLayer --> SpecialistLayer
     
-    subgraph SpecialistLayer [Specialist Layer (38 Specialists)]
+    subgraph SpecialistLayer [Specialist Layer (36 Specialists)]
         Backend[Backend Specialists]
         Frontend[Frontend Specialists]
         Mobile[Mobile Specialists]
@@ -80,7 +80,7 @@ flowchart TD
 
 ## 📦 What's Inside?
 
-### Skills (139)
+### Skills (29 + 99 references)
 
 | Category | Count | Examples |
 |---|---|---|
@@ -92,12 +92,12 @@ flowchart TD
 
 → [Full catalog: docs/skill-catalog.md](docs/skill-catalog.md)
 
-### Subagents (38)
+### Subagents (36)
 
 | Domain | Agents |
 |---|---|
 | Technical | backend-specialist, frontend-developer, mobile-ios-swift, database-optimizer, devops-engineer, gis-web-developer, integrations-webhook-specialist |
-| Quality & Security | code-reviewer, test-engineer, testing-qa-engineer, testing-test-strategist, security-specialist, security-secrets-engineer, security-compliance-auditor, security-ai-code-auditor, incident-response |
+| Quality & Security | code-reviewer, test-engineer, testing-test-strategist, security-specialist, security-secrets-engineer, security-compliance-auditor, incident-response |
 | Product & Design | product-manager, product-sprint-prioritizer, product-feedback-synthesizer, design-ui-designer, design-ux-architect, design-ux-researcher, design-ui-finish-gate-reviewer, design-brand-guardian, design-persona-walkthrough |
 | Strategy & Support | project-manager-senior, meeting-notes-specialist, strategy-business-strategist, strategy-okr-coach, research-synthesizer, marketing-content-strategist, marketing-seo-specialist, marketing-copywriter, support-technical-support, support-customer-support, technical-writer, specialized-focus-manager, specialized-reality-checker |
 
@@ -142,8 +142,8 @@ flowchart TD
 |---|---|
 | [Documentation Center](docs/README.md) | Central table of contents & overview |
 | [architecture.md](docs/architecture.md) | System diagrams & anti-pattern standards |
-| [agents.md](docs/agents.md) | 38 subagent reference & specifications |
-| [skill-catalog.md](docs/skill-catalog.md) | 139 skill full catalog |
+| [agents.md](docs/agents.md) | 36 subagent reference & specifications |
+| [skill-catalog.md](docs/skill-catalog.md) | 29 skill + 99 reference catalog |
 | [hooks.md](docs/hooks.md) | Hook quality gate system reference |
 | [mcp.md](docs/mcp.md) | MCP server configuration |
 | [flow-diagram.md](docs/flow-diagram.md) | Lifecycle and task flow diagrams |

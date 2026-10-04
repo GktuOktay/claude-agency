@@ -1,4 +1,4 @@
-# Subagent Referansı — 38 Agent
+# Subagent Referansı — 36 Agent
 
 > Claude Agency'nin tüm subagent tanımları. Her agent `.claude/agents/<agent-name>.md` yolunda tanımlıdır.
 
@@ -24,12 +24,10 @@
 |---|---|---|
 | `code-reviewer` | Kod inceleme | PR review, kod kalite denetimi |
 | `test-engineer` | Test geliştirme | Unit/Integration/E2E, TDD |
-| `testing-qa-engineer` | QA mühendisliği | Test senaryosu, edge case tasarımı |
 | `testing-test-strategist` | Test stratejisi | Test piramidi, araç seçimi, kapsam analizi |
 | `security-specialist` | Güvenlik mimarisi | OWASP, pentest, JWT, STRIDE, AI kod denetimi |
 | `security-secrets-engineer` | Secret yönetimi | Credential sızıntı önleme, secret rotation |
 | `security-compliance-auditor` | Uyumluluk | GDPR, App Store gizlilik, veri koruma |
-| `security-ai-code-auditor` | AI kod denetimi | AI üretimi kod özel güvenlik taraması |
 | `incident-response` | Olay müdahalesi | Prodüksiyon olayı, SEV sınıflandırma, postmortem |
 
 ---
@@ -107,4 +105,4 @@
 | Proje & Strateji | 5 |
 | Pazarlama & Destek | 6 |
 | Özel Görev | 2 |
-| **TOPLAM** | **38** |
+| **TOPLAM** | **36** |

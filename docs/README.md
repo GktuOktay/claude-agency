@@ -24,8 +24,8 @@ Claude Agency sisteminin tüm mimari, ajan, yetenek ve konfigürasyon referansla
 
 | Doküman | Açıklama |
 |---|---|
-| **[agents.md](agents.md)** | 38 uzman subagent'ın detaylı görev, araç ve delegasyon kılavuzu (Teknik, Kalite, Ürün, Destek). |
-| **[skill-catalog.md](skill-catalog.md)** | 139 skill'in kategorize edilmiş tam envanteri (Orkestratörler, Uzmanlar, Kalite Kapıları, Pentest). |
+| **[agents.md](agents.md)** | 36 uzman subagent'ın detaylı görev, araç ve delegasyon kılavuzu (Teknik, Kalite, Ürün, Destek). |
+| **[skill-catalog.md](skill-catalog.md)** | 29 skill + 99 referans'in kategorize edilmiş tam envanteri (Orkestratörler, Uzmanlar, Kalite Kapıları, Pentest). |
 
 ---
 
@@ -48,8 +48,8 @@ docs/
 ├── agency-map.html      # Canlı interaktif mimari harita
 ├── architecture.md      # Sistem mimarisi & anti-pattern standartları
 ├── flow-diagram.md      # Yaşam döngüsü ve akış şemaları
-├── agents.md            # 38 subagent referansı
-├── skill-catalog.md     # 139 skill kataloğu
+├── agents.md            # 36 subagent referansı
+├── skill-catalog.md     # 29 skill + 99 referans kataloğu
 ├── hooks.md             # Hook sistemi ve regex kuralları
 ├── mcp.md               # Model Context Protocol (MCP) ayarları
 └── memory-guide.md      # Kalıcı hafıza yönetim kılavuzu
